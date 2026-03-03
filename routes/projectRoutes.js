@@ -11,47 +11,77 @@ const authMiddleware = require("../middleware/authMiddleware");
 // ===============================
 // CREATE PROJECT
 // ===============================
-router.post("/", authMiddleware, async (req, res) => {
-  try {
-    const { title, description } = req.body;
 
-    const newProject = new Project({
-      title,
-      description,
-      user: req.user.id
-    });
+router.post(
+  "/",
+  authMiddleware,
+  authorize("admin"),
+  async (req, res) => {
+    try {
+      const { title, description, userId } = req.body;
 
-    const savedProject = await newProject.save();
+      const newProject = new Project({
+        title,
+        description,
+        user: userId // assigned client
+      });
 
-    res.status(201).json(savedProject);
+      const savedProject = await newProject.save();
 
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+      res.status(201).json(savedProject);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
   }
-});
+);
 
 
 // ===============================
 // GET ALL PROJECTS FOR LOGGED USER
 // ===============================
 router.get(
-  "/",
+  "/dashboard/stats",
   authMiddleware,
-  authorize("admin", "client"),
   async (req, res) => {
     try {
-  let projects;
+      let totalProjects;
+      let completed;
+      let pending;
+      let inProgress;
 
-  if (req.user.role === "admin") {
-    projects = await Project.find(); // admin sees all
-  } else {
-    projects = await Project.find({ user: req.user.id }); // client sees own
+      if (req.user.role === "admin") {
+        totalProjects = await Project.countDocuments();
+        completed = await Project.countDocuments({ status: "completed" });
+        pending = await Project.countDocuments({ status: "pending" });
+        inProgress = await Project.countDocuments({ status: "in-progress" });
+      } else {
+        totalProjects = await Project.countDocuments({ user: req.user.id });
+        completed = await Project.countDocuments({
+          user: req.user.id,
+          status: "completed"
+        });
+        pending = await Project.countDocuments({
+          user: req.user.id,
+          status: "pending"
+        });
+        inProgress = await Project.countDocuments({
+          user: req.user.id,
+          status: "in-progress"
+        });
+      }
+
+      res.json({
+        totalProjects,
+        completed,
+        pending,
+        inProgress
+      });
+
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
   }
-
-  res.json(projects);
-} catch (error) {
-  res.status(500).json({ message: error.message });
-}
+);
 
 
 // ===============================
