@@ -21,3 +21,20 @@ const projectSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 module.exports = mongoose.model("Project", projectSchema);
+
+comments: [
+  {
+    text: {
+      type: String,
+      required: true
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now
+    }
+  }
+],

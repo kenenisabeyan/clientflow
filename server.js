@@ -1,4 +1,5 @@
 require("dotenv").config();
+app.use("/uploads", express.static("uploads"));
 
 const express = require("express");
 const mongoose = require("mongoose");
