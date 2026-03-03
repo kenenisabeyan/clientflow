@@ -7,6 +7,7 @@ const app = express(); // 👈 app created here
 
 // Middleware
 app.use(express.json());
+app.use(express.static("public"));
 
 // ✅ PUT THIS AFTER app is created
 app.use("/uploads", express.static("uploads"));
