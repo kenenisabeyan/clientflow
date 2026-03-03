@@ -1,3 +1,4 @@
+const authorize = require("../middleware/roleMiddleware");
 const express = require("express");
 const router = express.Router();
 
@@ -33,15 +34,24 @@ router.post("/", authMiddleware, async (req, res) => {
 // ===============================
 // GET ALL PROJECTS FOR LOGGED USER
 // ===============================
-router.get("/", authMiddleware, async (req, res) => {
-  try {
-    const projects = await Project.find({ user: req.user.id });
-    res.json(projects);
+router.get(
+  "/",
+  authMiddleware,
+  authorize("admin", "client"),
+  async (req, res) => {
+    try {
+  let projects;
 
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+  if (req.user.role === "admin") {
+    projects = await Project.find(); // admin sees all
+  } else {
+    projects = await Project.find({ user: req.user.id }); // client sees own
   }
-});
+
+  res.json(projects);
+} catch (error) {
+  res.status(500).json({ message: error.message });
+}
 
 
 // ===============================
@@ -75,7 +85,11 @@ router.put("/:id", authMiddleware, async (req, res) => {
 // ===============================
 // DELETE PROJECT
 // ===============================
-router.delete("/:id", authMiddleware, async (req, res) => {
+router.delete(
+  "/:id",
+  authMiddleware,
+  authorize("admin"),
+  async (req, res) => {
   try {
     const project = await Project.findOneAndDelete({
       _id: req.params.id,
