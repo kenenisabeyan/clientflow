@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const User = require('../models/user');
 
 const router = express.Router();
 
@@ -30,7 +30,8 @@ router.post('/register', async (req, res) => {
         res.status(201).json({ message: 'User registered successfully' });
 
     } catch (error) {
-        res.status(500).json({ message: 'Server error' });
+        console.log(error);
+        res.status(500).json({ message: error.message });
     }
 });
 
