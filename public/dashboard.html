@@ -3,34 +3,59 @@
 
 <head>
   <title>ClientFlow Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-  <h1>Dashboard</h1>
+  <div class="layout">
 
-  <button id="logoutBtn">Logout</button>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">ClientFlow</div>
 
-  <h2>Create Project (Admin Only)</h2>
-  
-  <form id="createProjectForm">
-    <input type="text" id="title" placeholder="Project Title" required />
-    <br><br>
-    <input type="text" id="description" placeholder="Description" required />
-    <br><br>
-    <input type="text" id="userId" placeholder="Assign to User ID" required />
-    <br><br>
-    <button type="submit">Create Project</button>
-  </form>
-  
-  <p id="createMessage"></p>
-  <hr>
+      <nav class="nav">
+        <a href="#" class="active">Dashboard</a>
+      </nav>
 
-  <h2>Your Projects</h2>
-  <div id="projects"></div>
+      <button id="logoutBtn" class="btn danger full">Logout</button>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+
+      <header class="topbar">
+        <h1>Dashboard</h1>
+      </header>
+
+      <!-- Admin Section -->
+      <section id="adminSection" class="admin-section">
+        <div class="card">
+          <h2>Create Project</h2>
+
+          <form id="createProjectForm">
+            <input type="text" id="title" placeholder="Project Title" required>
+            <input type="text" id="description" placeholder="Description" required>
+            <input type="text" id="userId" placeholder="Assign to User ID" required>
+            <button type="submit" class="btn primary">Create Project</button>
+          </form>
+
+          <p id="createMessage"></p>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section>
+        <h2>Your Projects</h2>
+        <div id="projects" class="project-grid"></div>
+      </section>
+
+    </main>
+
+  </div>
 
   <script src="js/dashboard.js"></script>
-
 </body>
 
 </html>
