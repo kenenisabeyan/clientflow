@@ -1,3 +1,4 @@
+const upload = require("../middleware/upload");
 const upload = require("../middleware/uploadMiddleware");
 
 const authorize = require("../middleware/roleMiddleware");
@@ -50,6 +51,20 @@ router.post(
     }
   }
 );
+
+
+router.post("/:id/upload", authMiddleware, upload.single("file"), async (req, res) => {
+  try {
+    const project = await Project.findById(req.params.id);
+
+    project.files.push(req.file.filename);
+    await project.save();
+
+    res.json({ message: "File uploaded" });
+  } catch (error) {
+    res.status(500).json({ message: "Upload failed" });
+  }
+});
 
 // ===============================
 // GET ALL PROJECTS FOR LOGGED USER
