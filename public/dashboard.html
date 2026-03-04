@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>ClientFlow Dashboard</title>
+</head>
+
+<body>
+
+  <h1>Dashboard</h1>
+
+  <button id="logoutBtn">Logout</button>
+
+  <h2>Create Project (Admin Only)</h2>
+  
+  <form id="createProjectForm">
+    <input type="text" id="title" placeholder="Project Title" required />
+    <br><br>
+    <input type="text" id="description" placeholder="Description" required />
+    <br><br>
+    <input type="text" id="userId" placeholder="Assign to User ID" required />
+    <br><br>
+    <button type="submit">Create Project</button>
+  </form>
+  
+  <p id="createMessage"></p>
+  <hr>
+
+  <h2>Your Projects</h2>
+  <div id="projects"></div>
+
+  <script src="js/dashboard.js"></script>
+
+</body>
+
+</html>
