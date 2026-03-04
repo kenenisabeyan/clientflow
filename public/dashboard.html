@@ -17,10 +17,6 @@
 
       <nav class="nav">
         <a href="#" class="active">Dashboard</a>
-      </nav>
-
-      <nav class="nav">
-        <a href="#">Dashboard</a>
         <a href="#" id="adminMenu">Admin Panel</a>
       </nav>
 
@@ -35,14 +31,14 @@
       </header>
 
       <!-- Admin Section -->
-      <section id="adminSection" class="admin-section">
+      <section id="adminSection">
         <div class="card">
           <h2>Create Project</h2>
 
           <form id="createProjectForm">
             <input type="text" id="title" placeholder="Project Title" required>
             <input type="text" id="description" placeholder="Description" required>
-            <input type="text" id="userId" placeholder="Assign to User ID" required>
+            <select id="assignedTo" required></select>
             <button type="submit" class="btn primary">Create Project</button>
           </form>
 
@@ -50,6 +46,7 @@
         </div>
       </section>
 
+      <!-- Stats -->
       <div class="stats">
         <div class="stat-card" id="totalProjects"></div>
         <div class="stat-card" id="completedProjects"></div>

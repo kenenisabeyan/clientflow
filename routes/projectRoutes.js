@@ -176,40 +176,25 @@ module.exports = router;
 // ===============================
 // ADD COMMENT TO PROJECT
 // ===============================
-router.post(
-  "/:id/comment",
-  authMiddleware,
-  async (req, res) => {
-    try {
-      const { text } = req.body;
-
-      const project = await Project.findById(req.params.id);
-
-      if (!project) {
-        return res.status(404).json({ message: "Project not found" });
-      }
-
-      // Only admin or assigned user can comment
-      if (
-        req.user.role !== "admin" &&
-        project.user.toString() !== req.user.id
-      ) {
-        return res.status(403).json({ message: "Access denied" });
-      }
-
-      const newComment = {
-        text,
-        user: req.user.id
-      };
-
-      project.comments.push(newComment);
-
-      await project.save();
-
-      res.status(201).json(project);
-
-    } catch (error) {
-      res.status(500).json({ message: error.message });
+router.post("/", authMiddleware, async (req, res) => {
+  try {
+    if (req.user.role !== "admin") {
+      return res.status(403).json({ message: "Only admin can create projects" });
     }
+
+    const { title, description, assignedTo } = req.body;
+
+    const newProject = new Project({
+      title,
+      description,
+      assignedTo
+    });
+
+    await newProject.save();
+
+    res.status(201).json(newProject);
+
+  } catch (error) {
+    res.status(500).json({ message: "Error creating project" });
   }
-);
+});
