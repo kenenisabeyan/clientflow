@@ -22,7 +22,7 @@ body {
 
 .sidebar {
   width: 240px;
-  background: #111827;
+  background: #0f172a;
   color: white;
   padding: 30px 20px;
   display: flex;
@@ -31,20 +31,26 @@ body {
 }
 
 .logo {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 600;
+  margin-bottom: 30px;
 }
 
 .nav a {
   display: block;
   color: #cbd5e1;
   text-decoration: none;
-  margin-top: 20px;
+  margin-bottom: 15px;
+  font-size: 14px;
 }
 
 .nav a.active {
   color: white;
   font-weight: 500;
+}
+
+.nav a:hover {
+  color: #ffffff;
 }
 
 .main {
@@ -59,7 +65,15 @@ body {
   margin-bottom: 30px;
 }
 
+.topbar h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+}
 
+/* =========================
+   STATS
+========================= */
 .stats {
   display: flex;
   gap: 20px;
@@ -68,10 +82,22 @@ body {
 
 .stat-card {
   background: white;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 25px;
+  border-radius: 12px;
   flex: 1;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+}
+
+.stat-card h3 {
+  margin: 0;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.stat-card p {
+  margin: 10px 0 0;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 /* =========================
@@ -81,7 +107,7 @@ body {
   background: white;
   padding: 25px;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
   margin-bottom: 30px;
 }
 
@@ -95,21 +121,29 @@ body {
   background: white;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.04);
+}
+
+.project-card h3 {
+  margin-top: 0;
+  font-size: 18px;
 }
 
 /* =========================
    FORM
 ========================= */
-input {
+input,
+select {
   width: 100%;
   padding: 10px;
   margin-bottom: 12px;
   border-radius: 6px;
   border: 1px solid #e2e8f0;
+  font-size: 14px;
 }
 
-input:focus {
+input:focus,
+select:focus {
   outline: none;
   border-color: #2563eb;
 }
@@ -123,6 +157,7 @@ input:focus {
   border: none;
   cursor: pointer;
   font-weight: 500;
+  font-size: 14px;
 }
 
 .primary {
@@ -139,6 +174,10 @@ input:focus {
   color: white;
 }
 
+.danger:hover {
+  background: #dc2626;
+}
+
 .full {
   width: 100%;
 }
@@ -153,5 +192,9 @@ input:focus {
 
   .main {
     padding: 20px;
+  }
+
+  .stats {
+    flex-direction: column;
   }
 }
