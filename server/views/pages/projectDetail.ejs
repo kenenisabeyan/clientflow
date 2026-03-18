@@ -1,0 +1,32 @@
+<% title='Project Details' ; currentPage='projects' ; pageScript='projectDetail' ; %>
+  <%- include('../layouts/main', { body: ` <div id="projectDetail" data-project-id="<%= projectId %>">
+    <div class="project-header">
+      <h2 id="projectTitle"></h2>
+      <span class="status-badge" id="projectStatus"></span>
+    </div>
+    <p id="projectDescription"></p>
+
+    <div class="comments-section">
+      <h3>Comments</h3>
+      <div id="commentList"></div>
+      <form id="commentForm">
+        <textarea placeholder="Add a comment..." required></textarea>
+        <button type="submit" class="btn-primary">Post Comment</button>
+      </form>
+    </div>
+
+    <div class="files-section">
+      <h3>Files</h3>
+      <div id="fileList"></div>
+      <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <button type="submit" class="btn-primary">Upload File</button>
+      </form>
+    </div>
+
+    <div class="activity-section">
+      <h3>Activity Log</h3>
+      <div id="activityLog"></div>
+    </div>
+    </div>
+    ` }) %>
