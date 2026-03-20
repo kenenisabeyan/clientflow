@@ -17,7 +17,6 @@ const logActivity = async (userId, projectId, action, details = {}) => {
       details,
     });
 
-    // If projectId is provided, push this activity to the project's activityLogs
     if (projectId) {
       const Project = require('../models/Project');
       await Project.findByIdAndUpdate(projectId, {
