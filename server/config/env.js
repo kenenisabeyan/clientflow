@@ -1,7 +1,14 @@
-// Load and validate environment variables
 const dotenv = require('dotenv');
-dotenv.config();
+const path = require('path');
 
+// Load .env from the project root (server folder)
+dotenv.config({ path: path.join(__dirname, '../.env') });
+
+// Debugging (optional – remove later)
+console.log('Current directory:', process.cwd());
+console.log('Environment variables loaded:', process.env.MONGO_URI ? 'Yes' : 'No');
+
+// Required variables
 const requiredEnv = ['MONGO_URI', 'JWT_SECRET'];
 requiredEnv.forEach((key) => {
   if (!process.env[key]) {
