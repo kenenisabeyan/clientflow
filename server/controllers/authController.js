@@ -2,9 +2,8 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET, JWT_EXPIRE } = require('../config/env');
 const { validateEmail, validatePassword } = require('../utils/validators');
-const logActivity = require('../utils/logger');
+// const logActivity = require('../utils/logger'); // temporarily commented
 
-// Generate JWT
 const generateToken = (id) => {
   return jwt.sign({ id }, JWT_SECRET, { expiresIn: JWT_EXPIRE });
 };
@@ -36,8 +35,8 @@ const register = async (req, res, next) => {
     // Create user (role defaults to 'client')
     const user = await User.create({ name, email, password });
 
-    // Log activity (global, no project)
-    await logActivity(user._id, null, 'registered');
+    // Log activity – commented for now
+    // await logActivity(user._id, null, 'registered');
 
     // Send token
     res.status(201).json({
@@ -51,6 +50,7 @@ const register = async (req, res, next) => {
       },
     });
   } catch (error) {
+    console.error('Registration error:', error);
     next(error);
   }
 };
@@ -78,8 +78,8 @@ const login = async (req, res, next) => {
       return res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
 
-    // Log activity
-    await logActivity(user._id, null, 'logged in');
+    // Log activity – commented for now
+    // await logActivity(user._id, null, 'logged in');
 
     res.json({
       success: true,
@@ -92,6 +92,7 @@ const login = async (req, res, next) => {
       },
     });
   } catch (error) {
+    console.error('Login error:', error);
     next(error);
   }
 };
