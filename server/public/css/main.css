@@ -1,4 +1,256 @@
-﻿/* Project Grid */
+﻿/* ==========================================
+   ClientFlow – Modern SaaS Styles
+   ========================================== */
+
+/* ---------- Reset & Base ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #F8FAFC;
+  color: #0F172A;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Layout ---------- */
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  background-color: #FFFFFF;
+  border-right: 1px solid #E2E8F0;
+  padding: 2rem 1rem;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.sidebar-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2563EB;
+  margin-bottom: 2rem;
+  letter-spacing: -0.5px;
+}
+
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: #475569;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  margin-bottom: 0.25rem;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+  background-color: #F1F5F9;
+  color: #0F172A;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 260px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.topbar {
+  height: 70px;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #0F172A;
+}
+
+.user-menu span {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #475569;
+  background: #F1F5F9;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+}
+
+.container {
+  padding: 2rem;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ---------- Authentication Pages ---------- */
+.auth-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #F8FAFC 0%, #EFF3F8 100%);
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 420px;
+  padding: 1rem;
+}
+
+.auth-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+.auth-card h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #0F172A;
+}
+
+.auth-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: #64748B;
+}
+
+.auth-link a {
+  color: #2563EB;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Forms ---------- */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: #334155;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #E2E8F0;
+  border-radius: 0.5rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #2563EB;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* ---------- Buttons ---------- */
+.btn-primary {
+  background-color: #2563EB;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary:hover {
+  background-color: #1D4ED8;
+}
+
+.btn-secondary {
+  background-color: #F1F5F9;
+  color: #334155;
+  border: 1px solid #E2E8F0;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: #E2E8F0;
+}
+
+/* ---------- Dashboard Stats Grid ---------- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: box-shadow 0.2s;
+}
+
+.stat-card h3 {
+  font-size: 0.875rem;
+  color: #64748B;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.stat-card p {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #0F172A;
+  margin: 0;
+}
+
+/* ---------- Project Grid (modern cards) ---------- */
 .projects-page {
   max-width: 1400px;
   margin: 0 auto;
@@ -45,6 +297,23 @@
   margin: 0;
 }
 
+.project-client {
+  font-size: 0.75rem;
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  border-top: 1px solid #F1F5F9;
+  padding-top: 0.75rem;
+}
+
+.project-client::before {
+  content: "👤";
+  font-size: 0.8rem;
+}
+
+/* ---------- Status Badges ---------- */
 .status-badge {
   align-self: flex-start;
   font-size: 0.75rem;
@@ -70,19 +339,235 @@
   color: #166534;
 }
 
-.project-client {
-  font-size: 0.75rem;
-  color: #64748B;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-  border-top: 1px solid #F1F5F9;
-  padding-top: 0.75rem;
+/* ---------- Activity Feed ---------- */
+.recent-activity {
+  background: white;
+  border-radius: 1rem;
+  border: 1px solid #E2E8F0;
+  padding: 1.5rem;
+  margin-top: 2rem;
 }
 
-/* Optional: add a subtle icon */
-.project-client::before {
-  content: "👤";
-  font-size: 0.8rem;
+.recent-activity h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #0F172A;
+}
+
+.activity-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid #E2E8F0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+.activity-item strong {
+  color: #0F172A;
+  font-weight: 600;
+}
+
+.activity-time {
+  font-size: 0.75rem;
+  color: #94A3B8;
+}
+
+/* ---------- User Management Table ---------- */
+.user-management-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.table-container {
+  overflow-x: auto;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-top: 1.5rem;
+  border: 1px solid #E2E8F0;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.user-table th,
+.user-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.user-table th {
+  background-color: #F8FAFC;
+  font-weight: 600;
+  color: #1E293B;
+}
+
+.user-table tr:hover {
+  background-color: #F8FAFC;
+}
+
+.user-table select {
+  padding: 0.5rem;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  background: white;
+  font-family: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.user-table select:focus {
+  outline: none;
+  border-color: #2563EB;
+}
+
+.delete-user {
+  background-color: #EF4444;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.delete-user:hover {
+  background-color: #DC2626;
+}
+
+/* ---------- Page Header & Empty States ---------- */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.page-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  color: #0F172A;
+}
+
+.empty-state,
+.error-state {
+  text-align: center;
+  padding: 3rem;
+  color: #64748B;
+  background: white;
+  border-radius: 1rem;
+  border: 1px dashed #CBD5E1;
+  margin-top: 2rem;
+}
+
+/* ---------- Create Project Page ---------- */
+.create-project-page {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  border: 1px solid #E2E8F0;
+}
+
+.create-project-page h2 {
+  margin-bottom: 1.5rem;
+}
+
+/* ---------- Project Detail Page ---------- */
+#project-detail {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  border: 1px solid #E2E8F0;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+#project-detail h2 {
+  margin-bottom: 1rem;
+}
+
+#project-detail .status-badge {
+  margin: 1rem 0;
+}
+
+.comment-section,
+.file-section {
+  margin-top: 2rem;
+  border-top: 1px solid #E2E8F0;
+  padding-top: 1.5rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 70px;
+    padding: 1rem 0.5rem;
+  }
+
+  .sidebar-logo {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .sidebar-nav a span:first-child {
+    margin-right: 0;
+  }
+
+  .sidebar-nav a span:last-child {
+    display: none;
+  }
+
+  .main-content {
+    margin-left: 70px;
+  }
+
+  .topbar {
+    padding: 0 1rem;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .user-table th,
+  .user-table td {
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    display: none;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .topbar {
+    padding: 0 1rem;
+  }
 }
