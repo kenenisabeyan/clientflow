@@ -2,9 +2,7 @@
   <%- include('../layouts/main', { body: ` <div class="projects-page">
     <div class="page-header">
       <h2>All Projects</h2>
-      <% if (user && user.role==='admin' ) { %>
-        <a href="/create-project" class="btn-primary">+ New Project</a>
-        <% } %>
+      <a href="/create-project" class="btn-primary admin-only" style="display: none;">+ New Project</a>
     </div>
     <div id="projectList" class="project-grid">
       <p>Loading projects...</p>
@@ -18,6 +16,7 @@
         try {
           const data = await API.get('/api/projects');
           const container = document.getElementById('projectList');
+          if (!container) return;
           if (data.projects.length === 0) {
             container.innerHTML = '<p class="empty-state">No projects yet. Create your first project!</p>';
             return;
@@ -27,7 +26,7 @@
                     <h3>${escapeHtml(p.title)}</h3>
                     <p>${escapeHtml(p.description) || 'No description'}</p>
                     <span class="status-badge ${p.status}">${p.status.replace('-', ' ')}</span>
-                    <div class="project-client">Assigned to: ${p.client?.name || 'Unknown'}</div>
+                    <div class="project-client">Assigned to: ${escapeHtml(p.client?.name) || 'Unknown'}</div>
                 </div>
             `).join('');
         } catch (error) {
@@ -35,6 +34,7 @@
           document.getElementById('projectList').innerHTML = '<p class="error-state">Error loading projects. Please try again later.</p>';
         }
       }
+
       function escapeHtml(str) {
         if (!str) return '';
         return str.replace(/[&<>]/g, function (m) {
@@ -44,5 +44,6 @@
           return m;
         });
       }
+
       loadProjects();
     </script>
