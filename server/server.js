@@ -11,6 +11,7 @@ const authRoutes = require('./routes/authRoutes');
 const projectRoutes = require('./routes/projectRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const activityRoutes = require('./routes/activityRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 // Connect to database
 connectDB();
@@ -41,6 +42,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/activity', activityRoutes);
+app.use('/api/users', userRoutes);
 
 // Frontend routes (render pages)
 // We'll create a few routes to serve the EJS pages
