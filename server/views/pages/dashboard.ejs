@@ -50,6 +50,7 @@
             `).join('');
                 } catch (error) {
                     console.error('Failed to load dashboard data:', error);
+                    document.getElementById('activityFeed').innerHTML = '<p>Error loading activity.</p>';
                 }
             }
             loadDashboard();
