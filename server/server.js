@@ -50,39 +50,33 @@ app.get('/register', (req, res) => res.render('pages/register'));
 // Protected pages – we'll use middleware to check JWT and pass user data
 const { protect } = require('./middleware/authMiddleware');
 
-app.get('/dashboard', protect, (req, res) => {
-  res.render('pages/dashboard', { user: req.user });
+// Remove protect from these routes
+app.get('/dashboard', (req, res) => {
+  res.render('pages/dashboard');
 });
 
-app.get('/projects', protect, (req, res) => {
-  res.render('pages/projects', { user: req.user });
+app.get('/projects', (req, res) => {
+  res.render('pages/projects');
 });
 
-app.get('/projects/:id', protect, async (req, res) => {
-  // We'll fetch project data client-side via API, so just pass user and projectId
-  res.render('pages/projectDetail', { user: req.user, projectId: req.params.id });
+app.get('/projects/:id', async (req, res) => {
+  res.render('pages/projectDetail', { projectId: req.params.id });
 });
 
-app.get('/create-project', protect, (req, res) => {
-  if (req.user.role !== 'admin') {
-    return res.status(403).send('Unauthorized');
-  }
-  res.render('pages/createProject', { user: req.user });
+app.get('/create-project', (req, res) => {
+  res.render('pages/createProject');
 });
 
-app.get('/activity', protect, (req, res) => {
-  res.render('pages/activity', { user: req.user });
+app.get('/activity', (req, res) => {
+  res.render('pages/activity');
 });
 
-app.get('/settings', protect, (req, res) => {
-  res.render('pages/settings', { user: req.user });
+app.get('/settings', (req, res) => {
+  res.render('pages/settings');
 });
 
-app.get('/user-management', protect, (req, res) => {
-  if (req.user.role !== 'admin') {
-    return res.status(403).send('Unauthorized');
-  }
-  res.render('pages/userManagement', { user: req.user });
+app.get('/user-management', (req, res) => {
+  res.render('pages/userManagement');
 });
 
 // Redirect root to login or dashboard based on auth? For simplicity, redirect to login
