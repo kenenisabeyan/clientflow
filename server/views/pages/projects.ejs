@@ -1,8 +1,8 @@
-<% title='Projects' ; currentPage='projects' ; pageScript='projects' ; %>
-  <%- include('../layouts/main', { body: ` <div class="projects-header">
+<% title='Projects' ; currentPage='projects' ; %>
+  <%- include('../layouts/main', { body: ` <div class="projects-page">
     <h2>All Projects</h2>
+    <div id="projectList">
+      <p>Loading projects...</p>
     </div>
-    <div class="project-grid" id="projectGrid">
-      <!-- Projects will be loaded here via JS -->
     </div>
     ` }) %>
