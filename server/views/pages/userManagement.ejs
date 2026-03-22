@@ -1,47 +1,47 @@
 <% title='User Management' ; currentPage='user-management' ; %>
   <%- include('../layouts/main', { body: ` <div class="user-management-page">
     <h2>User Management</h2>
-    <table id="usersTable">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td colspan="4">Loading users...</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="user-list">
+      <div class="user-list-header">
+        <div>Name</div>
+        <div>Email</div>
+        <div>Role</div>
+        <div>Actions</div>
+      </div>
+      <div id="usersContainer">
+        <div class="loading">Loading users...</div>
+      </div>
+    </div>
     </div>
     ` }) %>
 
+    <script src="/js/api.js"></script>
     <script>
       async function loadUsers() {
         try {
           const data = await API.get('/api/users');
-          const tbody = document.querySelector('#usersTable tbody');
-          tbody.innerHTML = '';
-          data.users.forEach(user => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                    <td>${user.name}</td>
-                    <td>${user.email}</td>
-                    <td>
+          const container = document.getElementById('usersContainer');
+          if (data.users.length === 0) {
+            container.innerHTML = '<div class="no-users">No users found.</div>';
+            return;
+          }
+          container.innerHTML = data.users.map(user => `
+                <div class="user-item" data-userid="${user._id}">
+                    <div class="user-name">${escapeHtml(user.name)}</div>
+                    <div class="user-email">${escapeHtml(user.email)}</div>
+                    <div class="user-role">
                         <select class="role-select" data-userid="${user._id}">
                             <option value="client" ${user.role === 'client' ? 'selected' : ''}>Client</option>
                             <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
                             <option value="developer" ${user.role === 'developer' ? 'selected' : ''}>Developer</option>
                         </select>
-                    </td>
-                    <td><button class="delete-user" data-userid="${user._id}">Delete</button></td>
-                `;
-            tbody.appendChild(row);
-          });
-          // Attach event listeners
+                    </div>
+                    <div class="user-actions">
+                        <button class="delete-user" data-userid="${user._id}">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+          // Attach event handlers
           document.querySelectorAll('.role-select').forEach(select => {
             select.addEventListener('change', async (e) => {
               const userId = select.dataset.userid;
@@ -49,8 +49,10 @@
               try {
                 await API.put(`/api/users/${userId}`, { role: newRole });
                 alert('Role updated');
-              } catch (error) {
-                alert(error.message);
+              } catch (err) {
+                alert(err.message);
+                // Reload to revert if error
+                loadUsers();
               }
             });
           });
@@ -61,16 +63,176 @@
                 try {
                   await API.delete(`/api/users/${userId}`);
                   loadUsers(); // refresh table
-                } catch (error) {
-                  alert(error.message);
+                } catch (err) {
+                  alert(err.message);
                 }
               }
             });
           });
         } catch (error) {
           console.error('Failed to load users:', error);
-          document.querySelector('#usersTable tbody').innerHTML = '<tr><td colspan="4">Error loading users.</td></tr>';
+          document.getElementById('usersContainer').innerHTML = '<div class="error">Error loading users.</div>';
         }
+      }
+      // Helper to escape HTML to prevent injection
+      function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function (m) {
+          if (m === '&') return '&amp;';
+          if (m === '<') return '&lt;';
+          if (m === '>') return '&gt;';
+          return m;
+        });
       }
       loadUsers();
     </script>
+
+    <style>
+      .user-management-page h2 {
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #0F172A;
+      }
+
+      .user-list {
+        background: white;
+        border: 1px solid #E2E8F0;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+
+      .user-list-header {
+        display: grid;
+        grid-template-columns: 2fr 2.5fr 1.2fr 1fr;
+        background: #F8FAFC;
+        padding: 1rem;
+        font-weight: 600;
+        color: #475569;
+        border-bottom: 1px solid #E2E8F0;
+        font-size: 0.875rem;
+      }
+
+      .user-item {
+        display: grid;
+        grid-template-columns: 2fr 2.5fr 1.2fr 1fr;
+        padding: 1rem;
+        border-bottom: 1px solid #E2E8F0;
+        align-items: center;
+        transition: background 0.2s;
+      }
+
+      .user-item:last-child {
+        border-bottom: none;
+      }
+
+      .user-item:hover {
+        background: #F8FAFC;
+      }
+
+      .user-name {
+        font-weight: 500;
+        color: #0F172A;
+      }
+
+      .user-email {
+        color: #475569;
+        font-size: 0.875rem;
+      }
+
+      .user-role select {
+        width: 100%;
+        max-width: 120px;
+        padding: 0.375rem 0.5rem;
+        border: 1px solid #E2E8F0;
+        border-radius: 0.375rem;
+        background: white;
+        font-size: 0.875rem;
+        color: #0F172A;
+        cursor: pointer;
+      }
+
+      .user-role select:focus {
+        outline: none;
+        border-color: #2563EB;
+        ring: 2px solid #93C5FD;
+      }
+
+      .delete-user {
+        background: #EF4444;
+        color: white;
+        border: none;
+        padding: 0.375rem 0.75rem;
+        border-radius: 0.375rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .delete-user:hover {
+        background: #DC2626;
+      }
+
+      .loading,
+      .no-users,
+      .error {
+        padding: 2rem;
+        text-align: center;
+        color: #64748B;
+      }
+
+      .error {
+        color: #EF4444;
+      }
+
+      @media (max-width: 768px) {
+
+        .user-list-header,
+        .user-item {
+          grid-template-columns: 1fr;
+          gap: 0.5rem;
+        }
+
+        .user-list-header {
+          display: none;
+        }
+
+        .user-item {
+          padding: 1rem;
+        }
+
+        .user-name,
+        .user-email,
+        .user-role,
+        .user-actions {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .user-name::before {
+          content: "Name: ";
+          font-weight: 600;
+        }
+
+        .user-email::before {
+          content: "Email: ";
+          font-weight: 600;
+        }
+
+        .user-role::before {
+          content: "Role: ";
+          font-weight: 600;
+        }
+
+        .user-actions::before {
+          content: "Actions: ";
+          font-weight: 600;
+        }
+
+        .user-role select {
+          width: auto;
+        }
+      }
+    </style>
