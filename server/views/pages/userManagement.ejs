@@ -1,53 +1,54 @@
 <% title='User Management' ; currentPage='user-management' ; %>
   <%- include('../layouts/main', { body: ` <div class="user-management-page">
     <h2>User Management</h2>
-    <div style="overflow-x: auto;">
-      <table id="usersTable"
-        style="width:100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+    <div class="table-container">
+      <table class="user-table">
         <thead>
-          <tr style="background: #f1f5f9; border-bottom: 1px solid #e2e8f0;">
-            <th style="padding: 12px 16px; text-align: left;">Name</th>
-            <th style="padding: 12px 16px; text-align: left;">Email</th>
-            <th style="padding: 12px 16px; text-align: left;">Role</th>
-            <th style="padding: 12px 16px; text-align: left;">Actions</th>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td colspan="4" style="padding: 12px;">Loading users...</td>
+            <td colspan="4">Loading users...</td>
           </tr>
         </tbody>
       </table>
     </div>
     </div>
+    ` }) %>
 
     <script src="/js/api.js"></script>
     <script>
       async function loadUsers() {
         try {
           const data = await API.get('/api/users');
-          const tbody = document.querySelector('#usersTable tbody');
+          const tbody = document.querySelector('#userManagementTable tbody');
+          if (!tbody) return;
           tbody.innerHTML = '';
           data.users.forEach(user => {
             const row = document.createElement('tr');
-            row.style.borderBottom = '1px solid #e2e8f0';
             row.innerHTML = `
-                        <td style="padding: 12px 16px;">${user.name}</td>
-                        <td style="padding: 12px 16px;">${user.email}</td>
-                        <td style="padding: 12px 16px;">
-                            <select class="role-select" data-userid="${user._id}" style="padding: 4px 8px; border-radius: 4px; border: 1px solid #e2e8f0;">
-                                <option value="client" ${user.role === 'client' ? 'selected' : ''}>Client</option>
-                                <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
-                                <option value="developer" ${user.role === 'developer' ? 'selected' : ''}>Developer</option>
-                            </select>
-                        </td>
-                        <td style="padding: 12px 16px;">
-                            <button class="delete-user" data-userid="${user._id}" style="background: #ef4444; color: white; border: none; padding: 4px 12px; border-radius: 4px; cursor: pointer;">Delete</button>
-                        </td>
-                    `;
+                    <td data-label="Name">${user.name}</td>
+                    <td data-label="Email">${user.email}</td>
+                    <td data-label="Role">
+                        <select class="role-select" data-userid="${user._id}">
+                            <option value="client" ${user.role === 'client' ? 'selected' : ''}>Client</option>
+                            <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
+                            <option value="developer" ${user.role === 'developer' ? 'selected' : ''}>Developer</option>
+                        </select>
+                    </td>
+                    <td data-label="Actions">
+                        <button class="delete-user" data-userid="${user._id}">Delete</button>
+                    </td>
+                `;
             tbody.appendChild(row);
           });
-          // Attach event listeners
+
+          // Role change handler
           document.querySelectorAll('.role-select').forEach(select => {
             select.addEventListener('change', async (e) => {
               const userId = select.dataset.userid;
@@ -60,13 +61,15 @@
               }
             });
           });
+
+          // Delete handler
           document.querySelectorAll('.delete-user').forEach(btn => {
             btn.addEventListener('click', async (e) => {
               const userId = btn.dataset.userid;
               if (confirm('Delete this user? This action cannot be undone.')) {
                 try {
                   await API.delete(`/api/users/${userId}`);
-                  loadUsers(); // refresh table
+                  loadUsers(); // refresh the table
                 } catch (error) {
                   alert(error.message);
                 }
@@ -75,9 +78,9 @@
           });
         } catch (error) {
           console.error('Failed to load users:', error);
-          document.querySelector('#usersTable tbody').innerHTML = '<tr><td colspan="4" style="padding: 12px;">Error loading users.</td></tr>';
+          const tbody = document.querySelector('.user-table tbody');
+          if (tbody) tbody.innerHTML = '<tr><td colspan="4">Error loading users</td></tr>';
         }
       }
-      loadUsers();
+      document.addEventListener('DOMContentLoaded', loadUsers);
     </script>
-    ` }) %>

@@ -13,7 +13,7 @@
         try {
           const data = await API.get('/api/projects');
           const container = document.getElementById('projectList');
-          if (!data.projects || data.projects.length === 0) {
+          if (data.projects.length === 0) {
             container.innerHTML = '<p>No projects found.</p>';
             return;
           }
