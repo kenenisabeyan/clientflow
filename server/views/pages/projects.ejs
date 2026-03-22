@@ -35,7 +35,6 @@
           document.getElementById('projectList').innerHTML = '<p class="error-state">Error loading projects. Please try again later.</p>';
         }
       }
-      // Helper to prevent XSS
       function escapeHtml(str) {
         if (!str) return '';
         return str.replace(/[&<>]/g, function (m) {
@@ -47,4 +46,3 @@
       }
       loadProjects();
     </script>
-    
