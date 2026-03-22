@@ -200,3 +200,63 @@ body {
 .activity-item:last-child {
   border-bottom: none;
 }
+
+
+/* User Management Table */
+.user-management-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.table-container {
+  overflow-x: auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-top: 1.5rem;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.user-table th,
+.user-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.user-table th {
+  background-color: #F8FAFC;
+  font-weight: 600;
+  color: #1E293B;
+}
+
+.user-table tr:hover {
+  background-color: #F1F5F9;
+}
+
+.user-table select {
+  padding: 0.5rem;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  background: white;
+  font-family: inherit;
+}
+
+.delete-user {
+  background-color: #EF4444;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.delete-user:hover {
+  background-color: #DC2626;
+}
