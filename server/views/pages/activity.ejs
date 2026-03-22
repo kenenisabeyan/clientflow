@@ -1,33 +1,23 @@
-<% title='Activity' ; currentPage='activity' ; %>
-  <%- include('../layouts/main', { body: ` <div class="activity-page">
-    <h2>Activity Log</h2>
-    <div id="activityFeed">
-      <p>Loading activity...</p>
-    </div>
-    </div>
-    ` }) %>
+const Activity = require('../models/Activity');
+const Project = require('../models/Project');
 
-    <script src="/js/api.js"></script>
-    <script>
-      async function loadActivity() {
-        try {
-          const data = await API.get('/api/activity');
-          const container = document.getElementById('activityFeed');
-          if (!container) return;
-          if (data.activities && data.activities.length === 0) {
-            container.innerHTML = '<p>No activity yet.</p>';
-            return;
-          }
-          container.innerHTML = data.activities.map(a => `
-                <div class="activity-item">
-                    <div><strong>${a.user?.name || 'Unknown'}</strong> ${a.action}</div>
-                    <div class="activity-time">${new Date(a.timestamp).toLocaleString()}</div>
-                </div>
-            `).join('');
-        } catch (error) {
-          console.error('Failed to load activity:', error);
-          document.getElementById('activityFeed').innerHTML = '<p>Error loading activity.</p>';
-        }
-      }
-      loadActivity();
-    </script>
+const getActivities = async (req, res, next) => {
+try {
+const { projectId } = req.query;
+let query = {};
+if (projectId) {
+// check access...
+} else {
+// if user is not admin, they should only see their own project logs? The code we wrote earlier allowed only admin for
+global.
+if (req.user.role !== 'admin') {
+return res.status(403).json({ success: false, message: 'Not authorized' });
+}
+}
+const activities = await Activity.find(query).populate('user', 'name').populate('project', 'title').sort({ timestamp: -1
+});
+res.json({ success: true, activities });
+} catch (error) {
+next(error);
+}
+};
