@@ -1,23 +1,8 @@
-const Activity = require('../models/Activity');
-const Project = require('../models/Project');
-
-const getActivities = async (req, res, next) => {
-try {
-const { projectId } = req.query;
-let query = {};
-if (projectId) {
-// check access...
-} else {
-// if user is not admin, they should only see their own project logs? The code we wrote earlier allowed only admin for
-global.
-if (req.user.role !== 'admin') {
-return res.status(403).json({ success: false, message: 'Not authorized' });
-}
-}
-const activities = await Activity.find(query).populate('user', 'name').populate('project', 'title').sort({ timestamp: -1
-});
-res.json({ success: true, activities });
-} catch (error) {
-next(error);
-}
-};
+<% title='Activity' ; currentPage='activity' ; %>
+  <%- include('../layouts/main', { body: ` <div class="activity-page">
+    <h2>Activity Log</h2>
+    <div id="activityFeed">
+      <p>Loading activity...</p>
+    </div>
+    </div>
+    ` }) %>

@@ -1,37 +1,36 @@
 const Activity = require('../models/Activity');
 const Project = require('../models/Project');
 
-// @desc    Get activity logs (global for admin, project-specific for clients)
-// @route   GET /api/activity
-// @query   ?projectId=... (optional)
-// @access  Private
 const getActivities = async (req, res, next) => {
   try {
     const { projectId } = req.query;
-
     let query = {};
 
-    // If projectId provided, filter by that project
+    // If a specific project is requested, check access
     if (projectId) {
       const project = await Project.findById(projectId);
       if (!project) {
         return res.status(404).json({ success: false, message: 'Project not found' });
       }
-
-      // Access control: only admin or assigned client can see project logs
+      // Admin or the project's client can view its activity
       if (req.user.role !== 'admin' && project.client.toString() !== req.user.id) {
         return res.status(403).json({ success: false, message: 'Not authorized' });
       }
-
       query.project = projectId;
     } else {
-      // Global feed – only admin can see all logs
-      if (req.user.role !== 'admin') {
-        return res.status(403).json({ success: false, message: 'Not authorized to view global activity' });
+      // No projectId – return all activity the user is allowed to see
+      if (req.user.role === 'admin') {
+        // Admin sees everything
+        query = {};
+      } else {
+        // Client sees only activity from projects they are assigned to
+        const clientProjects = await Project.find({ client: req.user.id }).select('_id');
+        const projectIds = clientProjects.map(p => p._id);
+        query.project = { $in: projectIds };
       }
     }
 
-    // Pagination
+    // Pagination (optional)
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 20;
     const skip = (page - 1) * limit;
@@ -48,12 +47,7 @@ const getActivities = async (req, res, next) => {
     res.json({
       success: true,
       activities,
-      pagination: {
-        page,
-        limit,
-        total,
-        pages: Math.ceil(total / limit),
-      },
+      pagination: { page, limit, total, pages: Math.ceil(total / limit) }
     });
   } catch (error) {
     next(error);
