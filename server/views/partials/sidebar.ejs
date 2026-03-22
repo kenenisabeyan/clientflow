@@ -7,7 +7,7 @@
         <a href="/projects" class="<%= currentPage === 'projects' ? 'active' : '' %>">
             <span>📁</span> Projects
         </a>
-        <% if (user.role==='admin' ) { %>
+        <% if (user && user.role==='admin' ) { %>
             <a href="/create-project" class="<%= currentPage === 'create-project' ? 'active' : '' %>">
                 <span>➕</span> Create Project
             </a>
@@ -18,7 +18,7 @@
                 <a href="/settings" class="<%= currentPage === 'settings' ? 'active' : '' %>">
                     <span>⚙️</span> Settings
                 </a>
-                <% if (user.role==='admin' ) { %>
+                <% if (user && user.role==='admin' ) { %>
                     <a href="/user-management" class="<%= currentPage === 'user-management' ? 'active' : '' %>">
                         <span>👥</span> User Management
                     </a>
