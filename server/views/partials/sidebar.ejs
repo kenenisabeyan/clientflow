@@ -7,24 +7,24 @@
         <a href="/projects" class="<%= currentPage === 'projects' ? 'active' : '' %>">
             <span>📁</span> Projects
         </a>
-        <% if (user.role === 'admin') { %>
-        <a href="/create-project" class="<%= currentPage === 'create-project' ? 'active' : '' %>">
-            <span>➕</span> Create Project
-        </a>
-        <% } %>
-        <a href="/activity" class="<%= currentPage === 'activity' ? 'active' : '' %>">
-            <span>📋</span> Activity
-        </a>
-        <a href="/settings" class="<%= currentPage === 'settings' ? 'active' : '' %>">
-            <span>⚙️</span> Settings
-        </a>
-        <% if (user.role === 'admin') { %>
-        <a href="/user-management" class="<%= currentPage === 'user-management' ? 'active' : '' %>">
-            <span>👥</span> User Management
-        </a>
-        <% } %>
-        <a href="#" id="logoutBtn">
-            <span>🚪</span> Logout
-        </a>
+        <% if (user.role==='admin' ) { %>
+            <a href="/create-project" class="<%= currentPage === 'create-project' ? 'active' : '' %>">
+                <span>➕</span> Create Project
+            </a>
+            <% } %>
+                <a href="/activity" class="<%= currentPage === 'activity' ? 'active' : '' %>">
+                    <span>📋</span> Activity
+                </a>
+                <a href="/settings" class="<%= currentPage === 'settings' ? 'active' : '' %>">
+                    <span>⚙️</span> Settings
+                </a>
+                <% if (user.role==='admin' ) { %>
+                    <a href="/user-management" class="<%= currentPage === 'user-management' ? 'active' : '' %>">
+                        <span>👥</span> User Management
+                    </a>
+                    <% } %>
+                        <a href="#" id="logoutBtn">
+                            <span>🚪</span> Logout
+                        </a>
     </nav>
 </aside>

@@ -1,10 +1,5 @@
-﻿<%
-    title = 'Dashboard';
-    currentPage = 'dashboard';
-    pageScript = 'dashboard';
-%>
-<%- include('../layouts/main', { body: 
-    <div class="stats-grid">
+﻿<% title='Dashboard' ; currentPage='dashboard' ; pageScript='dashboard' ; %>
+    <%- include('../layouts/main', { body: ` <div class="stats-grid">
         <div class="stat-card">
             <h3>Total Projects</h3>
             <p id="totalProjects">-</p>
@@ -21,9 +16,9 @@
             <h3>Pending</h3>
             <p id="pendingProjects">-</p>
         </div>
-    </div>
-    <div class="recent-activity">
-        <h2>Recent Activity</h2>
-        <div id="activityFeed"></div>
-    </div>
- }) %>
+        </div>
+        <div class="recent-activity">
+            <h2>Recent Activity</h2>
+            <div id="activityFeed"></div>
+        </div>
+        ` }) %>
