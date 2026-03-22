@@ -1,4 +1,4 @@
-﻿<% title='Dashboard' ; currentPage='dashboard' ; pageScript='dashboard' ; %>
+﻿<% title='Dashboard' ; currentPage='dashboard' ; %>
     <%- include('../layouts/main', { body: ` <div class="stats-grid">
         <div class="stat-card">
             <h3>Total Projects</h3>
@@ -22,3 +22,35 @@
             <div id="activityFeed"></div>
         </div>
         ` }) %>
+
+        <script src="/js/api.js"></script>
+        <script>
+            async function loadDashboard() {
+                try {
+                    // Load projects stats
+                    const projectsData = await API.get('/api/projects');
+                    const projects = projectsData.projects;
+                    document.getElementById('totalProjects').textContent = projects.length;
+                    document.getElementById('completedProjects').textContent = projects.filter(p => p.status === 'completed').length;
+                    document.getElementById('inProgressProjects').textContent = projects.filter(p => p.status === 'in-progress').length;
+                    document.getElementById('pendingProjects').textContent = projects.filter(p => p.status === 'pending').length;
+
+                    // Load recent activity
+                    const activityData = await API.get('/api/activity?limit=5');
+                    const feed = document.getElementById('activityFeed');
+                    if (activityData.activities && activityData.activities.length === 0) {
+                        feed.innerHTML = '<p>No recent activity.</p>';
+                        return;
+                    }
+                    feed.innerHTML = activityData.activities.map(a => `
+                <div class="activity-item">
+                    <div><strong>${a.user?.name || 'Unknown'}</strong> ${a.action}</div>
+                    <div class="activity-time">${new Date(a.timestamp).toLocaleString()}</div>
+                </div>
+            `).join('');
+                } catch (error) {
+                    console.error('Failed to load dashboard data:', error);
+                }
+            }
+            loadDashboard();
+        </script>
