@@ -1,0 +1,76 @@
+<% title='User Management' ; currentPage='user-management' ; %>
+  <%- include('../layouts/main', { body: ` <div class="user-management-page">
+    <h2>User Management</h2>
+    <table id="usersTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="4">Loading users...</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <script src="/js/api.js"></script>
+    <script>
+      async function loadUsers() {
+        try {
+          const data = await API.get('/api/users');
+          const tbody = document.querySelector('#usersTable tbody');
+          tbody.innerHTML = '';
+          data.users.forEach(user => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                        <td>
+                            <select class="role-select" data-userid="${user._id}">
+                                <option value="client" ${user.role === 'client' ? 'selected' : ''}>Client</option>
+                                <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
+                                <option value="developer" ${user.role === 'developer' ? 'selected' : ''}>Developer</option>
+                            </select>
+                        </td>
+                        <td><button class="delete-user" data-userid="${user._id}">Delete</button></td>
+                    `;
+            tbody.appendChild(row);
+          });
+          // Attach event listeners for role change and delete
+          document.querySelectorAll('.role-select').forEach(select => {
+            select.addEventListener('change', async (e) => {
+              const userId = select.dataset.userid;
+              const newRole = select.value;
+              try {
+                await API.put(`/api/users/${userId}`, { role: newRole });
+                alert('Role updated');
+              } catch (error) {
+                alert(error.message);
+              }
+            });
+          });
+          document.querySelectorAll('.delete-user').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+              const userId = btn.dataset.userid;
+              if (confirm('Delete this user? This action cannot be undone.')) {
+                try {
+                  await API.delete(`/api/users/${userId}`);
+                  loadUsers(); // refresh table
+                } catch (error) {
+                  alert(error.message);
+                }
+              }
+            });
+          });
+        } catch (error) {
+          console.error('Failed to load users:', error);
+        }
+      }
+      loadUsers();
+    </script>
+    ` }) %>
