@@ -2,6 +2,7 @@
   <%- include('../layouts/main', { body: ` <div id="project-detail" data-project-id="<%= projectId %>">
     <h2>Loading project...</h2>
     </div>
+    ` }) %>
 
     <script src="/js/api.js"></script>
     <script>
@@ -12,39 +13,37 @@
           const project = data.project;
           const container = document.getElementById('project-detail');
           container.innerHTML = `
-                    <h2>${project.title}</h2>
-                    <p>${project.description || 'No description'}</p>
-                    <div>Status: ${project.status}</div>
-                    <div>Client: ${project.client.name}</div>
-                    <hr>
-                    <h3>Comments</h3>
-                    <div id="comments">${project.comments.map(c => `<div><strong>${c.user.name}</strong>: ${c.text}</div>`).join('')}</div>
-                    <form id="commentForm">
-                        <textarea placeholder="Add a comment..." required></textarea>
-                        <button type="submit">Post Comment</button>
-                    </form>
-                    <hr>
-                    <h3>Files</h3>
-                    <div id="files">${project.files.map(f => `<div><a href="/api/projects/${projectId}/files/${f.filename}" download>${f.filename}</a></div>`).join('')}</div>
-                    <form id="uploadForm" enctype="multipart/form-data">
-                        <input type="file" name="file" required>
-                        <button type="submit">Upload File</button>
-                    </form>
-                `;
+                <h2>${project.title}</h2>
+                <p>${project.description || 'No description'}</p>
+                <div>Status: ${project.status}</div>
+                <div>Client: ${project.client.name}</div>
+                <hr>
+                <h3>Comments</h3>
+                <div id="comments">${project.comments.map(c => `<div><strong>${c.user.name}</strong>: ${c.text}</div>`).join('')}</div>
+                <form id="commentForm">
+                    <textarea placeholder="Add a comment..." required></textarea>
+                    <button type="submit">Post Comment</button>
+                </form>
+                <hr>
+                <h3>Files</h3>
+                <div id="files">${project.files.map(f => `<div><a href="/api/projects/${projectId}/files/${f.filename}" download>${f.filename}</a></div>`).join('')}</div>
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <input type="file" name="file" required>
+                    <button type="submit">Upload File</button>
+                </form>
+            `;
 
-          // Handle comment submission
           document.getElementById('commentForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const text = e.target.querySelector('textarea').value;
             try {
               await API.post('/api/comments', { text, projectId });
-              loadProject(); // refresh
+              loadProject();
             } catch (err) {
               alert(err.message);
             }
           });
 
-          // Handle file upload
           document.getElementById('uploadForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const file = e.target.querySelector('input[type="file"]').files[0];
@@ -64,4 +63,3 @@
       }
       loadProject();
     </script>
-    ` }) %>
