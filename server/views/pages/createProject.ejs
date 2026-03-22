@@ -1,9 +1,5 @@
-<%
-    title = 'Create Project';
-    currentPage = 'create-project';
-%>
-<%- include('../layouts/main', { body: `
-    <div class="create-project-page">
+<% title='Create Project' ; currentPage='create-project' ; %>
+    <%- include('../layouts/main', { body: ` <div class="create-project-page">
         <h2>Create New Project</h2>
         <form id="createProjectForm">
             <div class="form-group">
@@ -30,42 +26,41 @@
             </div>
             <button type="submit" class="btn-primary">Create Project</button>
         </form>
-    </div>
+        </div>
+        ` }) %>
 
-    <script src="/js/api.js"></script>
-    <script>
-        // Load clients into dropdown
-        async function loadClients() {
-            try {
-                const data = await API.get('/api/users?role=client');
-                const select = document.getElementById('clientId');
-                data.users.forEach(user => {
-                    const option = document.createElement('option');
-                    option.value = user._id;
-                    option.textContent = `${user.name} (${user.email})`;
-                    select.appendChild(option);
-                });
-            } catch (error) {
-                console.error('Failed to load clients:', error);
+        <script>
+            // Load clients into dropdown
+            async function loadClients() {
+                try {
+                    const data = await API.get('/api/users?role=client');
+                    const select = document.getElementById('clientId');
+                    data.users.forEach(user => {
+                        const option = document.createElement('option');
+                        option.value = user._id;
+                        option.textContent = user.name + ' (' + user.email + ')';
+                        select.appendChild(option);
+                    });
+                } catch (error) {
+                    console.error('Failed to load clients:', error);
+                }
             }
-        }
-        loadClients();
+            loadClients();
 
-        // Handle form submission
-        document.getElementById('createProjectForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const title = document.getElementById('title').value;
-            const description = document.getElementById('description').value;
-            const clientId = document.getElementById('clientId').value;
-            const status = document.getElementById('status').value;
+            // Handle form submission
+            document.getElementById('createProjectForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const title = document.getElementById('title').value;
+                const description = document.getElementById('description').value;
+                const clientId = document.getElementById('clientId').value;
+                const status = document.getElementById('status').value;
 
-            try {
-                const result = await API.post('/api/projects', { title, description, clientId, status });
-                alert('Project created successfully!');
-                window.location.href = '/projects';
-            } catch (error) {
-                alert(error.message);
-            }
-        });
-    </script>
-` }) %>
+                try {
+                    const result = await API.post('/api/projects', { title, description, clientId, status });
+                    alert('Project created successfully!');
+                    window.location.href = '/projects';
+                } catch (error) {
+                    alert(error.message);
+                }
+            });
+        </script>

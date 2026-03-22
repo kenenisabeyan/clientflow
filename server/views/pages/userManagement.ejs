@@ -17,8 +17,8 @@
       </tbody>
     </table>
     </div>
+    ` }) %>
 
-    <script src="/js/api.js"></script>
     <script>
       async function loadUsers() {
         try {
@@ -28,20 +28,20 @@
           data.users.forEach(user => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                        <td>${user.name}</td>
-                        <td>${user.email}</td>
-                        <td>
-                            <select class="role-select" data-userid="${user._id}">
-                                <option value="client" ${user.role === 'client' ? 'selected' : ''}>Client</option>
-                                <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
-                                <option value="developer" ${user.role === 'developer' ? 'selected' : ''}>Developer</option>
-                            </select>
-                        </td>
-                        <td><button class="delete-user" data-userid="${user._id}">Delete</button></td>
-                    `;
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>
+                        <select class="role-select" data-userid="${user._id}">
+                            <option value="client" ${user.role === 'client' ? 'selected' : ''}>Client</option>
+                            <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
+                            <option value="developer" ${user.role === 'developer' ? 'selected' : ''}>Developer</option>
+                        </select>
+                    </td>
+                    <td><button class="delete-user" data-userid="${user._id}">Delete</button></td>
+                `;
             tbody.appendChild(row);
           });
-          // Attach event listeners for role change and delete
+          // Attach event listeners
           document.querySelectorAll('.role-select').forEach(select => {
             select.addEventListener('change', async (e) => {
               const userId = select.dataset.userid;
@@ -69,8 +69,8 @@
           });
         } catch (error) {
           console.error('Failed to load users:', error);
+          document.querySelector('#usersTable tbody').innerHTML = '<tr><td colspan="4">Error loading users.</td></tr>';
         }
       }
       loadUsers();
     </script>
-    ` }) %>
