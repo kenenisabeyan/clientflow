@@ -29,16 +29,18 @@
         </div>
         ` }) %>
 
+        <script src="/js/api.js"></script>
         <script>
-            // Load clients into dropdown
             async function loadClients() {
                 try {
                     const data = await API.get('/api/users?role=client');
                     const select = document.getElementById('clientId');
+                    if (!select) return;
+                    select.innerHTML = '<option value="">Select a client...</option>';
                     data.users.forEach(user => {
                         const option = document.createElement('option');
                         option.value = user._id;
-                        option.textContent = user.name + ' (' + user.email + ')';
+                        option.textContent = `${user.name} (${user.email})`;
                         select.appendChild(option);
                     });
                 } catch (error) {
@@ -47,7 +49,6 @@
             }
             loadClients();
 
-            // Handle form submission
             document.getElementById('createProjectForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const title = document.getElementById('title').value;
@@ -55,8 +56,13 @@
                 const clientId = document.getElementById('clientId').value;
                 const status = document.getElementById('status').value;
 
+                if (!clientId) {
+                    alert('Please select a client');
+                    return;
+                }
+
                 try {
-                    const result = await API.post('/api/projects', { title, description, clientId, status });
+                    await API.post('/api/projects', { title, description, clientId, status });
                     alert('Project created successfully!');
                     window.location.href = '/projects';
                 } catch (error) {

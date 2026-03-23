@@ -27,7 +27,6 @@
         <script>
             async function loadDashboard() {
                 try {
-                    // Load projects stats
                     const projectsData = await API.get('/api/projects');
                     const projects = projectsData.projects;
                     document.getElementById('totalProjects').textContent = projects.length;
@@ -35,9 +34,9 @@
                     document.getElementById('inProgressProjects').textContent = projects.filter(p => p.status === 'in-progress').length;
                     document.getElementById('pendingProjects').textContent = projects.filter(p => p.status === 'pending').length;
 
-                    // Load recent activity
                     const activityData = await API.get('/api/activity?limit=5');
                     const feed = document.getElementById('activityFeed');
+                    if (!feed) return;
                     if (activityData.activities && activityData.activities.length === 0) {
                         feed.innerHTML = '<p>No recent activity.</p>';
                         return;

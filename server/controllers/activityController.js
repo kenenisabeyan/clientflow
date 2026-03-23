@@ -6,7 +6,7 @@ const getActivities = async (req, res, next) => {
     const { projectId } = req.query;
     let query = {};
 
-    // If a specific project is requested, check access
+    // If a specific project is requested
     if (projectId) {
       const project = await Project.findById(projectId);
       if (!project) {
@@ -18,19 +18,17 @@ const getActivities = async (req, res, next) => {
       }
       query.project = projectId;
     } else {
-      // No projectId – return all activity the user is allowed to see
+      // No projectId – global feed
       if (req.user.role === 'admin') {
-        // Admin sees everything
-        query = {};
+        query = {}; // admin sees all
       } else {
-        // Client sees only activity from projects they are assigned to
+        // client sees only activity from their own projects
         const clientProjects = await Project.find({ client: req.user.id }).select('_id');
         const projectIds = clientProjects.map(p => p._id);
         query.project = { $in: projectIds };
       }
     }
 
-    // Pagination (optional)
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 20;
     const skip = (page - 1) * limit;

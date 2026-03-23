@@ -1,8 +1,7 @@
 ﻿/* ==========================================
-   ClientFlow – Modern SaaS Styles
+   ClientFlow – Modern SaaS Styles (Final)
    ========================================== */
 
-/* ---------- Reset & Base ---------- */
 * {
   margin: 0;
   padding: 0;
@@ -17,7 +16,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ---------- Layout ---------- */
 .app {
   display: flex;
   min-height: 100vh;
@@ -105,7 +103,7 @@ body {
   margin: 0 auto;
 }
 
-/* ---------- Authentication Pages ---------- */
+/* Authentication */
 .auth-page {
   display: flex;
   align-items: center;
@@ -152,7 +150,7 @@ body {
   text-decoration: underline;
 }
 
-/* ---------- Forms ---------- */
+/* Forms */
 .form-group {
   margin-bottom: 1.25rem;
 }
@@ -185,7 +183,7 @@ body {
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-/* ---------- Buttons ---------- */
+/* Buttons */
 .btn-primary {
   background-color: #2563EB;
   color: white;
@@ -220,7 +218,7 @@ body {
   background-color: #E2E8F0;
 }
 
-/* ---------- Dashboard Stats Grid ---------- */
+/* Dashboard Stats */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -250,7 +248,7 @@ body {
   margin: 0;
 }
 
-/* ---------- Project Grid (modern cards) ---------- */
+/* Project Grid */
 .projects-page {
   max-width: 1400px;
   margin: 0 auto;
@@ -313,7 +311,7 @@ body {
   font-size: 0.8rem;
 }
 
-/* ---------- Status Badges ---------- */
+/* Status Badges */
 .status-badge {
   align-self: flex-start;
   font-size: 0.75rem;
@@ -339,7 +337,7 @@ body {
   color: #166534;
 }
 
-/* ---------- Activity Feed ---------- */
+/* Activity Feed */
 .recent-activity {
   background: white;
   border-radius: 1rem;
@@ -378,7 +376,7 @@ body {
   color: #94A3B8;
 }
 
-/* ---------- User Management Table ---------- */
+/* User Management Table */
 .user-management-page {
   max-width: 1200px;
   margin: 0 auto;
@@ -447,7 +445,7 @@ body {
   background-color: #DC2626;
 }
 
-/* ---------- Page Header & Empty States ---------- */
+/* Page Header & Empty States */
 .page-header {
   display: flex;
   justify-content: space-between;
@@ -473,7 +471,7 @@ body {
   margin-top: 2rem;
 }
 
-/* ---------- Create Project Page ---------- */
+/* Create Project Page */
 .create-project-page {
   max-width: 600px;
   margin: 0 auto;
@@ -487,7 +485,7 @@ body {
   margin-bottom: 1.5rem;
 }
 
-/* ---------- Project Detail Page ---------- */
+/* Project Detail Page */
 #project-detail {
   background: white;
   border-radius: 1rem;
@@ -512,7 +510,7 @@ body {
   padding-top: 1.5rem;
 }
 
-/* ---------- Responsive ---------- */
+/* Responsive */
 @media (max-width: 768px) {
   .sidebar {
     width: 70px;
@@ -556,6 +554,29 @@ body {
   .user-table td {
     padding: 0.75rem;
   }
+
+  .sidebar-nav a {
+    padding: 0.75rem 0.5rem;
+    justify-content: center;
+  }
+
+  .sidebar-nav a span:first-child {
+    font-size: 1.25rem;
+  }
+
+  .stat-card {
+    padding: 1rem;
+  }
+
+  .stat-card p {
+    font-size: 1.5rem;
+  }
+
+  .btn-primary,
+  .delete-user,
+  select {
+    min-height: 44px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -569,5 +590,21 @@ body {
 
   .topbar {
     padding: 0 1rem;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+
+  .stats-grid {
+    gap: 1rem;
+  }
+
+  .stat-card h3 {
+    font-size: 0.8rem;
+  }
+
+  .project-card {
+    padding: 1rem;
   }
 }

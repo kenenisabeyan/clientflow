@@ -7,7 +7,7 @@
         <a href="/projects" class="<%= currentPage === 'projects' ? 'active' : '' %>">
             <span>📁</span> Projects
         </a>
-        <!-- Admin links: always present but hidden with CSS, shown by JS if user is admin -->
+        <!-- Admin‑only links – hidden initially, shown by common.js -->
         <a href="/create-project" class="admin-only <%= currentPage === 'create-project' ? 'active' : '' %>"
             style="display: none;">
             <span>➕</span> Create Project
