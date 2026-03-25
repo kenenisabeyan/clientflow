@@ -12,8 +12,8 @@ export default function Projects() {
       try {
         const res = await axios.get('/api/projects');
         setProjects(res.data.projects);
-      } catch (error) {
-        console.error('Failed to load projects', error);
+      } catch (err) {
+        console.error(err);
       }
     };
     fetchProjects();
@@ -32,7 +32,7 @@ export default function Projects() {
       ) : (
         <div className="project-grid">
           {projects.map(p => (
-            <div key={p._id} className="project-card" onClick={() => window.location.href=`/projects/${p._id}`}>
+            <div key={p._id} className="project-card" onClick={() => window.location.href = `/projects/${p._id}`}>
               <h3>{p.title}</h3>
               <p>{p.description || 'No description'}</p>
               <span className={`status-badge ${p.status}`}>{p.status.replace('-', ' ')}</span>

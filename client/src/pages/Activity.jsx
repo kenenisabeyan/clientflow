@@ -9,8 +9,8 @@ export default function Activity() {
       try {
         const res = await axios.get('/api/activity');
         setActivities(res.data.activities);
-      } catch (error) {
-        console.error('Failed to load activity', error);
+      } catch (err) {
+        console.error(err);
       }
     };
     fetchActivities();

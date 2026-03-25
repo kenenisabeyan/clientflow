@@ -1,31 +1,23 @@
 const Activity = require('../models/Activity');
 const Project = require('../models/Project');
 
-const getActivities = async (req, res, next) => {
+exports.getActivities = async (req, res, next) => {
   try {
     const { projectId } = req.query;
     let query = {};
 
-    // If a specific project is requested
     if (projectId) {
       const project = await Project.findById(projectId);
-      if (!project) {
-        return res.status(404).json({ success: false, message: 'Project not found' });
-      }
-      // Admin or the project's client can view its activity
+      if (!project) return res.status(404).json({ success: false, message: 'Project not found' });
       if (req.user.role !== 'admin' && project.client.toString() !== req.user.id) {
         return res.status(403).json({ success: false, message: 'Not authorized' });
       }
       query.project = projectId;
     } else {
-      // No projectId – global feed
-      if (req.user.role === 'admin') {
-        query = {}; // admin sees all
-      } else {
-        // client sees only activity from their own projects
+      if (req.user.role !== 'admin') {
         const clientProjects = await Project.find({ client: req.user.id }).select('_id');
-        const projectIds = clientProjects.map(p => p._id);
-        query.project = { $in: projectIds };
+        const ids = clientProjects.map(p => p._id);
+        query.project = { $in: ids };
       }
     }
 
@@ -36,20 +28,11 @@ const getActivities = async (req, res, next) => {
     const activities = await Activity.find(query)
       .populate('user', 'name')
       .populate('project', 'title')
-      .sort({ timestamp: -1 })
+      .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
 
     const total = await Activity.countDocuments(query);
-
-    res.json({
-      success: true,
-      activities,
-      pagination: { page, limit, total, pages: Math.ceil(total / limit) }
-    });
-  } catch (error) {
-    next(error);
-  }
+    res.json({ success: true, activities, pagination: { page, limit, total, pages: Math.ceil(total / limit) } });
+  } catch (err) { next(err); }
 };
-
-module.exports = { getActivities };

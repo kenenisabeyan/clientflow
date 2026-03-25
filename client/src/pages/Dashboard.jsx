@@ -19,8 +19,8 @@ export default function Dashboard() {
 
         const activityRes = await axios.get('/api/activity?limit=5');
         setActivities(activityRes.data.activities);
-      } catch (error) {
-        console.error('Failed to load dashboard', error);
+      } catch (err) {
+        console.error(err);
       }
     };
     fetchData();

@@ -12,31 +12,17 @@ export default function Layout() {
       <aside className="sidebar">
         <div className="sidebar-logo">ClientFlow</div>
         <nav className="sidebar-nav">
-          <Link to="/dashboard" className={isActive('/dashboard')}>
-            <span>📊</span> Dashboard
-          </Link>
-          <Link to="/projects" className={isActive('/projects')}>
-            <span>📁</span> Projects
-          </Link>
+          <Link to="/dashboard" className={isActive('/dashboard')}><span>📊</span> Dashboard</Link>
+          <Link to="/projects" className={isActive('/projects')}><span>📁</span> Projects</Link>
           {user?.role === 'admin' && (
-            <Link to="/create-project" className={isActive('/create-project')}>
-              <span>➕</span> Create Project
-            </Link>
+            <Link to="/create-project" className={isActive('/create-project')}><span>➕</span> Create Project</Link>
           )}
-          <Link to="/activity" className={isActive('/activity')}>
-            <span>📋</span> Activity
-          </Link>
-          <Link to="/settings" className={isActive('/settings')}>
-            <span>⚙️</span> Settings
-          </Link>
+          <Link to="/activity" className={isActive('/activity')}><span>📋</span> Activity</Link>
+          <Link to="/settings" className={isActive('/settings')}><span>⚙️</span> Settings</Link>
           {user?.role === 'admin' && (
-            <Link to="/user-management" className={isActive('/user-management')}>
-              <span>👥</span> User Management
-            </Link>
+            <Link to="/user-management" className={isActive('/user-management')}><span>👥</span> User Management</Link>
           )}
-          <button onClick={logout} id="logoutBtn">
-            <span>🚪</span> Logout
-          </button>
+          <button onClick={logout}><span>🚪</span> Logout</button>
         </nav>
       </aside>
       <div className="main-content">

@@ -11,7 +11,6 @@ import Activity from './pages/Activity';
 import UserManagement from './pages/UserManagement';
 import Settings from './pages/Settings';
 
-// Protected route wrapper
 function PrivateRoute({ children, adminOnly = false }) {
   const { user, loading } = useAuth();
   if (loading) return <div>Loading...</div>;

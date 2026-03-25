@@ -15,8 +15,8 @@ export default function CreateProject() {
       try {
         const res = await axios.get('/api/users?role=client');
         setClients(res.data.users);
-      } catch (error) {
-        console.error('Failed to load clients', error);
+      } catch (err) {
+        console.error(err);
       }
     };
     fetchClients();
@@ -32,8 +32,8 @@ export default function CreateProject() {
       await axios.post('/api/projects', { title, description, clientId, status });
       alert('Project created successfully!');
       navigate('/projects');
-    } catch (error) {
-      alert(error.response?.data?.message || 'Failed to create project');
+    } catch (err) {
+      alert(err.response?.data?.message || 'Failed to create project');
     }
   };
 
@@ -43,22 +43,11 @@ export default function CreateProject() {
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="title">Project Title</label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
+          <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} required />
         </div>
         <div className="form-group">
           <label htmlFor="description">Description</label>
-          <textarea
-            id="description"
-            rows="4"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
+          <textarea id="description" rows="4" value={description} onChange={(e) => setDescription(e.target.value)} />
         </div>
         <div className="form-group">
           <label htmlFor="clientId">Assign to Client</label>

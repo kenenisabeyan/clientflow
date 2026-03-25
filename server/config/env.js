@@ -1,13 +1,12 @@
 const dotenv = require('dotenv');
 const path = require('path');
 
-// Load .env from the server folder
 dotenv.config({ path: path.join(__dirname, '../.env') });
 
-const requiredEnv = ['MONGO_URI', 'JWT_SECRET'];
-requiredEnv.forEach((key) => {
+const required = ['MONGO_URI', 'JWT_SECRET'];
+required.forEach((key) => {
   if (!process.env[key]) {
-    console.error(`Missing required environment variable: ${key}`);
+    console.error(`Missing required env: ${key}`);
     process.exit(1);
   }
 });

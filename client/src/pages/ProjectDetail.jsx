@@ -12,8 +12,8 @@ export default function ProjectDetail() {
     try {
       const res = await axios.get(`/api/projects/${id}`);
       setProject(res.data.project);
-    } catch (error) {
-      console.error('Failed to load project', error);
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -27,9 +27,9 @@ export default function ProjectDetail() {
     try {
       await axios.post('/api/comments', { text: comment, projectId: id });
       setComment('');
-      loadProject(); // refresh comments
-    } catch (error) {
-      alert(error.response?.data?.message || 'Failed to post comment');
+      loadProject();
+    } catch (err) {
+      alert(err.response?.data?.message || 'Failed to post comment');
     }
   };
 
@@ -43,9 +43,9 @@ export default function ProjectDetail() {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setFile(null);
-      loadProject(); // refresh file list
-    } catch (error) {
-      alert(error.response?.data?.message || 'Failed to upload file');
+      loadProject();
+    } catch (err) {
+      alert(err.response?.data?.message || 'Failed to upload file');
     }
   };
 
@@ -67,12 +67,7 @@ export default function ProjectDetail() {
           </div>
         ))}
         <form onSubmit={handleComment}>
-          <textarea
-            placeholder="Add a comment..."
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            required
-          />
+          <textarea placeholder="Add a comment..." value={comment} onChange={(e) => setComment(e.target.value)} required />
           <button type="submit" className="btn-primary">Post Comment</button>
         </form>
       </div>
