@@ -39,3 +39,5 @@ app.use(errorHandler);
 app.listen(PORT, () => {
   console.log(`Server running in ${NODE_ENV} mode on port ${PORT}`);
 });
+
+app.get('/test', (req, res) => res.send('Backend is running'));
