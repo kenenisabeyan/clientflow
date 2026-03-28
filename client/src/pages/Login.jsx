@@ -25,12 +25,12 @@ export default function Login() {
           <h2>Login to ClientFlow</h2>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+              <label>Email</label>
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
             </div>
             <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+              <label>Password</label>
+              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
             </div>
             <button type="submit" className="btn-primary">Login</button>
             <p className="auth-link">Don't have an account? <Link to="/register">Register</Link></p>
