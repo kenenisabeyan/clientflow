@@ -1,4 +1,7 @@
 {
+  "ts-node": {
+    "transpileOnly": true
+  },
   "compilerOptions": {
     "target": "ES2022",
     "module": "CommonJS",
@@ -7,7 +10,9 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": false,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["node"],
+    "moduleDetection": "force"
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules"]
