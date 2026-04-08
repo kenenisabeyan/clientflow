@@ -50,8 +50,3 @@ export default function Dashboard() {
     </>
   );
 }
-
-
-export default function Dashboard() {
-  return <h2>Welcome to ClientFlow Dashboard</h2>;
-}
