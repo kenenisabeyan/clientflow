@@ -1,64 +1,37 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
-const AuthContext = createContext();
+const AuthContext = createContext<any>(null);
 
 export const useAuth = () => useContext(AuthContext);
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [user, setUser] = useState<{name: string, email: string, role: string} | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Auto-login bypass for frontend UI demonstration
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      fetchUser();
-    } else {
+    setTimeout(() => {
+      setUser({
+        name: 'Jollie Frontend',
+        email: 'jollie@demo.com',
+        role: 'Admin'
+      });
       setLoading(false);
-    }
+    }, 500);
   }, []);
 
-  const fetchUser = async () => {
-    try {
-      const res = await axios.get('/api/auth/me');
-      setUser(res.data.user);
-    } catch (err) {
-      logout();
-    } finally {
-      setLoading(false);
-    }
+  const login = async (email: string, password: string) => {
+    setUser({ name: 'Jollie Frontend', email, role: 'Admin' });
+    return { success: true };
   };
 
-  const login = async (email, password) => {
-    try {
-      const res = await axios.post('/api/auth/login', { email, password });
-      const { token, user } = res.data;
-      localStorage.setItem('token', token);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      setUser(user);
-      return { success: true };
-    } catch (err) {
-      return { success: false, message: err.response?.data?.message || 'Login failed' };
-    }
-  };
-
-  const register = async (name, email, password) => {
-    try {
-      const res = await axios.post('/api/auth/register', { name, email, password });
-      const { token, user } = res.data;
-      localStorage.setItem('token', token);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      setUser(user);
-      return { success: true };
-    } catch (err) {
-      return { success: false, message: err.response?.data?.message || 'Registration failed' };
-    }
+  const register = async (name: string, email: string) => {
+    setUser({ name, email, role: 'Admin' });
+    return { success: true };
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    delete axios.defaults.headers.common['Authorization'];
     setUser(null);
   };
 
