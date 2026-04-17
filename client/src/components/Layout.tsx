@@ -4,7 +4,6 @@ import { useTheme } from '../context/ThemeContext';
 import { 
   LayoutDashboard, Users, FolderKanban, CheckSquare, 
   FileText, Calendar as CalendarIcon, MessageSquare, 
-  FileText, Calendar as CalendarIcon, MessageSquare, 
   BarChart2, Settings as SettingsIcon, LogOut, Bell, Search, Sun, Moon
 } from 'lucide-react';
 

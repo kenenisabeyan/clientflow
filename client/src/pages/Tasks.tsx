@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus, MoreHorizontal, Search } from 'lucide-react';
+import { Plus, MoreHorizontal, Search, ChevronDown } from 'lucide-react';
 import api from '../api/axios';
 
 export default function Tasks() {
@@ -81,10 +81,10 @@ export default function Tasks() {
               <th style={{ paddingBottom: '0.75rem', fontWeight: 500, width: '40px' }}><input type="checkbox" /></th>
               <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Name</th>
               <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Task</th>
-              <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Due Date v</th>
-              <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Priority v</th>
-              <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Status v</th>
-              <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Actions v</th>
+              <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Due Date <ChevronDown size={12} style={{ display: 'inline', verticalAlign: 'middle', marginLeft: '0.2rem' }}/></th>
+              <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Priority <ChevronDown size={12} style={{ display: 'inline', verticalAlign: 'middle', marginLeft: '0.2rem' }}/></th>
+              <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Status <ChevronDown size={12} style={{ display: 'inline', verticalAlign: 'middle', marginLeft: '0.2rem' }}/></th>
+              <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Actions</th>
             </tr>
           </thead>
           <tbody>

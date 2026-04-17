@@ -26,8 +26,8 @@ const Input = ({ label, required, placeholder, type="text" }) => (
       type={type} 
       placeholder={placeholder} 
       style={{ 
-        width: '100%', padding: '0.75rem 1rem', background: 'rgba(15,23,42,0.6)', 
-        border: '1px solid var(--surface-border)', borderRadius: '8px', color: 'white', outline: 'none' 
+        width: '100%', padding: '0.75rem 1rem', background: 'var(--input-bg)', 
+        border: '1px solid var(--surface-border)', borderRadius: '8px', color: 'var(--text-main)', outline: 'none' 
       }} 
     />
   </div>
@@ -40,8 +40,8 @@ const Select = ({ label, required, placeholder }) => (
     </label>
     <select 
       style={{ 
-        width: '100%', padding: '0.75rem 1rem', background: 'rgba(15,23,42,0.6)', 
-        border: '1px solid var(--surface-border)', borderRadius: '8px', color: 'var(--text-muted)', outline: 'none', appearance: 'none' 
+        width: '100%', padding: '0.75rem 1rem', background: 'var(--input-bg)', 
+        border: '1px solid var(--surface-border)', borderRadius: '8px', color: 'var(--text-main)', outline: 'none', appearance: 'none' 
       }} 
     >
       <option value="">{placeholder}</option>
@@ -55,8 +55,8 @@ const Textarea = ({ label, placeholder }) => (
     <textarea 
       placeholder={placeholder} 
       style={{ 
-        width: '100%', padding: '0.75rem 1rem', background: 'rgba(15,23,42,0.6)', minHeight: '80px', resize: 'vertical',
-        border: '1px solid var(--surface-border)', borderRadius: '8px', color: 'white', outline: 'none' 
+        width: '100%', padding: '0.75rem 1rem', background: 'var(--input-bg)', minHeight: '80px', resize: 'vertical',
+        border: '1px solid var(--surface-border)', borderRadius: '8px', color: 'var(--text-main)', outline: 'none' 
       }} 
     />
   </div>
