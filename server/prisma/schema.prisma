@@ -20,6 +20,8 @@ model User {
   files        ProjectFile[]
   comments     Comment[]
   activities   Activity[]
+  tasks        Task[]
+  invoices     Invoice[]
 }
 
 model Project {
@@ -33,6 +35,8 @@ model Project {
   files        ProjectFile[]
   comments     Comment[]
   activities   Activity[]
+  tasks        Task[]
+  invoices     Invoice[]
   
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
@@ -78,4 +82,39 @@ model Comment {
   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Task {
+  id           String    @id @default(uuid())
+  title        String
+  description  String?
+  status       String    @default("todo") // todo, inProgress, done
+  priority     String    @default("Medium") // Low, Medium, High
+  dueDate      DateTime?
+
+  projectId    String?
+  project      Project?  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  assignedToId String?
+  assignedTo   User?     @relation(fields: [assignedToId], references: [id])
+
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Invoice {
+  id           String    @id @default(uuid())
+  invoiceNumber String    @unique
+  amount       Float
+  status       String    @default("pending") // pending, paid, overdue
+  dueDate      DateTime?
+  
+  projectId    String?
+  project      Project?  @relation(fields: [projectId], references: [id])
+  
+  clientId     String
+  client       User      @relation(fields: [clientId], references: [id])
+
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 }

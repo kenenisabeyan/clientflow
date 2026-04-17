@@ -83,7 +83,7 @@ export default function Calendar() {
                   {isCurrentMonth && dayEvents.map((ev, i) => (
                     <div key={i} style={{ 
                       background: ev.solid ? ev.color : ev.color, 
-                      borderLeft: ev.solid ? 'none' : \`3px solid \${ev.borderCol}\`,
+                      borderLeft: ev.solid ? 'none' : `3px solid ${ev.borderCol}`,
                       color: ev.textCol, padding: '0.35rem 0.5rem', borderRadius: '4px', fontSize: '0.75rem', 
                       fontWeight: 500, whiteSpace: 'pre-line', lineHeight: 1.3
                     }}>

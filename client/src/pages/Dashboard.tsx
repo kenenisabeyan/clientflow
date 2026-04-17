@@ -96,7 +96,7 @@ export default function Dashboard() {
               <LineChart data={revenueData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
                 <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} dy={10} />
-                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} dx={-10} tickFormatter={(val) => \`$\${val/1000}K\`} />
+                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} dx={-10} tickFormatter={(val) => `$${val/1000}K`} />
                 <Tooltip 
                   contentStyle={{ background: '#1e293b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff' }}
                   itemStyle={{ color: '#fff' }}
@@ -124,7 +124,7 @@ export default function Dashboard() {
               <PieChart>
                 <Pie data={tasksData} innerRadius={60} outerRadius={85} paddingAngle={2} dataKey="value" stroke="none">
                   {tasksData.map((entry, index) => (
-                    <Cell key={\`cell-\${index}\`} fill={entry.color} />
+                    <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
               </PieChart>
@@ -202,7 +202,7 @@ export default function Dashboard() {
             {upcomingTasks.map(task => (
               <div key={task.id} style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                 <div style={{ marginTop: '0.2rem' }}>
-                  <div style={{ width: '16px', height: '16px', borderRadius: '50%', border: \`2px solid \${task.priority === 'High' ? '#ef4444' : task.priority === 'Medium' ? '#f59e0b' : '#3b82f6'}\` }}></div>
+                  <div style={{ width: '16px', height: '16px', borderRadius: '50%', border: `2px solid ${task.priority === 'High' ? '#ef4444' : task.priority === 'Medium' ? '#f59e0b' : '#3b82f6'}` }}></div>
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontWeight: 500, fontSize: '0.95rem' }}>{task.name}</div>

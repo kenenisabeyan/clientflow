@@ -1,4 +1,4 @@
-import { ArrowUpRight, ArrowDownRight, Export, Calendar, MoreHorizontal } from 'lucide-react';
+import { ArrowUpRight, ArrowDownRight, Download, Calendar, MoreHorizontal } from 'lucide-react';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell
@@ -46,7 +46,7 @@ export default function Reports() {
             background: 'transparent', border: '1px solid var(--surface-border)', 
             borderRadius: '8px', color: 'var(--text-main)', cursor: 'pointer' 
           }}>
-            <Export size={16} /> Export
+            <Download size={16} /> Export
           </button>
 
           <button style={{ 
@@ -101,7 +101,7 @@ export default function Reports() {
               <BarChart data={revenueData} barSize={40}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
                 <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} dy={10} />
-                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} dx={-10} tickFormatter={(val) => \`$\${val/1000}K\`} />
+                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} dx={-10} tickFormatter={(val) => `$${val/1000}K`} />
                 <Tooltip 
                   cursor={{ fill: 'rgba(255,255,255,0.05)' }}
                   contentStyle={{ background: '#1e293b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff' }}
@@ -129,7 +129,7 @@ export default function Reports() {
               <PieChart>
                 <Pie data={projectsData} innerRadius={60} outerRadius={85} paddingAngle={2} dataKey="value" stroke="none">
                   {projectsData.map((entry, index) => (
-                    <Cell key={\`cell-\${index}\`} fill={entry.color} />
+                    <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
               </PieChart>

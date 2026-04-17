@@ -1,24 +1,33 @@
 import { useState, useEffect } from 'react';
 import { Search, Filter, Plus, MoreHorizontal, ChevronLeft, ChevronRight } from 'lucide-react';
-import api from '../context/AuthContext'; // Or typical axios instance
-
-// Mock Data representing "dynamics data" for the Clients Page
-const initialClients = [
-  { id: 1, name: 'Acme Corp', email: 'contact@acmecorp.com', phone: '+1 555-0123', status: 'Active', avatar: 'A' },
-  { id: 2, name: 'Globex Inc', email: 'info@globex.com', phone: '+1 555-0124', status: 'Active', avatar: 'G' },
-  { id: 3, name: 'Stark Industries', email: 'hello@stark.com', phone: '+1 555-0125', status: 'Offline', avatar: 'S' },
-  { id: 4, name: 'Wayne Enterprises', email: 'contact@wayne.com', phone: '+1 555-0126', status: 'Active', avatar: 'W' },
-  { id: 5, name: 'Initech', email: 'hello@initech.com', phone: '+1 555-0127', status: 'Active', avatar: 'I' },
-];
+import api from '../api/axios';
 
 export default function Clients() {
-  const [clients, setClients] = useState(initialClients);
+  const [clients, setClients] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true);
 
-  // Future API Integration placeholder
-  // useEffect(() => {
-  //   api.get('/clients').then(res => setClients(res.data));
-  // }, []);
+  useEffect(() => {
+    const fetchClients = async () => {
+      try {
+        const res = await api.get('/users?role=client');
+        const formattedClients = res.data.users.map((u: any) => ({
+          id: u._id,
+          name: u.name,
+          email: u.email,
+          phone: u.phone || '+1 555-0000',
+          status: 'Active',
+          avatar: u.name.charAt(0).toUpperCase()
+        }));
+        setClients(formattedClients);
+      } catch (err) {
+        console.error('Failed to fetch clients', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchClients();
+  }, []);
 
   const filteredClients = clients.filter(c => 
     c.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -105,7 +114,7 @@ export default function Clients() {
                     padding: '0.25rem 0.75rem', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 500,
                     background: client.status === 'Active' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(148, 163, 184, 0.1)',
                     color: client.status === 'Active' ? '#10b981' : '#94a3b8',
-                    border: \`1px solid \${client.status === 'Active' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(148, 163, 184, 0.2)'}\`
+                    border: `1px solid ${client.status === 'Active' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(148, 163, 184, 0.2)'}`
                   }}>
                     {client.status}
                   </span>

@@ -1,17 +1,34 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Search, Filter, Plus, ChevronDown, ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
-
-const initialProjects = [
-  { id: 1, name: 'Website Redesign', client: 'Acme Corp', status: 'In Progress', progress: 75, deadline: 'May 15, 2024', icon: 'W' },
-  { id: 2, name: 'Mobile App', client: 'Globex Inc', status: 'In Progress', progress: 45, deadline: 'Jun 30, 2024', icon: 'M' },
-  { id: 3, name: 'Brand Identity', client: 'Stark Industries', status: 'Planning', progress: 20, deadline: 'Jul 10, 2024', icon: 'B' },
-  { id: 4, name: 'E-commerce Platform', client: 'Wayne Enterprises', status: 'Completed', progress: 100, deadline: 'Apr 20, 2024', icon: 'E' },
-  { id: 5, name: 'CRM Integration', client: 'Initech', status: 'In Progress', progress: 60, deadline: 'May 30, 2024', icon: 'C' },
-];
+import api from '../api/axios';
 
 export default function Projects() {
-  const [projects] = useState(initialProjects);
+  const [projects, setProjects] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await api.get('/projects');
+        const formattedProjects = res.data.projects.map((p: any) => ({
+          id: p._id,
+          name: p.title,
+          client: p.client?.name || 'Unknown',
+          status: p.status === 'pending' ? 'Planning' : p.status === 'in-progress' ? 'In Progress' : 'Completed',
+          progress: p.status === 'completed' ? 100 : p.status === 'in-progress' ? 50 : 10,
+          deadline: new Date(p.updatedAt).toLocaleDateString(),
+          icon: p.title.charAt(0).toUpperCase()
+        }));
+        setProjects(formattedProjects);
+      } catch (err) {
+        console.error('Failed to fetch projects', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProjects();
+  }, []);
 
   const filteredProjects = projects.filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
@@ -104,10 +121,10 @@ export default function Projects() {
                                 project.status === 'In Progress' ? 'rgba(59, 130, 246, 0.1)' : 'rgba(245, 158, 11, 0.1)',
                     color: project.status === 'Completed' ? '#10b981' : 
                           project.status === 'In Progress' ? '#3b82f6' : '#f59e0b',
-                    border: \`1px solid \${
+                    border: `1px solid ${
                       project.status === 'Completed' ? 'rgba(16, 185, 129, 0.2)' : 
                       project.status === 'In Progress' ? 'rgba(59, 130, 246, 0.2)' : 'rgba(245, 158, 11, 0.2)'
-                    }\`
+                    }`
                   }}>
                     {project.status}
                   </span>
@@ -116,7 +133,7 @@ export default function Projects() {
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                     <div style={{ width: '100px', height: '6px', background: 'rgba(255,255,255,0.1)', borderRadius: '3px', overflow: 'hidden' }}>
                       <div style={{ 
-                        height: '100%', width: \`\${project.progress}%\`, borderRadius: '3px',
+                        height: '100%', width: `${project.progress}%`, borderRadius: '3px',
                         background: project.status === 'Completed' ? '#10b981' : 'var(--primary)'
                       }}></div>
                     </div>

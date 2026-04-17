@@ -98,10 +98,10 @@ export default function Invoices() {
                                 inv.status === 'Pending' ? 'rgba(245, 158, 11, 0.1)' : 'rgba(239, 68, 68, 0.1)',
                     color: inv.status === 'Paid' ? '#10b981' : 
                           inv.status === 'Pending' ? '#f59e0b' : '#ef4444',
-                    border: \`1px solid \${
+                    border: `1px solid ${
                       inv.status === 'Paid' ? 'rgba(16, 185, 129, 0.2)' : 
                       inv.status === 'Pending' ? 'rgba(245, 158, 11, 0.2)' : 'rgba(239, 68, 68, 0.2)'
-                    }\`
+                    }`
                   }}>
                     {inv.status}
                   </span>

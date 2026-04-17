@@ -63,9 +63,9 @@ export default function Layout() {
             <h1 className="page-title">{getPageTitle()}</h1>
           </div>
           <div className="topbar-right" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-             <div className="search-bar" style={{ display: 'flex', alignItems: 'center', background: 'rgba(255,255,255,0.05)', padding: '0.5rem 1rem', borderRadius: '20px', border: '1px solid var(--surface-border)' }}>
+             <div className="search-bar" style={{ display: 'flex', alignItems: 'center', background: 'var(--bg-color)', padding: '0.5rem 1rem', borderRadius: '20px', border: '1px solid var(--surface-border)' }}>
                <Search size={16} style={{ color: 'var(--text-muted)', marginRight: '0.5rem' }} />
-               <input type="text" placeholder="Search..." style={{ background: 'transparent', border: 'none', color: 'white', outline: 'none', fontSize: '0.9rem' }} />
+               <input type="text" placeholder="Search..." style={{ background: 'transparent', border: 'none', color: 'var(--text-main)', outline: 'none', fontSize: '0.9rem' }} />
              </div>
              <button style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', position: 'relative' }}>
                 <Bell size={20} />

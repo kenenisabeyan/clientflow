@@ -53,7 +53,7 @@ const TaskCard = ({ task }) => {
         <div style={{ display: 'flex', gap: '0.5rem' }}>
           <span style={{ 
             display: 'flex', alignItems: 'center', gap: '0.35rem',
-            background: pBg, color: pColor, border: \`1px solid \${pColor}40\`,
+            background: pBg, color: pColor, border: `1px solid ${pColor}40`,
             padding: '0.25rem 0.5rem', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 600
           }}>
             <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: pColor }}></div>

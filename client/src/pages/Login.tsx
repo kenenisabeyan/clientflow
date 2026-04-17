@@ -52,7 +52,7 @@ export default function Login() {
               borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)',
               display: 'flex', alignItems: 'center', justifyContent: 'center'
             }}>
-              <div style={{ width: '150px', height: '150px', background: 'url("data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'%233b82f6\\' stroke-width=\\'1\\' stroke-linecap=\\'round\\' stroke-linejoin=\\'round\\'%3E%3Crect x=\\'2\\' y=\\'3\\' width=\\'20\\' height=\\'14\\' rx=\\'2\\' ry=\\'2\\'%3E%3C/rect%3E%3Cline x1=\\'8\\' y1=\\'21\\' x2=\\'16\\' y2=\\'21\\'%3E%3C/line%3E%3Cline x1=\\'12\\' y1=\\'17\\' x2=\\'12\\' y2=\\'21\\'%3E%3C/line%3E%3C/svg%3E") no-repeat center', backgroundSize: 'contain', opacity: 0.8 }}></div>
+              <div style={{ width: '150px', height: '150px', background: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%233b82f6\' stroke-width=\'1\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Crect x=\'2\' y=\'3\' width=\'20\' height=\'14\' rx=\'2\' ry=\'2\'%3E%3C/rect%3E%3Cline x1=\'8\' y1=\'21\' x2=\'16\' y2=\'21\'%3E%3C/line%3E%3Cline x1=\'12\' y1=\'17\' x2=\'12\' y2=\'21\'%3E%3C/line%3E%3C/svg%3E") no-repeat center', backgroundSize: 'contain', opacity: 0.8 }}></div>
             </div>
           </div>
         </div>

@@ -1,19 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bg-color: #0f172a;
-  --surface: rgba(30, 41, 59, 0.7);
-  --surface-border: rgba(255, 255, 255, 0.08);
+  --bg-color: #f4f7fc;
+  --surface: #ffffff;
+  --surface-border: #e2e8f0;
   --primary: #3b82f6;
   --primary-hover: #2563eb;
   --accent: #8b5cf6;
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
   --font-main: 'Inter', system-ui, sans-serif;
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  --blur: blur(12px);
-  --radius: 16px;
-  --transition: all 0.3s ease;
+  --glass-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.05);
+  --blur: none;
+  --radius: 12px;
+  --transition: all 0.2s ease;
+
+  /* Sidebar styling */
+  --sidebar-bg: #1e293b;
+  --sidebar-border: #0f172a;
+  --sidebar-text: #f8fafc;
+  --sidebar-muted: #94a3b8;
+  --sidebar-hover: rgba(255, 255, 255, 0.05);
+  --sidebar-active-bg: rgba(59, 130, 246, 0.15);
 }
 
 * {
@@ -27,10 +35,6 @@ body {
   background: var(--bg-color);
   color: var(--text-main);
   min-height: 100vh;
-  background-image: 
-    radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
-  background-attachment: fixed;
 }
 
 /* Auth Pages */
@@ -39,6 +43,7 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  background: #f4f7fc;
 }
 
 .auth-container {
@@ -49,12 +54,10 @@ body {
 
 .auth-card {
   background: var(--surface);
-  backdrop-filter: var(--blur);
-  -webkit-backdrop-filter: var(--blur);
   border: 1px solid var(--surface-border);
   border-radius: var(--radius);
   padding: 2.5rem;
-  box-shadow: var(--glass-shadow);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
   animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -144,10 +147,8 @@ body {
 
 .sidebar {
   width: 260px;
-  background: var(--surface);
-  backdrop-filter: var(--blur);
-  -webkit-backdrop-filter: var(--blur);
-  border-right: 1px solid var(--surface-border);
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
   display: flex;
   flex-direction: column;
 }
@@ -156,12 +157,9 @@ body {
   padding: 1.75rem;
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--text-main);
+  color: var(--sidebar-text);
   letter-spacing: -0.5px;
-  border-bottom: 1px solid var(--surface-border);
-  background: linear-gradient(to right, #fff, var(--text-muted));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 .sidebar-nav {
@@ -179,7 +177,7 @@ body {
   padding: 0.85rem 1rem;
   border-radius: 8px;
   text-decoration: none;
-  color: var(--text-muted);
+  color: var(--sidebar-muted);
   font-weight: 500;
   transition: var(--transition);
   background: transparent;
@@ -191,13 +189,13 @@ body {
 }
 
 .sidebar-nav a:hover, .sidebar-nav button:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-main);
+  background: var(--sidebar-hover);
+  color: var(--sidebar-text);
   transform: translateX(4px);
 }
 
 .sidebar-nav a.active {
-  background: rgba(59, 130, 246, 0.15);
+  background: var(--sidebar-active-bg);
   color: var(--primary);
   border-left: 3px solid var(--primary);
 }
@@ -207,13 +205,12 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background: var(--bg-color);
 }
 
 .topbar {
   height: 72px;
-  background: rgba(15, 23, 42, 0.5);
-  backdrop-filter: var(--blur);
-  -webkit-backdrop-filter: var(--blur);
+  background: var(--surface);
   border-bottom: 1px solid var(--surface-border);
   display: flex;
   align-items: center;
@@ -225,6 +222,7 @@ body {
   font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: -0.5px;
+  color: var(--text-main);
 }
 
 .user-menu {
@@ -232,7 +230,7 @@ body {
   align-items: center;
   gap: 1rem;
   font-size: 0.9rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface);
   padding: 0.5rem 1rem;
   border-radius: 20px;
   border: 1px solid var(--surface-border);
