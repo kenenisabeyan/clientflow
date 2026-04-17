@@ -57,162 +57,154 @@ export default function Dashboard() {
       {/* Top Stats Row */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem' }}>
         {[ 
-          { title: 'Clients', value: '128', change: '+8.1%', up: true },
-          { title: 'Projects', value: '42', change: '+15.2%', up: true },
-          { title: 'Tasks', value: '156', change: '-2.3%', up: false },
-          { title: 'Revenue', value: '$24,580', change: '+12.5%', up: true },
+          { title: 'New Customers', value: '25', change: '+8.1%', up: true, bg: 'linear-gradient(135deg, #3b82f6, #2563eb)' },
+          { title: 'Open Tasks', value: '12', change: '+15.2%', up: true, bg: 'linear-gradient(135deg, #f97316, #ea580c)' },
+          { title: 'Completed Tasks', value: '30', change: '-2.3%', up: false, bg: 'linear-gradient(135deg, #10b981, #059669)' },
+          { title: 'Notifications', value: '5', change: '+12.5%', up: true, bg: 'linear-gradient(135deg, #a855f7, #9333ea)' },
         ].map((stat, i) => (
           <div key={i} style={{ 
-            background: 'var(--surface)', border: '1px solid var(--surface-border)', 
-            borderRadius: 'var(--radius)', padding: '1.5rem', display: 'flex', flexDirection: 'column'
+            background: stat.bg, color: 'white',
+            borderRadius: 'var(--radius)', padding: '1.5rem', display: 'flex', flexDirection: 'column',
+            boxShadow: '0 4px 15px rgba(0,0,0,0.1)', position: 'relative', overflow: 'hidden'
           }}>
-            <h3 style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 500, marginBottom: '0.5rem' }}>{stat.title}</h3>
-            <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: '2rem', fontWeight: 700 }}>{stat.value}</span>
+            <h3 style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.9)', fontWeight: 500, marginBottom: '0.5rem' }}>{stat.title}</h3>
+            <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', zIndex: 1 }}>
+              <span style={{ fontSize: '2.5rem', fontWeight: 700, lineHeight: 1 }}>{stat.value}</span>
               <span style={{ 
                 display: 'flex', alignItems: 'center', fontSize: '0.8rem', fontWeight: 600,
-                color: stat.up ? '#10b981' : '#ef4444', background: stat.up ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
-                padding: '0.2rem 0.5rem', borderRadius: '20px', marginBottom: '0.25rem'
+                color: 'white', background: 'rgba(255,255,255,0.2)',
+                padding: '0.2rem 0.5rem', borderRadius: '4px', marginBottom: '0.25rem'
               }}>
                 {stat.up ? <ArrowUpRight size={14} style={{ marginRight: '0.1rem' }}/> : <ArrowDownRight size={14} style={{ marginRight: '0.1rem' }}/>}
                 {stat.change}
               </span>
             </div>
+            {/* Soft decor graphic */}
+            <div style={{ position: 'absolute', right: '-10%', bottom: '-20%', opacity: 0.1 }}>
+              <FolderKanban size={100} />
+            </div>
           </div>
         ))}
       </div>
 
-      {/* Charts Row */}
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1.5rem' }}>
+      {/* Middle Tables Row */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
         
-        {/* Revenue Line Chart */}
+        {/* Customers Table */}
         <div style={{ 
           background: 'var(--surface)', border: '1px solid var(--surface-border)', 
           borderRadius: 'var(--radius)', padding: '1.5rem', display: 'flex', flexDirection: 'column'
         }}>
-          <h3 style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '1.5rem' }}>Revenue Overview</h3>
-          <div style={{ height: '300px', width: '100%' }}>
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={revenueData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} dy={10} />
-                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} dx={-10} tickFormatter={(val) => `$${val/1000}K`} />
-                <Tooltip 
-                  contentStyle={{ background: '#1e293b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff' }}
-                  itemStyle={{ color: '#fff' }}
-                />
-                <Line type="monotone" dataKey="value" stroke="var(--primary)" strokeWidth={3} dot={{ r: 4, fill: 'var(--primary)', strokeWidth: 2, stroke: '#1e293b' }} activeDot={{ r: 6 }} />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-
-        {/* Tasks Donut Chart */}
-        <div style={{ 
-          background: 'var(--surface)', border: '1px solid var(--surface-border)', 
-          borderRadius: 'var(--radius)', padding: '1.5rem', display: 'flex', flexDirection: 'column'
-        }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 600 }}>Tasks Overview</h3>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 600 }}>Customers</h3>
             <button style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}>
               <MoreHorizontal size={20} />
             </button>
           </div>
           
-          <div style={{ height: '220px', width: '100%', position: 'relative' }}>
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie data={tasksData} innerRadius={60} outerRadius={85} paddingAngle={2} dataKey="value" stroke="none">
-                  {tasksData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ResponsiveContainer>
-            <div style={{ 
-              position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', 
-              display: 'flex', flexDirection: 'column', alignItems: 'center' 
-            }}>
-              <span style={{ fontSize: '2.5rem', fontWeight: 700, lineHeight: 1 }}>156</span>
-              <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Total Tasks</span>
+          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
+            <thead>
+              <tr style={{ borderBottom: '1px solid var(--surface-border)', color: 'var(--text-muted)' }}>
+                <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Name</th>
+                <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Phone</th>
+                <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Status v</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                { name: 'John Doe', phone: '123-456-7890', status: 'Contacted', sc: '#f59e0b', sbg: 'rgba(245, 158, 11, 0.1)' },
+                { name: 'Jane Smith', phone: '987-654-3210', status: 'New', sc: '#10b981', sbg: 'rgba(16, 185, 129, 0.1)' },
+                { name: 'Acme Corp', phone: '555-123-4567', status: 'Pending', sc: '#3b82f6', sbg: 'rgba(59, 130, 246, 0.1)' },
+              ].map((row, i) => (
+                <tr key={i} style={{ borderBottom: '1px solid var(--surface-border)' }}>
+                  <td style={{ padding: '1rem 0', fontWeight: 500 }}>{row.name}</td>
+                  <td style={{ padding: '1rem 0', color: 'var(--text-muted)' }}>{row.phone}</td>
+                  <td style={{ padding: '1rem 0' }}>
+                    <span style={{ color: row.sc, background: row.sbg, padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 600 }}>
+                      {row.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Tasks Table */}
+        <div style={{ 
+          background: 'var(--surface)', border: '1px solid var(--surface-border)', 
+          borderRadius: 'var(--radius)', padding: '1.5rem', display: 'flex', flexDirection: 'column'
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 600 }}>Tasks</h3>
+            <button style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}>
+              <MoreHorizontal size={20} />
+            </button>
+          </div>
+          
+          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
+            <thead>
+              <tr style={{ borderBottom: '1px solid var(--surface-border)', color: 'var(--text-muted)' }}>
+                <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Task</th>
+                <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Due Date v</th>
+                <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Status v</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                { task: 'Follow-up Call', date: 'April 20, 2024', status: 'Pending', sc: '#10b981', sbg: 'rgba(16, 185, 129, 0.1)' },
+                { task: 'Send Proposal', date: 'April 18, 2024', status: 'Completed', sc: '#3b82f6', sbg: 'rgba(59, 130, 246, 0.1)' },
+                { task: 'Review Contract', date: 'April 15, 2022', status: 'Overdue', sc: '#ef4444', sbg: 'rgba(239, 68, 68, 0.1)' },
+              ].map((row, i) => (
+                <tr key={i} style={{ borderBottom: '1px solid var(--surface-border)' }}>
+                  <td style={{ padding: '1rem 0', fontWeight: 500, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'var(--text-muted)' }}></div>
+                    {row.task}
+                  </td>
+                  <td style={{ padding: '1rem 0', color: 'var(--text-muted)' }}>{row.date}</td>
+                  <td style={{ padding: '1rem 0' }}>
+                    <span style={{ color: row.sc, background: row.sbg, padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 600 }}>
+                      {row.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      {/* Bottom Row - Recent Activity */}
+      <div style={{ 
+          background: 'var(--surface)', border: '1px solid var(--surface-border)', 
+          borderRadius: 'var(--radius)', padding: '1.5rem', display: 'flex', flexDirection: 'column'
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 600 }}>Recent Activity</h3>
+            <div style={{ display: 'flex', gap: '1rem', color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+                <span>&lt; &gt;</span>
+                <span>=</span>
             </div>
           </div>
           
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '1rem' }}>
-            {tasksData.map((item, idx) => (
-              <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.9rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: item.color }}></div>
-                  <span style={{ color: 'var(--text-muted)' }}>{item.name}</span>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {[
+              { icon: Users, color: '#3b82f6', text: 'New customer added: Jane Smith', time: '1 hr' },
+              { icon: CheckSquare, color: '#ef4444', text: 'Task "Review Contract" is overdue', time: '5 hr' },
+              { icon: LayoutDashboard, color: '#10b981', text: 'System update scheduled tomorrow.', time: '6 hr' },
+            ].map((activity, i) => (
+              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 0', borderBottom: i === 2 ? 'none' : '1px solid var(--surface-border)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                   <div style={{ color: activity.color, background: `${activity.color}20`, padding: '0.4rem', borderRadius: '50%' }}>
+                     <activity.icon size={16} />
+                   </div>
+                   <span style={{ fontSize: '0.9rem' }}>{activity.text}</span>
                 </div>
-                <span style={{ fontWeight: 600 }}>{item.value}</span>
+                <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{activity.time}</span>
               </div>
             ))}
           </div>
-        </div>
-      </div>
-
-      {/* Bottom Lists Row */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
-        
-        {/* Recent Clients */}
-        <div style={{ background: 'var(--surface)', border: '1px solid var(--surface-border)', borderRadius: 'var(--radius)', padding: '1.5rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-            <h3 style={{ fontSize: '1rem', fontWeight: 600 }}>Recent Clients</h3>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            {recentClients.map(client => (
-              <div key={client.id} style={{ display: 'flex', alignItems: 'center', gap: '1rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--primary), var(--accent))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
-                  {client.avatar}
-                </div>
-                <div>
-                  <div style={{ fontWeight: 500, fontSize: '0.95rem' }}>{client.name}</div>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{client.role}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Recent Projects */}
-        <div style={{ background: 'var(--surface)', border: '1px solid var(--surface-border)', borderRadius: 'var(--radius)', padding: '1.5rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-            <h3 style={{ fontSize: '1rem', fontWeight: 600 }}>Recent Projects</h3>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            {recentProjects.map(project => (
-              <div key={project.id} style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontWeight: 500, fontSize: '0.95rem' }}>{project.name}</span>
-                  <span style={{ fontSize: '0.75rem', padding: '0.15rem 0.5rem', borderRadius: '20px', background: 'rgba(255,255,255,0.05)', color: 'var(--text-muted)' }}>{project.status}</span>
-                </div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{project.client}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Upcoming Tasks */}
-        <div style={{ background: 'var(--surface)', border: '1px solid var(--surface-border)', borderRadius: 'var(--radius)', padding: '1.5rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-            <h3 style={{ fontSize: '1rem', fontWeight: 600 }}>Upcoming Tasks</h3>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            {upcomingTasks.map(task => (
-              <div key={task.id} style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                <div style={{ marginTop: '0.2rem' }}>
-                  <div style={{ width: '16px', height: '16px', borderRadius: '50%', border: `2px solid ${task.priority === 'High' ? '#ef4444' : task.priority === 'Medium' ? '#f59e0b' : '#3b82f6'}` }}></div>
-                </div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontWeight: 500, fontSize: '0.95rem' }}>{task.name}</div>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{task.date}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
       </div>
     </div>
   );

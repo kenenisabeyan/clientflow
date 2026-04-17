@@ -27,7 +27,7 @@ export default function Invoices() {
         
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <div style={{ 
-            display: 'flex', alignItems: 'center', background: 'rgba(255,255,255,0.05)', 
+            display: 'flex', alignItems: 'center', background: 'var(--surface-border)', 
             padding: '0.6rem 1rem', borderRadius: '8px', border: '1px solid var(--surface-border)', width: '250px' 
           }}>
             <Search size={16} style={{ color: 'var(--text-muted)', marginRight: '0.5rem' }} />
@@ -36,7 +36,7 @@ export default function Invoices() {
               placeholder="Search invoices..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              style={{ background: 'transparent', border: 'none', color: 'white', outline: 'none', width: '100%', fontSize: '0.9rem' }} 
+              style={{ background: 'transparent', border: 'none', color: 'var(--text-main)', outline: 'none', width: '100%', fontSize: '0.9rem' }} 
             />
           </div>
           
@@ -81,7 +81,7 @@ export default function Invoices() {
           </thead>
           <tbody>
             {filteredInvoices.map((inv) => (
-              <tr key={inv.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', transition: 'var(--transition)' }}>
+              <tr key={inv.id} style={{ borderBottom: '1px solid var(--surface-border)', transition: 'var(--transition)' }}>
                 <td style={{ padding: '1.25rem 1.5rem', fontWeight: 600 }}>
                   {inv.invoiceId}
                 </td>
@@ -126,7 +126,7 @@ export default function Invoices() {
           </div>
           <div style={{ display: 'flex', gap: '0.25rem', alignItems: 'center' }}>
             <button style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', padding: '0.25rem' }}><ChevronLeft size={18}/></button>
-            <button style={{ background: 'var(--primary)', border: 'none', color: 'white', borderRadius: '4px', width: '28px', height: '28px', cursor: 'pointer', fontWeight: 500 }}>1</button>
+            <button style={{ background: 'var(--primary)', border: 'none', color: '#fff', borderRadius: '4px', width: '28px', height: '28px', cursor: 'pointer', fontWeight: 500 }}>1</button>
             <button style={{ background: 'transparent', border: 'none', color: 'var(--text-main)', borderRadius: '4px', width: '28px', height: '28px', cursor: 'pointer' }}>2</button>
             <button style={{ background: 'transparent', border: 'none', color: 'var(--text-main)', borderRadius: '4px', width: '28px', height: '28px', cursor: 'pointer' }}>3</button>
             <span style={{ color: 'var(--text-muted)', margin: '0 0.25rem' }}>...</span>

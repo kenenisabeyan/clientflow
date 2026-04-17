@@ -30,11 +30,11 @@ export default function Messages() {
         <div style={{ width: '300px', background: 'var(--surface)', display: 'flex', flexDirection: 'column' }}>
           <div style={{ padding: '1rem', borderBottom: '1px solid var(--surface-border)' }}>
             <div style={{ 
-              display: 'flex', alignItems: 'center', background: 'rgba(255,255,255,0.05)', 
-              padding: '0.6rem 1rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)'
+              display: 'flex', alignItems: 'center', background: 'var(--surface-border)', 
+              padding: '0.6rem 1rem', borderRadius: '8px', border: '1px solid var(--surface-border)'
             }}>
               <Search size={16} style={{ color: 'var(--text-muted)', marginRight: '0.5rem' }} />
-              <input type="text" placeholder="Search chats..." style={{ background: 'transparent', border: 'none', color: 'white', outline: 'none', width: '100%' }} />
+              <input type="text" placeholder="Search chats..." style={{ background: 'transparent', border: 'none', color: 'var(--text-main)', outline: 'none', width: '100%' }} />
             </div>
           </div>
           
@@ -44,7 +44,7 @@ export default function Messages() {
                 padding: '1rem', display: 'flex', gap: '1rem', alignItems: 'center', cursor: 'pointer',
                 background: contact.id === 1 ? 'rgba(59, 130, 246, 0.1)' : 'transparent',
                 borderLeft: contact.id === 1 ? '3px solid var(--primary)' : '3px solid transparent',
-                borderBottom: '1px solid rgba(255,255,255,0.02)'
+                borderBottom: '1px solid var(--surface-border)'
               }}>
                 <div style={{ position: 'relative' }}>
                   <div style={{ 
@@ -62,7 +62,7 @@ export default function Messages() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{contact.lastMsg}</span>
                     {contact.unread > 0 && (
-                      <span style={{ background: 'var(--primary)', color: 'white', fontSize: '0.7rem', padding: '0.1rem 0.4rem', borderRadius: '10px', fontWeight: 'bold' }}>{contact.unread}</span>
+                      <span style={{ background: 'var(--primary)', color: '#fff', fontSize: '0.7rem', padding: '0.1rem 0.4rem', borderRadius: '10px', fontWeight: 'bold' }}>{contact.unread}</span>
                     )}
                   </div>
                 </div>
@@ -96,13 +96,13 @@ export default function Messages() {
           {/* Messages Stream */}
           <div style={{ flex: 1, padding: '1.5rem', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div style={{ textAlign: 'center', margin: '1rem 0' }}>
-              <span style={{ fontSize: '0.75rem', background: 'rgba(255,255,255,0.05)', padding: '0.25rem 0.75rem', borderRadius: '12px', color: 'var(--text-muted)' }}>Today, 2:30 PM</span>
+              <span style={{ fontSize: '0.75rem', background: 'var(--surface-border)', padding: '0.25rem 0.75rem', borderRadius: '12px', color: 'var(--text-muted)' }}>Today, 2:30 PM</span>
             </div>
             
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', maxWidth: '70%' }}>
               <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--primary), var(--accent))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '0.8rem' }}>A</div>
               <div>
-                <div style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', padding: '0.85rem 1rem', borderRadius: '0 12px 12px 12px', borderTopLeftRadius: 0 }}>
+                <div style={{ background: 'var(--surface-border)', border: '1px solid var(--surface-border)', padding: '0.85rem 1rem', borderRadius: '0 12px 12px 12px', borderTopLeftRadius: 0 }}>
                   <p style={{ fontSize: '0.9rem', lineHeight: 1.5 }}>Hi John, how's the website redesign coming along? Completed?</p>
                 </div>
                 <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: '0.25rem', display: 'inline-block' }}>2:30 PM</span>
@@ -113,7 +113,7 @@ export default function Messages() {
               <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '0.8rem' }}>J</div>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
                 <div style={{ background: 'var(--primary)', padding: '0.85rem 1rem', borderRadius: '12px 0 12px 12px' }}>
-                  <p style={{ fontSize: '0.9rem', lineHeight: 1.5, color: '#fff' }}>Great! We've started the page design. Unveiling it tomorrow for review.</p>
+                  <p style={{ fontSize: '0.9rem', lineHeight: 1.5, color: 'var(--text-main)' }}>Great! We've started the page design. Unveiling it tomorrow for review.</p>
                 </div>
                 <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                   2:33 PM <CheckCheck size={14} color="var(--primary)"/>
@@ -125,7 +125,7 @@ export default function Messages() {
               <div></div>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
                 <div style={{ background: 'var(--primary)', padding: '0.85rem 1rem', borderRadius: '12px 0 12px 12px' }}>
-                  <p style={{ fontSize: '0.9rem', lineHeight: 1.5, color: '#fff' }}>Sure, I'll share them now.</p>
+                  <p style={{ fontSize: '0.9rem', lineHeight: 1.5, color: 'var(--text-main)' }}>Sure, I'll share them now.</p>
                 </div>
               </div>
             </div>
@@ -133,9 +133,9 @@ export default function Messages() {
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', maxWidth: '70%' }}>
               <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--primary), var(--accent))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '0.8rem' }}>A</div>
               <div>
-                <div style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', padding: '0.85rem 1rem', borderRadius: '0 12px 12px 12px' }}>
+                <div style={{ background: 'var(--surface-border)', border: '1px solid var(--surface-border)', padding: '0.85rem 1rem', borderRadius: '0 12px 12px 12px' }}>
                   <p style={{ fontSize: '0.9rem', lineHeight: 1.5, marginBottom: '0.75rem' }}>Can you send me some mockups?</p>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', background: 'rgba(15,23,42,0.5)', padding: '0.75rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', background: 'var(--surface)', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--surface-border)' }}>
                     <div style={{ width: '36px', height: '36px', background: 'rgba(59, 130, 246, 0.1)', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)' }}>
                       <Image size={20} />
                     </div>
@@ -155,21 +155,21 @@ export default function Messages() {
           <div style={{ padding: '1.25rem', borderTop: '1px solid var(--surface-border)' }}>
             <div style={{ 
               display: 'flex', alignItems: 'center', gap: '1rem', background: 'rgba(15,23,42,0.6)', 
-              border: '1px solid rgba(255,255,255,0.1)', borderRadius: '24px', padding: '0.5rem 0.5rem 0.5rem 1.25rem' 
+              border: '1px solid var(--surface-border)', borderRadius: '24px', padding: '0.5rem 0.5rem 0.5rem 1.25rem' 
             }}>
               <input 
                 type="text" 
                 placeholder="Type a message..." 
                 value={msgInput}
                 onChange={(e) => setMsgInput(e.target.value)}
-                style={{ flex: 1, background: 'transparent', border: 'none', color: 'white', outline: 'none', fontSize: '0.9rem' }} 
+                style={{ flex: 1, background: 'transparent', border: 'none', color: 'var(--text-main)', outline: 'none', fontSize: '0.9rem' }} 
               />
               <button style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
                 <Paperclip size={20} />
               </button>
               <button style={{ 
                 background: 'var(--primary)', border: 'none', width: '36px', height: '36px', borderRadius: '50%', 
-                display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', cursor: 'pointer' 
+                display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', cursor: 'pointer' 
               }}>
                 <Send size={16} style={{ marginLeft: '2px' }} />
               </button>

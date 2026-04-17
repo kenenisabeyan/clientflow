@@ -37,9 +37,9 @@ export default function Calendar() {
             <button style={{ background: 'transparent', border: 'none', color: 'var(--text-main)', cursor: 'pointer', display: 'flex' }}><ChevronRight size={20}/></button>
           </div>
 
-          <div style={{ display: 'flex', background: 'rgba(255,255,255,0.05)', borderRadius: '8px', padding: '0.25rem' }}>
+          <div style={{ display: 'flex', background: 'var(--surface-border)', borderRadius: '8px', padding: '0.25rem' }}>
             <button style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', padding: '0.35rem 1rem', borderRadius: '6px', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 500 }}>Month</button>
-            <button style={{ background: 'var(--surface)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--text-main)', padding: '0.35rem 1rem', borderRadius: '6px', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 600, boxShadow: '0 2px 5px rgba(0,0,0,0.2)' }}>Week</button>
+            <button style={{ background: 'var(--surface)', border: '1px solid var(--surface-border)', color: 'var(--text-main)', padding: '0.35rem 1rem', borderRadius: '6px', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 600, boxShadow: '0 2px 5px rgba(0,0,0,0.2)' }}>Week</button>
             <button style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', padding: '0.35rem 1rem', borderRadius: '6px', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 500 }}>Day</button>
           </div>
         </div>

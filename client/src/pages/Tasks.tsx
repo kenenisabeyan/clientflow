@@ -1,85 +1,47 @@
-import { Plus, Filter, MoreHorizontal, Clock } from 'lucide-react';
-
-const tasksData = {
-  todo: [
-    { id: 1, title: 'Design Homepage', project: 'Acme Corp', priority: 'High', date: 'Today', avatar: 'U1' },
-    { id: 2, title: 'User Research', project: 'Globex Inc', priority: 'Medium', date: 'Oct 12', avatar: 'U2' },
-    { id: 3, title: 'Content Strategy', project: 'Stark Industries', priority: 'High', date: 'Oct 15', avatar: 'U3' },
-    { id: 4, title: 'Bug Fixes', project: 'Initech', priority: 'Low', date: 'Oct 16', avatar: 'U4' },
-  ],
-  inProgress: [
-    { id: 5, title: 'Frontend Development', project: 'Acme Corp', priority: 'High', date: 'Today', avatar: 'U5' },
-    { id: 6, title: 'API Integration', project: 'Globex Inc', priority: 'Medium', date: 'Tomorrow', avatar: 'U6' },
-    { id: 7, title: 'Logo Design', project: 'Wayne Enterprises', priority: 'Low', date: 'Oct 18', avatar: 'U7' },
-  ],
-  done: [
-    { id: 8, title: 'Project Setup', project: 'Acme Corp', priority: 'Medium', date: 'Oct 01', avatar: 'U8' },
-    { id: 9, title: 'Wireframing', project: 'Globex Inc', priority: 'High', date: 'Oct 05', avatar: 'U9' },
-    { id: 10, title: 'Client Meeting', project: 'Wayne Enterprises', priority: 'Medium', date: 'Oct 08', avatar: 'U10' },
-  ]
-};
-
-const ColumnHeader = ({ title, count, color }) => (
-  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
-    <h3 style={{ fontSize: '1rem', fontWeight: 600 }}>{title}</h3>
-    <span style={{ 
-      background: 'rgba(255,255,255,0.05)', border: '1px solid var(--surface-border)', 
-      padding: '0.1rem 0.5rem', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 600 
-    }}>{count}</span>
-  </div>
-);
-
-const TaskCard = ({ task }) => {
-  const isHigh = task.priority === 'High';
-  const isMedium = task.priority === 'Medium';
-  const pColor = isHigh ? '#ef4444' : isMedium ? '#f59e0b' : '#3b82f6';
-  const pBg = isHigh ? 'rgba(239,68,68,0.1)' : isMedium ? 'rgba(245,158,11,0.1)' : 'rgba(59,130,246,0.1)';
-
-  return (
-    <div style={{ 
-      background: 'var(--surface)', border: '1px solid var(--surface-border)', 
-      borderRadius: 'var(--radius)', padding: '1.25rem', marginBottom: '1rem',
-      boxShadow: '0 4px 15px rgba(0,0,0,0.1)', cursor: 'grab'
-    }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
-        <h4 style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-main)', lineHeight: 1.4 }}>{task.title}</h4>
-        <button style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: 0 }}>
-          <MoreHorizontal size={18} />
-        </button>
-      </div>
-      <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '1.25rem' }}>{task.project}</p>
-      
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
-          <span style={{ 
-            display: 'flex', alignItems: 'center', gap: '0.35rem',
-            background: pBg, color: pColor, border: `1px solid ${pColor}40`,
-            padding: '0.25rem 0.5rem', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 600
-          }}>
-            <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: pColor }}></div>
-            {task.priority}
-          </span>
-          <span style={{ 
-            display: 'flex', alignItems: 'center', gap: '0.35rem',
-            background: 'rgba(255,255,255,0.05)', color: 'var(--text-muted)', border: '1px solid var(--surface-border)',
-            padding: '0.25rem 0.5rem', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 500
-          }}>
-            <Clock size={12} /> {task.date}
-          </span>
-        </div>
-        <div style={{ 
-          width: '24px', height: '24px', borderRadius: '50%', 
-          background: 'linear-gradient(135deg, var(--primary), var(--accent))', 
-          display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.65rem', fontWeight: 'bold' 
-        }}>
-          {task.avatar}
-        </div>
-      </div>
-    </div>
-  );
-};
+import { useState, useEffect } from 'react';
+import { Plus, MoreHorizontal, Search } from 'lucide-react';
+import api from '../api/axios';
 
 export default function Tasks() {
+  const [tasksData, setTasksData] = useState({ todo: [], inProgress: [], done: [] });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const { data } = await api.get('/tasks');
+        setTasksData({
+          todo: data.todo || [],
+          inProgress: data.inProgress || [],
+          done: data.done || []
+        });
+      } catch (err) {
+        console.error('Failed to fetch tasks', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTasks();
+  }, []);
+
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', color: 'var(--text-muted)' }}>
+        Loading tasks...
+      </div>
+    );
+  }
+
+  // Flatten tasks for table view
+  const allTasks = [...tasksData.todo, ...tasksData.inProgress, ...tasksData.done];
+
+  // Fallback data mapping if none
+  const displayTasks = allTasks.length > 0 ? allTasks : [
+    { id: '1', title: 'Acme Corp', project: 'Follow-up Call', date: 'April 20, 2024', priority: 'High', status: 'Pending', avatar: 'A' },
+    { id: '2', title: 'John Doe', project: 'Send Proposal', date: 'April 18, 2024', priority: 'Medium', status: 'Completed', avatar: 'J' },
+    { id: '3', title: 'Jane Corp', project: 'Review Contract', date: 'April 15, 2022', priority: 'Low', status: 'Contacted', avatar: 'J' },
+  ];
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', animation: 'fadeIn 0.4s ease-out', height: '100%' }}>
       
@@ -87,65 +49,97 @@ export default function Tasks() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div>
           <h2 style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '0.25rem' }}>Tasks</h2>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>Organize and track your tasks.</p>
         </div>
-        
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <button style={{ 
-            display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 1rem', 
-            background: 'transparent', border: '1px solid var(--surface-border)', 
-            borderRadius: '8px', color: 'var(--text-main)', cursor: 'pointer' 
-          }}>
-            <Filter size={16} /> Filter
-          </button>
-          
-          <button className="btn-primary" style={{ marginTop: 0, width: 'auto', display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 1rem' }}>
-            <Plus size={16} /> New Task
-          </button>
-        </div>
+        <button className="btn-primary" style={{ marginTop: 0, width: 'auto', display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 1rem' }}>
+          <Plus size={16} /> New Task
+        </button>
       </div>
 
-      {/* Kanban Board */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', flex: 1, alignItems: 'flex-start' }}>
+      {/* Table Container */}
+      <div style={{ 
+        background: 'var(--surface)', border: '1px solid var(--surface-border)', 
+        borderRadius: 'var(--radius)', padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1
+      }}>
         
-        {/* To Do Column */}
-        <div style={{ background: 'rgba(15,23,42,0.4)', borderRadius: 'var(--radius)', padding: '1rem', border: '1px solid rgba(255,255,255,0.02)' }}>
-          <ColumnHeader title="To Do" count="6" />
-          {tasksData.todo.map(task => <TaskCard key={task.id} task={task} />)}
-          <button style={{ 
-            width: '100%', padding: '0.75rem', background: 'transparent', border: '1px dashed var(--surface-border)', 
-            borderRadius: '8px', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem'
-          }}>
-            <Plus size={16} /> Add Task
-          </button>
+        {/* Toolbar */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem', alignItems: 'center' }}>
+           <div style={{ display: 'flex', alignItems: 'center', background: 'var(--bg-color)', padding: '0.5rem 1rem', borderRadius: '8px', border: '1px solid var(--surface-border)', width: '300px' }}>
+             <Search size={16} style={{ color: 'var(--text-muted)', marginRight: '0.5rem' }} />
+             <input type="text" placeholder="Search" style={{ background: 'transparent', border: 'none', color: 'var(--text-main)', outline: 'none', fontSize: '0.9rem', width: '100%' }} />
+           </div>
+           
+           <div style={{ display: 'flex', gap: '1.5rem', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>Tasks <MoreHorizontal size={14}/></div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>Filter <MoreHorizontal size={14}/></div>
+           </div>
         </div>
 
-        {/* In Progress Column */}
-        <div style={{ background: 'rgba(15,23,42,0.4)', borderRadius: 'var(--radius)', padding: '1rem', border: '1px solid rgba(255,255,255,0.02)' }}>
-          <ColumnHeader title="In Progress" count="11" />
-          {tasksData.inProgress.map(task => <TaskCard key={task.id} task={task} />)}
-          <button style={{ 
-            width: '100%', padding: '0.75rem', background: 'transparent', border: '1px dashed var(--surface-border)', 
-            borderRadius: '8px', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem'
-          }}>
-            <Plus size={16} /> Add Task
-          </button>
-        </div>
+        {/* Table */}
+        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
+          <thead>
+            <tr style={{ borderBottom: '1px solid var(--surface-border)', color: 'var(--text-muted)' }}>
+              <th style={{ paddingBottom: '0.75rem', fontWeight: 500, width: '40px' }}><input type="checkbox" /></th>
+              <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Name</th>
+              <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Task</th>
+              <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Due Date v</th>
+              <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Priority v</th>
+              <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Status v</th>
+              <th style={{ paddingBottom: '0.75rem', fontWeight: 500 }}>Actions v</th>
+            </tr>
+          </thead>
+          <tbody>
+            {displayTasks.map((t, i) => {
+              const isHigh = t.priority === 'High';
+              const isMedium = t.priority === 'Medium';
+              const pColor = isHigh ? '#ef4444' : isMedium ? '#f59e0b' : '#3b82f6';
+              const pBg = `${pColor}20`; 
+              
+              const sColor = t.status === 'Completed' ? '#3b82f6' : t.status === 'Pending' ? '#10b981' : t.status === 'Overdue' ? '#ef4444' : '#f59e0b';
+              const sBg = `${sColor}20`;
+              
+              return (
+                <tr key={i} style={{ borderBottom: '1px solid var(--surface-border)' }}>
+                  <td style={{ padding: '1rem 0' }}><input type="checkbox" /></td>
+                  <td style={{ padding: '1rem 0', fontWeight: 500, display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    <div style={{ width: '24px', height: '24px', borderRadius: '4px', background: 'linear-gradient(135deg, var(--primary), var(--accent))', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '0.7rem', fontWeight: 'bold' }}>
+                      {t.avatar}
+                    </div>
+                    {t.title}
+                  </td>
+                  <td style={{ padding: '1rem 0', color: 'var(--text-main)' }}>{t.project || 'General Task'}</td>
+                  <td style={{ padding: '1rem 0', color: 'var(--text-muted)' }}>{t.date}</td>
+                  <td style={{ padding: '1rem 0' }}>
+                    <span style={{ color: pColor, background: pBg, padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 600 }}>
+                      {t.priority}
+                    </span>
+                  </td>
+                  <td style={{ padding: '1rem 0' }}>
+                    <span style={{ color: sColor, background: sBg, padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 600 }}>
+                      {t.status}
+                    </span>
+                  </td>
+                  <td style={{ padding: '1rem 0', color: 'var(--text-muted)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <MoreHorizontal size={16} style={{ cursor: 'pointer' }} />
+                    </div>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
 
-        {/* Done Column */}
-        <div style={{ background: 'rgba(15,23,42,0.4)', borderRadius: 'var(--radius)', padding: '1rem', border: '1px solid rgba(255,255,255,0.02)' }}>
-          <ColumnHeader title="Done" count="5" />
-          {tasksData.done.map(task => <TaskCard key={task.id} task={task} />)}
-          <button style={{ 
-            width: '100%', padding: '0.75rem', background: 'transparent', border: '1px dashed var(--surface-border)', 
-            borderRadius: '8px', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem'
-          }}>
-            <Plus size={16} /> Add Task
-          </button>
+        {/* Footer Pagination */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', paddingTop: '1.5rem', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+           <div>Selected: 0</div>
+           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+             <span>1-3 of 3 entries</span>
+             <button style={{ background: 'var(--surface-border)', border: 'none', borderRadius: '4px', padding: '0.2rem 0.5rem', cursor: 'pointer', color: 'var(--text-main)' }}>&lt;</button>
+             <button style={{ background: 'var(--surface-border)', border: 'none', borderRadius: '4px', padding: '0.2rem 0.5rem', cursor: 'pointer', color: 'var(--text-main)' }}>&gt;</button>
+           </div>
         </div>
 
       </div>
-
     </div>
   );
 }

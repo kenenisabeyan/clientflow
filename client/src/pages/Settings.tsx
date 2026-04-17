@@ -86,7 +86,7 @@ export default function Settings() {
                 <button style={{ 
                   position: 'absolute', bottom: 0, right: 0, background: 'var(--primary)', border: 'null', 
                   width: '36px', height: '36px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: 'white', cursor: 'pointer', boxShadow: '0 4px 10px rgba(0,0,0,0.3)'
+                  color: '#fff', cursor: 'pointer', boxShadow: '0 4px 10px rgba(0,0,0,0.3)'
                 }}>
                   <Camera size={18} />
                 </button>

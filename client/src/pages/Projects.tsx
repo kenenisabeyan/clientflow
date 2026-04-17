@@ -44,7 +44,7 @@ export default function Projects() {
         
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <div style={{ 
-            display: 'flex', alignItems: 'center', background: 'rgba(255,255,255,0.05)', 
+            display: 'flex', alignItems: 'center', background: 'var(--surface-border)', 
             padding: '0.6rem 1rem', borderRadius: '8px', border: '1px solid var(--surface-border)', width: '250px' 
           }}>
             <Search size={16} style={{ color: 'var(--text-muted)', marginRight: '0.5rem' }} />
@@ -53,7 +53,7 @@ export default function Projects() {
               placeholder="Search projects..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              style={{ background: 'transparent', border: 'none', color: 'white', outline: 'none', width: '100%', fontSize: '0.9rem' }} 
+              style={{ background: 'transparent', border: 'none', color: 'var(--text-main)', outline: 'none', width: '100%', fontSize: '0.9rem' }} 
             />
           </div>
           
@@ -98,12 +98,12 @@ export default function Projects() {
           </thead>
           <tbody>
             {filteredProjects.map((project) => (
-              <tr key={project.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', transition: 'var(--transition)' }}>
+              <tr key={project.id} style={{ borderBottom: '1px solid var(--surface-border)', transition: 'var(--transition)' }}>
                 <td style={{ padding: '1.25rem 1.5rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                     <div style={{ 
                       width: '36px', height: '36px', borderRadius: '8px', 
-                      background: 'rgba(255,255,255,0.05)', border: '1px solid var(--surface-border)',
+                      background: 'var(--surface-border)', border: '1px solid var(--surface-border)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '1rem' 
                     }}>
                       {project.icon}
@@ -131,7 +131,7 @@ export default function Projects() {
                 </td>
                 <td style={{ padding: '1.25rem 1.5rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                    <div style={{ width: '100px', height: '6px', background: 'rgba(255,255,255,0.1)', borderRadius: '3px', overflow: 'hidden' }}>
+                    <div style={{ width: '100px', height: '6px', background: 'var(--surface-border)', borderRadius: '3px', overflow: 'hidden' }}>
                       <div style={{ 
                         height: '100%', width: `${project.progress}%`, borderRadius: '3px',
                         background: project.status === 'Completed' ? '#10b981' : 'var(--primary)'
@@ -160,7 +160,7 @@ export default function Projects() {
           </div>
           <div style={{ display: 'flex', gap: '0.25rem', alignItems: 'center' }}>
             <button style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', padding: '0.25rem' }}><ChevronLeft size={18}/></button>
-            <button style={{ background: 'var(--primary)', border: 'none', color: 'white', borderRadius: '4px', width: '28px', height: '28px', cursor: 'pointer', fontWeight: 500 }}>1</button>
+            <button style={{ background: 'var(--primary)', border: 'none', color: '#fff', borderRadius: '4px', width: '28px', height: '28px', cursor: 'pointer', fontWeight: 500 }}>1</button>
             <button style={{ background: 'transparent', border: 'none', color: 'var(--text-main)', borderRadius: '4px', width: '28px', height: '28px', cursor: 'pointer' }}>2</button>
             <button style={{ background: 'transparent', border: 'none', color: 'var(--text-main)', borderRadius: '4px', width: '28px', height: '28px', cursor: 'pointer' }}>3</button>
             <span style={{ color: 'var(--text-muted)', margin: '0 0.25rem' }}>...</span>

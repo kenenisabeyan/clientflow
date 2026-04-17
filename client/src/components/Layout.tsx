@@ -1,13 +1,16 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import { 
   LayoutDashboard, Users, FolderKanban, CheckSquare, 
   FileText, Calendar as CalendarIcon, MessageSquare, 
-  BarChart2, Settings as SettingsIcon, LogOut, Bell, Search
+  FileText, Calendar as CalendarIcon, MessageSquare, 
+  BarChart2, Settings as SettingsIcon, LogOut, Bell, Search, Sun, Moon
 } from 'lucide-react';
 
 export default function Layout() {
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const location = useLocation();
 
   const isActive = (path: string) => location.pathname.startsWith(path) ? 'active' : '';
@@ -15,7 +18,7 @@ export default function Layout() {
   const getPageTitle = () => {
     const path = location.pathname;
     if (path.includes('/dashboard')) return 'Dashboard';
-    if (path.includes('/clients')) return 'Clients';
+    if (path.includes('/clients')) return 'Customers';
     if (path.includes('/projects')) return 'Projects';
     if (path.includes('/tasks')) return 'Tasks';
     if (path.includes('/invoices')) return 'Invoices';
@@ -23,21 +26,21 @@ export default function Layout() {
     if (path.includes('/messages')) return 'Messages';
     if (path.includes('/reports')) return 'Reports';
     if (path.includes('/settings')) return 'Settings';
-    return 'ClientFlow';
+    return 'FollowFlow';
   };
 
   return (
     <div className="app">
       <aside className="sidebar">
-        <div className="sidebar-logo">
-          <div className="logo-icon bg-primary text-white p-1 rounded-md mr-2 inline-flex">
+        <div className="sidebar-logo" style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ background: 'var(--primary)', color: '#fff', padding: '0.25rem', borderRadius: '0.375rem', marginRight: '0.5rem', display: 'inline-flex' }}>
             <LayoutDashboard size={20} />
           </div>
-          ClientFlow
+          FollowFlow
         </div>
         <nav className="sidebar-nav">
           <Link to="/dashboard" className={isActive('/dashboard')}><LayoutDashboard size={18} /> Dashboard</Link>
-          <Link to="/clients" className={isActive('/clients')}><Users size={18} /> Clients</Link>
+          <Link to="/clients" className={isActive('/clients')}><Users size={18} /> Customers</Link>
           <Link to="/projects" className={isActive('/projects')}><FolderKanban size={18} /> Projects</Link>
           <Link to="/tasks" className={isActive('/tasks')}><CheckSquare size={18} /> Tasks</Link>
           <Link to="/invoices" className={isActive('/invoices')}><FileText size={18} /> Invoices</Link>
@@ -67,6 +70,11 @@ export default function Layout() {
                <Search size={16} style={{ color: 'var(--text-muted)', marginRight: '0.5rem' }} />
                <input type="text" placeholder="Search..." style={{ background: 'transparent', border: 'none', color: 'var(--text-main)', outline: 'none', fontSize: '0.9rem' }} />
              </div>
+             
+             <button onClick={toggleTheme} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex' }}>
+               {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+             </button>
+
              <button style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', position: 'relative' }}>
                 <Bell size={20} />
                 <span style={{ position: 'absolute', top: 0, right: 0, width: '8px', height: '8px', background: 'var(--primary)', borderRadius: '50%' }}></span>
