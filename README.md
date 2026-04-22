@@ -88,5 +88,29 @@ ClientFlow utilizes a robust Role-Based Access Control (RBAC) system defined at 
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/clientflow.git
+git clone https://github.com/kenenisabeyan/clientflow.git
 cd clientflow
+cd server
+npm install
+
+# Set up your environment variables
+# Create a .env file and add:
+# DATABASE_URL="postgresql://user:password@localhost:5432/clientflow"
+# JWT_SECRET="your_super_secret_jwt_key"
+
+# Sync the database schema
+npx prisma generate
+npx prisma db push
+
+# Start the development server
+npm run dev
+cd client
+npm install
+
+# Start the Vite development server
+npm run dev
+cd client
+npm install
+
+# Start the Vite development server
+npm run dev
