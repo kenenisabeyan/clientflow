@@ -17,17 +17,25 @@ app.use(express.json());
 app.use(cors());
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
-mongoose.connect(MONGO_URI)
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => {
-    console.error('MongoDB connection error:', err);
-    process.exit(1);
-  });
+const connectDB = async () => {
+  try {
+    await mongoose.connect(MONGO_URI);
+    console.log('MongoDB connected successfully');
+  } catch (err: any) {
+    console.error('MongoDB connection error:', err?.message || err);
+    console.log('Retrying MongoDB connection in 5 seconds...');
+    setTimeout(connectDB, 5000);
+  }
+};
+
+connectDB();
 
 app.get('/', (req, res) => {
+  const isConnected = mongoose.connection.readyState === 1;
   res.json({
     name: 'ClientFlow API',
-    status: 'online',
+    status: isConnected ? 'online' : 'degraded (waiting for database)',
+    database: isConnected ? 'connected' : 'disconnected',
     version: '1.0.0',
     documentation: 'https://github.com/kenenisabeyan/clientflow',
     timestamp: new Date().toISOString()
@@ -35,10 +43,12 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/health', (req, res) => {
-  res.status(200).json({
-    status: 'healthy',
+  const isConnected = mongoose.connection.readyState === 1;
+  res.status(isConnected ? 200 : 503).json({
+    status: isConnected ? 'healthy' : 'degraded',
     uptime: process.uptime(),
-    database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+    database: isConnected ? 'connected' : 'disconnected',
+    help: isConnected ? undefined : 'Please configure MONGO_URI in Render Environment Variables.',
     timestamp: new Date().toISOString()
   });
 });
