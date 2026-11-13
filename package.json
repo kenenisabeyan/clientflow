@@ -1,0 +1,28 @@
+{
+  "name": "clientflow-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Full-stack client portal and project management platform",
+  "scripts": {
+    "install:all": "npm install --prefix server && npm install --prefix client",
+    "dev:client": "npm run dev --prefix client",
+    "dev:server": "npm run dev --prefix server",
+    "build:client": "npm run build --prefix client",
+    "build:server": "npm run build --prefix server",
+    "build": "npm run build:server && npm run build:client",
+    "typecheck:client": "npm run typecheck --prefix client",
+    "typecheck:server": "npm run typecheck --prefix server",
+    "typecheck": "npm run typecheck:server && npm run typecheck:client"
+  },
+  "keywords": [
+    "clientflow",
+    "monorepo",
+    "react",
+    "express",
+    "typescript",
+    "prisma",
+    "postgresql"
+  ],
+  "author": "Kenenisa Beyan",
+  "license": "MIT"
+}

@@ -1,15 +1,24 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "ClientFlow REST API backend",
+  "main": "dist/server.js",
   "scripts": {
-    "start": "ts-node server.ts",
-    "dev": "nodemon --exec ts-node server.ts"
+    "dev": "nodemon --exec ts-node server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "start:dev": "ts-node server.ts",
+    "typecheck": "tsc --noEmit"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "clientflow",
+    "express",
+    "typescript",
+    "prisma",
+    "api"
+  ],
+  "author": "Kenenisa Beyan",
+  "license": "MIT",
   "dependencies": {
     "@prisma/client": "^7.7.0",
     "bcryptjs": "^3.0.3",
