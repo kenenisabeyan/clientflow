@@ -24,6 +24,25 @@ mongoose.connect(MONGO_URI)
     process.exit(1);
   });
 
+app.get('/', (req, res) => {
+  res.json({
+    name: 'ClientFlow API',
+    status: 'online',
+    version: '1.0.0',
+    documentation: 'https://github.com/kenenisabeyan/clientflow',
+    timestamp: new Date().toISOString()
+  });
+});
+
+app.get('/api/health', (req, res) => {
+  res.status(200).json({
+    status: 'healthy',
+    uptime: process.uptime(),
+    database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+    timestamp: new Date().toISOString()
+  });
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/activity', activityRoutes);
