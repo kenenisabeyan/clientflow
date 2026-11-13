@@ -25,7 +25,7 @@ export default function Layout() {
     if (path.includes('/messages')) return 'Messages';
     if (path.includes('/reports')) return 'Reports';
     if (path.includes('/settings')) return 'Settings';
-    return 'FollowFlow';
+    return 'ClientFlow';
   };
 
   return (
@@ -35,7 +35,7 @@ export default function Layout() {
           <div style={{ background: 'var(--primary)', color: '#fff', padding: '0.25rem', borderRadius: '0.375rem', marginRight: '0.5rem', display: 'inline-flex' }}>
             <LayoutDashboard size={20} />
           </div>
-          FollowFlow
+          ClientFlow
         </div>
         <nav className="sidebar-nav">
           <Link to="/dashboard" className={isActive('/dashboard')}><LayoutDashboard size={18} /> Dashboard</Link>
