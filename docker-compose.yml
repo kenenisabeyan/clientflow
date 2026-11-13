@@ -1,24 +1,17 @@
 version: '3.8'
 
 services:
-  # Database Service
-  postgres:
-    image: postgres:16-alpine
-    container_name: clientflow-postgres
+  # Database Service (MongoDB)
+  mongo:
+    image: mongo:7-jammy
+    container_name: clientflow-mongodb
     restart: always
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-clientflow}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-clientflow_password}
-      POSTGRES_DB: ${POSTGRES_DB:-clientflow}
+      MONGO_INITDB_DATABASE: clientflow
     ports:
-      - "5432:5432"
+      - "27017:27017"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-clientflow}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      - mongo_data:/data/db
     networks:
       - clientflow-network
 
@@ -32,13 +25,12 @@ services:
     environment:
       PORT: 5001
       NODE_ENV: production
-      DATABASE_URL: postgresql://${POSTGRES_USER:-clientflow}:${POSTGRES_PASSWORD:-clientflow_password}@postgres:5432/${POSTGRES_DB:-clientflow}?schema=public
+      MONGO_URI: mongodb://mongo:27017/clientflow
       JWT_SECRET: ${JWT_SECRET:-super_secret_jwt_production_key_change_me}
     ports:
       - "5001:5001"
     depends_on:
-      postgres:
-        condition: service_healthy
+      - mongo
     networks:
       - clientflow-network
 
@@ -57,10 +49,9 @@ services:
       - clientflow-network
 
 volumes:
-  postgres_data:
+  mongo_data:
     driver: local
 
 networks:
   clientflow-network:
     driver: bridge
-
