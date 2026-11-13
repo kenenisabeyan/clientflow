@@ -103,7 +103,7 @@ clientflow/
 
 ### Option A: Using Docker (Recommended)
 
-Run the full platform (PostgreSQL database, Node.js API, and Nginx-powered React client) with a single command:
+Run the full platform (MongoDB database, Node.js API, and Nginx-powered React client) with a single command:
 
 ```bash
 docker compose up --build
@@ -111,11 +111,18 @@ docker compose up --build
 
 - **Frontend:** [http://localhost:3000](http://localhost:3000)
 - **Backend API:** [http://localhost:5001/api](http://localhost:5001/api)
-- **PostgreSQL:** `localhost:5432`
+- **MongoDB:** `localhost:27017`
 
 ---
 
-### Option B: Local Development
+### Option B: Cloud Deployment (Render + Vercel)
+
+- **Backend (Render):** Uses `render.yaml` for 1-click blueprint deployment. Connect repository $\rightarrow$ Render Web Service with rootDir `server`.
+- **Frontend (Vercel):** Pre-configured with `vercel.json` SPA routing rewrites. Set root directory to `client` and add `VITE_API_BASE_URL` pointing to your Render API URL.
+
+---
+
+### Option C: Local Development
 
 #### 1. Prerequisites
 - Node.js (v18 or higher)
