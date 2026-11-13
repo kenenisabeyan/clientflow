@@ -1,0 +1,9 @@
+node_modules
+dist
+build
+.git
+.github
+*.lock
+package-lock.json
+*.env*
+client/build_err.txt
