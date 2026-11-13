@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # Database Service
+  postgres:
+    image: postgres:16-alpine
+    container_name: clientflow-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-clientflow}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-clientflow_password}
+      POSTGRES_DB: ${POSTGRES_DB:-clientflow}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-clientflow}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - clientflow-network
+
+  # Backend API Server
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    container_name: clientflow-server
+    restart: always
+    environment:
+      PORT: 5001
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER:-clientflow}:${POSTGRES_PASSWORD:-clientflow_password}@postgres:5432/${POSTGRES_DB:-clientflow}?schema=public
+      JWT_SECRET: ${JWT_SECRET:-super_secret_jwt_production_key_change_me}
+    ports:
+      - "5001:5001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - clientflow-network
+
+  # Frontend React SPA (Nginx)
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    container_name: clientflow-client
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - server
+    networks:
+      - clientflow-network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  clientflow-network:
+    driver: bridge
