@@ -55,6 +55,8 @@ interface ActivityItem {
 export default function Dashboard() {
   const { user } = useAuth();
   const isAdmin = user?.role === 'admin';
+  const isDev = user?.role === 'developer';
+  const isClient = user?.role === 'client';
 
   // Live Data State
   const [loading, setLoading] = useState(true);
@@ -329,7 +331,7 @@ export default function Dashboard() {
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.35rem' }}>
             <h2 style={{ fontSize: '1.45rem', fontWeight: 700, letterSpacing: '-0.4px' }}>
-              Admin Operations Center
+              {isAdmin ? 'Admin Operations Center' : isClient ? 'Client Project Portal' : 'Developer Sprint Station'}
             </h2>
             <span style={{
               background: 'rgba(59, 130, 246, 0.12)',
@@ -346,7 +348,13 @@ export default function Dashboard() {
             </span>
           </div>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem' }}>
-            Welcome back, <strong style={{ color: 'var(--text-main)' }}>{user?.name || 'Administrator'}</strong>. Real-time control and analytics across all client operations.
+            {isAdmin ? (
+              <>Welcome back, <strong style={{ color: 'var(--text-main)' }}>{user?.name || 'Administrator'}</strong>. Real-time control and analytics across all client operations.</>
+            ) : isClient ? (
+              <>Welcome back, <strong style={{ color: 'var(--text-main)' }}>{user?.name || 'Client'}</strong>. Real-time visibility into your active contracted projects, deliverables, and invoices.</>
+            ) : (
+              <>Welcome back, <strong style={{ color: 'var(--text-main)' }}>{user?.name || 'Developer'}</strong>. Real-time overview of your engineering sprint backlog, assigned tasks, and project velocity.</>
+            )}
           </p>
         </div>
 
@@ -374,77 +382,83 @@ export default function Dashboard() {
             {refreshing ? 'Syncing...' : 'Sync Atlas'}
           </button>
 
-          <button
-            onClick={handleExportCSV}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              padding: '0.7rem 1.1rem',
-              background: 'var(--bg-color)',
-              color: 'var(--text-main)',
-              border: '1px solid var(--surface-border)',
-              borderRadius: '8px',
-              fontWeight: 500,
-              cursor: 'pointer',
-              fontSize: '0.88rem',
-              transition: 'all 0.2s ease'
-            }}
-          >
-            <Download size={16} /> Export CSV
-          </button>
+          {isAdmin && (
+            <button
+              onClick={handleExportCSV}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.7rem 1.1rem',
+                background: 'var(--bg-color)',
+                color: 'var(--text-main)',
+                border: '1px solid var(--surface-border)',
+                borderRadius: '8px',
+                fontWeight: 500,
+                cursor: 'pointer',
+                fontSize: '0.88rem',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              <Download size={16} /> Export CSV
+            </button>
+          )}
 
-          <button
-            onClick={() => setIsTaskModalOpen(true)}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              padding: '0.7rem 1.1rem',
-              background: 'linear-gradient(135deg, #10b981, #059669)',
-              color: '#ffffff',
-              border: 'none',
-              borderRadius: '8px',
-              fontWeight: 600,
-              cursor: 'pointer',
-              fontSize: '0.88rem',
-              boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
-              transition: 'all 0.2s ease'
-            }}
-          >
-            <Plus size={16} /> Quick Task
-          </button>
+          {!isClient && (
+            <button
+              onClick={() => setIsTaskModalOpen(true)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.7rem 1.1rem',
+                background: 'linear-gradient(135deg, #10b981, #059669)',
+                color: '#ffffff',
+                border: 'none',
+                borderRadius: '8px',
+                fontWeight: 600,
+                cursor: 'pointer',
+                fontSize: '0.88rem',
+                boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              <Plus size={16} /> Quick Task
+            </button>
+          )}
 
-          <button
-            onClick={() => setIsProjectModalOpen(true)}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              padding: '0.7rem 1.25rem',
-              background: 'linear-gradient(135deg, var(--primary), var(--accent))',
-              color: '#ffffff',
-              border: 'none',
-              borderRadius: '8px',
-              fontWeight: 600,
-              cursor: 'pointer',
-              fontSize: '0.88rem',
-              boxShadow: '0 4px 14px rgba(59, 130, 246, 0.4)',
-              transition: 'all 0.2s ease'
-            }}
-          >
-            <Plus size={16} /> New Project
-          </button>
+          {isAdmin && (
+            <button
+              onClick={() => setIsProjectModalOpen(true)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.7rem 1.25rem',
+                background: 'linear-gradient(135deg, var(--primary), var(--accent))',
+                color: '#ffffff',
+                border: 'none',
+                borderRadius: '8px',
+                fontWeight: 600,
+                cursor: 'pointer',
+                fontSize: '0.88rem',
+                boxShadow: '0 4px 14px rgba(59, 130, 246, 0.4)',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              <Plus size={16} /> New Project
+            </button>
+          )}
         </div>
       </div>
 
-      {/* Live Operational Metrics (4 Stat Cards) */}
+      {/* Live Operational Metrics (4 Stat Cards tailored per role) */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
         gap: '1.5rem'
       }}>
-        {[
+        {(isAdmin ? [
           {
             title: 'Total Clients',
             value: loading ? '...' : metrics.totalCustomers,
@@ -481,7 +495,81 @@ export default function Dashboard() {
             bg: 'linear-gradient(135deg, #10b981, #047857)',
             desc: 'Overall milestone completion'
           },
-        ].map((stat, i) => (
+        ] : isClient ? [
+          {
+            title: 'My Projects',
+            value: loading ? '...' : projects.length,
+            change: 'Contracted',
+            up: true,
+            icon: FolderKanban,
+            bg: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
+            desc: 'Your client portfolios'
+          },
+          {
+            title: 'Active Work',
+            value: loading ? '...' : metrics.activeProjects,
+            change: `${metrics.completedProjects} done`,
+            up: true,
+            icon: TrendingUp,
+            bg: 'linear-gradient(135deg, #f97316, #c2410c)',
+            desc: 'In development stage'
+          },
+          {
+            title: 'Completed Milestones',
+            value: loading ? '...' : metrics.completedProjects,
+            change: 'Delivered',
+            up: true,
+            icon: CheckCircle2,
+            bg: 'linear-gradient(135deg, #10b981, #047857)',
+            desc: 'Verified milestones'
+          },
+          {
+            title: 'Deliverables',
+            value: loading ? '...' : metrics.openTasks,
+            change: `${metrics.doneTasks} finished`,
+            up: false,
+            icon: CheckSquare,
+            bg: 'linear-gradient(135deg, #8b5cf6, #6d28d9)',
+            desc: 'Active sprint deliverables'
+          },
+        ] : [
+          {
+            title: 'My Sprint Tasks',
+            value: loading ? '...' : metrics.totalTasks,
+            change: 'Assigned',
+            up: true,
+            icon: CheckSquare,
+            bg: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
+            desc: 'Assigned to your queue'
+          },
+          {
+            title: 'Tasks In Progress',
+            value: loading ? '...' : tasks.filter(t => t.status === 'inProgress').length,
+            change: 'Active coding',
+            up: true,
+            icon: Clock,
+            bg: 'linear-gradient(135deg, #f97316, #c2410c)',
+            desc: 'Work in progress'
+          },
+          {
+            title: 'Completed Sprint',
+            value: loading ? '...' : metrics.doneTasks,
+            change: `${metrics.completionRate}% rate`,
+            up: true,
+            icon: CheckCircle2,
+            bg: 'linear-gradient(135deg, #10b981, #047857)',
+            desc: 'Successfully finished'
+          },
+          {
+            title: 'Assigned Projects',
+            value: loading ? '...' : projects.length,
+            change: 'In scope',
+            up: true,
+            icon: FolderKanban,
+            bg: 'linear-gradient(135deg, #8b5cf6, #6d28d9)',
+            desc: 'Engineering repositories'
+          },
+        ]).map((stat, i) => (
           <div
             key={i}
             style={{
