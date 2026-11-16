@@ -660,4 +660,197 @@ html.dark ::-webkit-scrollbar-thumb:active {
 .activity-text strong {
   margin-right: 0.25rem;
 }
+
+/* =========================================
+   Universal Responsive System: Mobile, Tablet & Desktop
+   ========================================= */
+
+/* Desktop defaults */
+.mobile-menu-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  cursor: pointer;
+  padding: 0.35rem;
+  border-radius: 6px;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+
+.mobile-menu-btn:hover {
+  background: var(--surface-border);
+}
+
+.mobile-sidebar-close {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--sidebar-muted);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+}
+
+.mobile-sidebar-close:hover {
+  color: var(--sidebar-text);
+  background: var(--sidebar-hover);
+}
+
+.mobile-backdrop {
+  display: none;
+}
+
+/* Ensure horizontal scrollbars on all tables across touch devices */
+.table-responsive,
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Tablet & Mobile Breakpoint (<= 1024px) */
+@media screen and (max-width: 1024px) {
+  .sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 280px !important;
+    height: 100vh !important;
+    z-index: 100 !important;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.35) !important;
+  }
+
+  .sidebar.mobile-open {
+    transform: translateX(0) !important;
+  }
+
+  .mobile-menu-btn {
+    display: flex !important;
+  }
+
+  .mobile-sidebar-close {
+    display: flex !important;
+  }
+
+  .mobile-backdrop {
+    display: block !important;
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(0, 0, 0, 0.55) !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+    z-index: 95 !important;
+    animation: fadeIn 0.2s ease-out !important;
+  }
+
+  .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  .topbar {
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    padding: 0 1.25rem !important;
+  }
+
+  .container {
+    padding: 1.5rem 1.25rem !important;
+    padding-top: calc(72px + 1.25rem) !important;
+  }
+}
+
+/* Mobile Small Devices (<= 768px) */
+@media screen and (max-width: 768px) {
+  .topbar {
+    padding: 0 0.85rem !important;
+  }
+
+  .topbar-right {
+    gap: 0.65rem !important;
+  }
+
+  .page-title {
+    font-size: 1.05rem !important;
+    max-width: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .search-bar {
+    width: 135px !important;
+    padding: 0.35rem 0.65rem !important;
+  }
+
+  .search-bar input {
+    font-size: 0.8rem !important;
+  }
+
+  .user-menu {
+    padding: 0.3rem 0.6rem !important;
+    gap: 0.5rem !important;
+  }
+
+  .user-info {
+    display: none !important;
+  }
+
+  .user-avatar {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 0.8rem !important;
+  }
+
+  .container {
+    padding: 1rem 0.75rem !important;
+    padding-top: calc(72px + 1rem) !important;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.75rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .stat-card {
+    padding: 1rem !important;
+  }
+
+  .stat-card p {
+    font-size: 1.65rem !important;
+  }
+
+  .stat-card h3 {
+    font-size: 0.75rem !important;
+  }
+
+  .scroll-to-top-sticker {
+    bottom: 1.25rem !important;
+    right: 1.25rem !important;
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
+
+/* Ultra-Compact Mobile Screens (<= 480px) */
+@media screen and (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .search-bar {
+    width: 105px !important;
+  }
+
+  .page-title {
+    display: none !important;
+  }
+}
+
 

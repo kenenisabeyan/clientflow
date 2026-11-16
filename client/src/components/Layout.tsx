@@ -256,33 +256,42 @@ export default function Layout() {
 
   return (
     <div className="app">
-      <aside className="sidebar">
-        <div className="sidebar-logo" style={{ display: 'flex', alignItems: 'center' }}>
-          <div style={{ background: 'var(--primary)', color: '#fff', padding: '0.25rem', borderRadius: '0.375rem', marginRight: '0.5rem', display: 'inline-flex' }}>
-            <LayoutDashboard size={20} />
+      <aside className={`sidebar ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
+        <div className="sidebar-logo" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ background: 'var(--primary)', color: '#fff', padding: '0.25rem', borderRadius: '0.375rem', marginRight: '0.5rem', display: 'inline-flex' }}>
+              <LayoutDashboard size={20} />
+            </div>
+            ClientFlow
           </div>
-          ClientFlow
+          <button 
+            className="mobile-sidebar-close" 
+            onClick={() => setIsMobileMenuOpen(false)}
+            title="Close navigation"
+          >
+            <X size={20} />
+          </button>
         </div>
         <nav className="sidebar-nav">
-          <Link to="/dashboard" className={isActive('/dashboard')}><LayoutDashboard size={18} /> Dashboard</Link>
+          <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className={isActive('/dashboard')}><LayoutDashboard size={18} /> Dashboard</Link>
           {user?.role === 'admin' && (
-            <Link to="/clients" className={isActive('/clients')}><Users size={18} /> Customers</Link>
+            <Link to="/clients" onClick={() => setIsMobileMenuOpen(false)} className={isActive('/clients')}><Users size={18} /> Customers</Link>
           )}
-          <Link to="/projects" className={isActive('/projects')}><FolderKanban size={18} /> {user?.role === 'client' ? 'My Projects' : 'Projects'}</Link>
-          <Link to="/tasks" className={isActive('/tasks')}><CheckSquare size={18} /> {user?.role === 'client' ? 'My Tasks' : 'Tasks'}</Link>
+          <Link to="/projects" onClick={() => setIsMobileMenuOpen(false)} className={isActive('/projects')}><FolderKanban size={18} /> {user?.role === 'client' ? 'My Projects' : 'Projects'}</Link>
+          <Link to="/tasks" onClick={() => setIsMobileMenuOpen(false)} className={isActive('/tasks')}><CheckSquare size={18} /> {user?.role === 'client' ? 'My Tasks' : 'Tasks'}</Link>
           {user?.role !== 'developer' && (
-            <Link to="/invoices" className={isActive('/invoices')}><FileText size={18} /> Invoices</Link>
+            <Link to="/invoices" onClick={() => setIsMobileMenuOpen(false)} className={isActive('/invoices')}><FileText size={18} /> Invoices</Link>
           )}
-          <Link to="/calendar" className={isActive('/calendar')}><CalendarIcon size={18} /> Calendar</Link>
-          <Link to="/messages" className={isActive('/messages')}><MessageSquare size={18} /> Messages</Link>
+          <Link to="/calendar" onClick={() => setIsMobileMenuOpen(false)} className={isActive('/calendar')}><CalendarIcon size={18} /> Calendar</Link>
+          <Link to="/messages" onClick={() => setIsMobileMenuOpen(false)} className={isActive('/messages')}><MessageSquare size={18} /> Messages</Link>
           {user?.role === 'admin' && (
             <>
-              <Link to="/reports" className={isActive('/reports')}><BarChart2 size={18} /> Reports</Link>
-              <Link to="/activity" className={isActive('/activity')}><History size={18} /> Audit Log</Link>
-              <Link to="/users" className={isActive('/users')}><ShieldCheck size={18} /> Team & RBAC</Link>
+              <Link to="/reports" onClick={() => setIsMobileMenuOpen(false)} className={isActive('/reports')}><BarChart2 size={18} /> Reports</Link>
+              <Link to="/activity" onClick={() => setIsMobileMenuOpen(false)} className={isActive('/activity')}><History size={18} /> Audit Log</Link>
+              <Link to="/users" onClick={() => setIsMobileMenuOpen(false)} className={isActive('/users')}><ShieldCheck size={18} /> Team & RBAC</Link>
             </>
           )}
-          <Link to="/settings" className={isActive('/settings')}><SettingsIcon size={18} /> Settings</Link>
+          <Link to="/settings" onClick={() => setIsMobileMenuOpen(false)} className={isActive('/settings')}><SettingsIcon size={18} /> Settings</Link>
           
           <div style={{flex: 1}}></div>
           
@@ -295,9 +304,22 @@ export default function Layout() {
           </button>
         </nav>
       </aside>
+
+      {/* Mobile Drawer Backdrop Overlay */}
+      {isMobileMenuOpen && (
+        <div className="mobile-backdrop" onClick={() => setIsMobileMenuOpen(false)} />
+      )}
+
       <div className="main-content">
         <header className="topbar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+            <button
+              className="mobile-menu-btn"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              title="Toggle Navigation Menu"
+            >
+              <Menu size={22} />
+            </button>
             <h1 className="page-title">{getPageTitle()}</h1>
           </div>
           <div className="topbar-right" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
