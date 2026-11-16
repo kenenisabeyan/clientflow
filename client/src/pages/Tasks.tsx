@@ -483,7 +483,7 @@ export default function Tasks() {
       {/* KPI Metric Cards */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
         gap: '1rem'
       }}>
         {/* Total Tasks */}
@@ -784,12 +784,7 @@ export default function Tasks() {
         </div>
       ) : viewMode === 'kanban' ? (
         /* KANBAN BOARD VIEW */
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))',
-          gap: '1.25rem',
-          alignItems: 'flex-start'
-        }}>
+        <div className="kanban-board-grid" style={{ alignItems: 'flex-start' }}>
           {/* TO DO COLUMN */}
           <div style={{
             background: 'var(--surface)',
