@@ -9,6 +9,8 @@ const activityRoutes = require('./routes/activityRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const userRoutes = require('./routes/userRoutes');
 const taskRoutes = require('./routes/taskRoutes');
+const invoiceRoutes = require('./routes/invoiceRoutes');
+const messageRoutes = require('./routes/messageRoutes');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 const { PORT, MONGO_URI } = require('./config/env');
 
