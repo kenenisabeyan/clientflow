@@ -74,4 +74,12 @@ app.use(['/api/messages', '/messages'], messageRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const server = app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+process.on('unhandledRejection', (err: any) => {
+  console.error('Unhandled Rejection detected:', err?.message || err);
+});
+
+process.on('uncaughtException', (err: any) => {
+  console.error('Uncaught Exception detected:', err?.message || err);
+});

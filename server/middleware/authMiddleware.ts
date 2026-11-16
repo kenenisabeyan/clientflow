@@ -11,6 +11,9 @@ const protect = async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     req.user = await User.findById(decoded.id).select('-password');
+    if (!req.user) {
+      return res.status(401).json({ success: false, message: 'User account no longer exists or session revoked' });
+    }
     next();
   } catch (err) {
     res.status(401).json({ success: false, message: 'Not authorized, token failed' });
