@@ -749,6 +749,35 @@ html.dark ::-webkit-scrollbar-thumb:active {
   width: 100%;
 }
 
+.messages-layout-box {
+  display: flex;
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--glass-shadow);
+  min-height: 0;
+  width: 100%;
+}
+
+.messages-sidebar {
+  width: 320px;
+  background: var(--surface);
+  border-right: 1px solid var(--surface-border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.messages-chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-color);
+  min-width: 0;
+}
+
 /* Desktop defaults for responsive elements */
 .topbar-left {
   display: flex;
@@ -933,6 +962,23 @@ html.dark ::-webkit-scrollbar-thumb:active {
   .project-detail-grid {
     grid-template-columns: 1fr !important;
     gap: 1rem !important;
+  }
+
+  .messages-layout-box {
+    flex-direction: column !important;
+    height: auto !important;
+    min-height: 600px !important;
+  }
+
+  .messages-sidebar {
+    width: 100% !important;
+    max-height: 220px !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--surface-border) !important;
+  }
+
+  .messages-chat-area {
+    min-height: 380px !important;
   }
 
   .scroll-to-top-sticker {

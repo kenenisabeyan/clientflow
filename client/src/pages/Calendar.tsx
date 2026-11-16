@@ -319,10 +319,13 @@ export default function Calendar() {
         border: '1px solid var(--surface-border)',
         borderRadius: 'var(--radius)',
         overflow: 'hidden',
-        boxShadow: 'var(--glass-shadow)'
+        boxShadow: 'var(--glass-shadow)',
+        width: '100%'
       }}>
-        {/* Days Header */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', borderBottom: '1px solid var(--surface-border)', background: 'rgba(0,0,0,0.02)' }}>
+        <div className="table-responsive" style={{ overflowX: 'auto', width: '100%' }}>
+          <div style={{ minWidth: '600px' }}>
+            {/* Days Header */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', borderBottom: '1px solid var(--surface-border)', background: 'rgba(0,0,0,0.02)' }}>
           {daysOfWeek.map(day => (
             <div key={day} style={{ padding: '0.85rem', textAlign: 'center', fontWeight: 600, fontSize: '0.85rem', color: 'var(--text-muted)' }}>
               {day}
@@ -421,6 +424,8 @@ export default function Calendar() {
               </div>
             );
           })}
+        </div>
+          </div>
         </div>
       </div>
 
