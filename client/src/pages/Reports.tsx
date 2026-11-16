@@ -212,7 +212,7 @@ export default function Reports() {
       </div>
 
       {/* Top Financial Stats Row */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.25rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))', gap: '1.25rem' }}>
         {/* Total Paid Revenue */}
         <div style={{
           background: 'var(--surface)',
@@ -299,14 +299,16 @@ export default function Reports() {
       </div>
 
       {/* Visual Analytics Row */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: '1.5rem' }}>
+      <div className="reports-charts-grid">
         {/* Revenue Volume Chart */}
         <div style={{
           background: 'var(--surface)',
           border: '1px solid var(--surface-border)',
           borderRadius: 'var(--radius)',
           padding: '1.5rem',
-          boxShadow: 'var(--glass-shadow)'
+          boxShadow: 'var(--glass-shadow)',
+          minWidth: 0,
+          overflow: 'hidden'
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
             <div>
@@ -344,7 +346,9 @@ export default function Reports() {
           border: '1px solid var(--surface-border)',
           borderRadius: 'var(--radius)',
           padding: '1.5rem',
-          boxShadow: 'var(--glass-shadow)'
+          boxShadow: 'var(--glass-shadow)',
+          minWidth: 0,
+          overflow: 'hidden'
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
             <div>
