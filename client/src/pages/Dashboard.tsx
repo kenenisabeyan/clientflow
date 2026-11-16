@@ -316,14 +316,13 @@ export default function Dashboard() {
       )}
 
       {/* Top Header & Interactive Action Bar */}
-      <div style={{
+      <div className="dashboard-banner-header" style={{
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
         alignItems: 'center',
         gap: '1.25rem',
         background: 'var(--surface)',
-        padding: '1.5rem 2rem',
         borderRadius: 'var(--radius)',
         border: '1px solid var(--surface-border)',
         boxShadow: '0 2px 8px rgba(0,0,0,0.02)'
@@ -453,10 +452,10 @@ export default function Dashboard() {
       </div>
 
       {/* Live Operational Metrics (4 Stat Cards tailored per role) */}
-      <div style={{
+      <div className="stats-grid" style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-        gap: '1.5rem'
+        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
+        gap: '1.25rem'
       }}>
         {(isAdmin ? [
           {
