@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { 
   Search, Filter, Plus, MoreHorizontal, ChevronLeft, ChevronRight, 
   Users, Building2, Phone, Mail, CheckCircle2, Clock, AlertCircle, 
-  Download, Eye, Edit3, Trash2, X, ShieldCheck, FolderKanban, Briefcase, RefreshCw 
+  Download, Eye, Edit3, Trash2, X, ShieldCheck, FolderKanban, Briefcase, RefreshCw,
+  MessageSquare, FileText
 } from 'lucide-react';
 import api from '../api/axios';
 
@@ -26,6 +28,7 @@ interface ProjectItem {
 }
 
 export default function Clients() {
+  const navigate = useNavigate();
   const [clients, setClients] = useState<ClientItem[]>([]);
   const [projects, setProjects] = useState<ProjectItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -1308,16 +1311,26 @@ export default function Clients() {
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: '200px', overflowY: 'auto' }}>
                   {clientProjects.map((proj) => (
-                    <div key={proj._id} style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      padding: '0.75rem 1rem',
-                      background: 'var(--bg-color)',
-                      border: '1px solid var(--surface-border)',
-                      borderRadius: '8px'
-                    }}>
-                      <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>{proj.title}</span>
+                    <Link
+                      key={proj._id}
+                      to={`/projects/${proj._id}`}
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        padding: '0.75rem 1rem',
+                        background: 'var(--bg-color)',
+                        border: '1px solid var(--surface-border)',
+                        borderRadius: '8px',
+                        textDecoration: 'none',
+                        color: 'inherit',
+                        transition: 'border-color 0.15s'
+                      }}
+                    >
+                      <div>
+                        <div style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--primary)' }}>{proj.title}</div>
+                        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Click to open 360° Portal</span>
+                      </div>
                       <span style={{
                         fontSize: '0.75rem',
                         fontWeight: 700,
@@ -1329,29 +1342,75 @@ export default function Clients() {
                       }}>
                         {proj.status}
                       </span>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               )}
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.85rem', marginTop: '1.75rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.85rem', marginTop: '1.75rem', borderTop: '1px solid var(--surface-border)', paddingTop: '1.25rem' }}>
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <button
+                  onClick={() => {
+                    setIsViewDrawerOpen(false);
+                    navigate('/messages');
+                  }}
+                  style={{
+                    padding: '0.6rem 0.9rem',
+                    background: 'var(--bg-color)',
+                    border: '1px solid var(--surface-border)',
+                    borderRadius: '8px',
+                    color: 'var(--text-main)',
+                    fontSize: '0.82rem',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.35rem'
+                  }}
+                >
+                  <MessageSquare size={14} style={{ color: 'var(--primary)' }} /> Message
+                </button>
+                <button
+                  onClick={() => {
+                    setIsViewDrawerOpen(false);
+                    navigate('/invoices');
+                  }}
+                  style={{
+                    padding: '0.6rem 0.9rem',
+                    background: 'var(--bg-color)',
+                    border: '1px solid var(--surface-border)',
+                    borderRadius: '8px',
+                    color: 'var(--text-main)',
+                    fontSize: '0.82rem',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.35rem'
+                  }}
+                >
+                  <FileText size={14} style={{ color: '#10b981' }} /> Invoices
+                </button>
+              </div>
+
               <button
                 onClick={() => {
                   setIsViewDrawerOpen(false);
                   openEditModal(selectedClient);
                 }}
                 style={{
-                  padding: '0.7rem 1.25rem',
+                  padding: '0.65rem 1.25rem',
                   background: 'var(--primary)',
                   border: 'none',
                   borderRadius: '8px',
                   color: '#ffffff',
                   fontWeight: 600,
+                  fontSize: '0.85rem',
                   cursor: 'pointer'
                 }}
               >
-                Edit Client Info
+                Edit Profile
               </button>
             </div>
           </div>
