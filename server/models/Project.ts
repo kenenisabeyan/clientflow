@@ -6,6 +6,10 @@ const projectSchema = new mongoose.Schema(
     description: { type: String, trim: true },
     status: { type: String, enum: ['pending', 'in-progress', 'completed'], default: 'pending' },
     client: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    developer: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
+    budget: { type: Number, default: 0 },
+    deadline: { type: Date, default: null },
+    progress: { type: Number, default: 0, min: 0, max: 100 },
     files: [
       {
         filename: String,
