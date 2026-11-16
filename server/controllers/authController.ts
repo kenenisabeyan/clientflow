@@ -1,10 +1,23 @@
+const mongoose = require('mongoose');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET, JWT_EXPIRE } = require('../config/env');
 
+const checkDB = (res) => {
+  if (mongoose.connection.readyState !== 1) {
+    res.status(503).json({
+      success: false,
+      message: 'Database is not connected. Please set your real MONGO_URI in Render Environment Variables.'
+    });
+    return false;
+  }
+  return true;
+};
+
 const generateToken = (id) => jwt.sign({ id }, JWT_SECRET, { expiresIn: JWT_EXPIRE });
 
 const register = async (req, res) => {
+  if (!checkDB(res)) return;
   try {
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
@@ -26,6 +39,7 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
+  if (!checkDB(res)) return;
   try {
     const { email, password } = req.body;
     if (!email || !password) {
