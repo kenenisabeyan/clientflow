@@ -1,16 +1,30 @@
+import { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { 
   LayoutDashboard, Users, FolderKanban, CheckSquare, 
   FileText, Calendar as CalendarIcon, MessageSquare, 
-  BarChart2, Settings as SettingsIcon, LogOut, Bell, Search, Sun, Moon
+  BarChart2, Settings as SettingsIcon, LogOut, Bell, Search, Sun, Moon, ArrowUp
 } from 'lucide-react';
 
 export default function Layout() {
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 150);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const isActive = (path: string) => location.pathname.startsWith(path) ? 'active' : '';
 
@@ -98,6 +112,36 @@ export default function Layout() {
         <div className="container">
           <Outlet />
         </div>
+
+        {/* Floating Right-Side Corner Scroll Sticker / Action Button */}
+        {showScrollTop && (
+          <button
+            onClick={scrollToTop}
+            title="Scroll to Top"
+            className="scroll-to-top-sticker"
+            style={{
+              position: 'fixed',
+              bottom: '2rem',
+              right: '2rem',
+              width: '46px',
+              height: '46px',
+              borderRadius: '50%',
+              background: 'linear-gradient(135deg, var(--primary), var(--accent))',
+              color: '#ffffff',
+              border: 'none',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 6px 20px rgba(59, 130, 246, 0.45)',
+              zIndex: 90,
+              transition: 'all 0.25s ease',
+              animation: 'fadeIn 0.25s ease-out'
+            }}
+          >
+            <ArrowUp size={22} />
+          </button>
+        )}
       </div>
     </div>
   );
