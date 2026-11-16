@@ -955,7 +955,9 @@ export default function Dashboard() {
           border: '1px solid var(--surface-border)',
           borderRadius: 'var(--radius)',
           padding: '1.5rem',
-          boxShadow: '0 2px 10px rgba(0,0,0,0.02)'
+          boxShadow: '0 2px 10px rgba(0,0,0,0.02)',
+          minWidth: 0,
+          overflow: 'hidden'
         }}>
           <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '0.35rem' }}>Registered Client Accounts</h3>
           <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '1.25rem' }}>
@@ -1014,7 +1016,9 @@ export default function Dashboard() {
           border: '1px solid var(--surface-border)',
           borderRadius: 'var(--radius)',
           padding: '1.5rem',
-          boxShadow: '0 2px 10px rgba(0,0,0,0.02)'
+          boxShadow: '0 2px 10px rgba(0,0,0,0.02)',
+          minWidth: 0,
+          overflow: 'hidden'
         }}>
           <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '0.35rem' }}>System Audit Activity</h3>
           <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '1.25rem' }}>
