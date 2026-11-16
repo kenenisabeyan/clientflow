@@ -748,7 +748,9 @@ export default function Dashboard() {
           padding: '1.5rem',
           display: 'flex',
           flexDirection: 'column',
-          boxShadow: '0 2px 10px rgba(0,0,0,0.02)'
+          boxShadow: '0 2px 10px rgba(0,0,0,0.02)',
+          minWidth: 0,
+          overflow: 'hidden'
         }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', marginBottom: '1.25rem' }}>
             <div>
@@ -798,8 +800,8 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
+          <div className="table-responsive">
+            <table style={{ width: '100%', minWidth: '420px', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid var(--surface-border)', color: 'var(--text-muted)' }}>
                   <th style={{ padding: '0.75rem 0', fontWeight: 600 }}>Project Title</th>
@@ -882,8 +884,8 @@ export default function Dashboard() {
             </button>
           </div>
 
-          <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
+          <div className="table-responsive">
+            <table style={{ width: '100%', minWidth: '420px', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid var(--surface-border)', color: 'var(--text-muted)' }}>
                   <th style={{ padding: '0.75rem 0', fontWeight: 600 }}>Task Details</th>
