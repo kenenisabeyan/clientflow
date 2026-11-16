@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   Search, Filter, Plus, ChevronLeft, ChevronRight, MoreHorizontal, 
   FolderKanban, CheckCircle2, Clock, DollarSign, Download, Eye, 
@@ -533,9 +534,9 @@ export default function Projects() {
                             {initial}
                           </div>
                           <div>
-                            <div style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '0.95rem' }}>
+                            <Link to={`/projects/${p._id}`} style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '0.95rem', textDecoration: 'none' }}>
                               {p.title}
-                            </div>
+                            </Link>
                             <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
                               {p.description ? p.description.substring(0, 40) + '...' : 'Milestone deliverable'}
                             </div>
@@ -610,6 +611,25 @@ export default function Projects() {
                             overflow: 'hidden',
                             animation: 'fadeIn 0.15s ease-out'
                           }}>
+                            <Link
+                              to={`/projects/${p._id}`}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.6rem',
+                                padding: '0.65rem 1rem',
+                                background: 'transparent',
+                                border: 'none',
+                                textAlign: 'left',
+                                fontSize: '0.85rem',
+                                color: 'var(--primary)',
+                                textDecoration: 'none',
+                                fontWeight: 600
+                              }}
+                            >
+                              <FolderKanban size={15} style={{ color: 'var(--primary)' }} /> 360° Portal
+                            </Link>
+
                             <button
                               onClick={() => openView(p)}
                               style={{
@@ -625,7 +645,7 @@ export default function Projects() {
                                 cursor: 'pointer'
                               }}
                             >
-                              <Eye size={15} style={{ color: 'var(--primary)' }} /> View Details
+                              <Eye size={15} style={{ color: 'var(--text-muted)' }} /> Quick Drawer
                             </button>
 
                             {(isAdmin || isDeveloper) && (

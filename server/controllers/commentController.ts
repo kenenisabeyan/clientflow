@@ -8,9 +8,16 @@ exports.addComment = async (req, res, next) => {
     if (!text || !projectId) return res.status(400).json({ success: false, message: 'Text and projectId required' });
     const project = await Project.findById(projectId);
     if (!project) return res.status(404).json({ success: false, message: 'Project not found' });
-    if (req.user.role !== 'admin' && project.client.toString() !== req.user.id) {
-      return res.status(403).json({ success: false, message: 'Not authorized' });
+    
+    // Admin, the assigned Client, or the assigned Developer can post comments
+    const isAuthorized = req.user.role === 'admin' || 
+      project.client?.toString() === req.user.id || 
+      (project.developer && project.developer.toString() === req.user.id);
+
+    if (!isAuthorized) {
+      return res.status(403).json({ success: false, message: 'Not authorized to comment on this project' });
     }
+
     const comment = await Comment.create({ text, user: req.user.id, project: projectId });
     project.comments.push(comment._id);
     await project.save();
@@ -24,9 +31,15 @@ exports.getComments = async (req, res, next) => {
   try {
     const project = await Project.findById(req.params.projectId);
     if (!project) return res.status(404).json({ success: false, message: 'Project not found' });
-    if (req.user.role !== 'admin' && project.client.toString() !== req.user.id) {
-      return res.status(403).json({ success: false, message: 'Not authorized' });
+    
+    const isAuthorized = req.user.role === 'admin' || 
+      project.client?.toString() === req.user.id || 
+      (project.developer && project.developer.toString() === req.user.id);
+
+    if (!isAuthorized) {
+      return res.status(403).json({ success: false, message: 'Not authorized to view comments on this project' });
     }
+
     const comments = await Comment.find({ project: req.params.projectId }).populate('user', 'name role').sort({ createdAt: -1 });
     res.json({ success: true, comments });
   } catch (err) { next(err); }

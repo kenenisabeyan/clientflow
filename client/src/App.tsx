@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Clients from './pages/Clients';
 import Projects from './pages/Projects';
+import ProjectDetail from './pages/ProjectDetail';
 import Tasks from './pages/Tasks';
 import Invoices from './pages/Invoices';
 import Calendar from './pages/Calendar';
@@ -64,6 +65,7 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="clients" element={<Clients />} />
             <Route path="projects" element={<Projects />} />
+            <Route path="projects/:id" element={<ProjectDetail />} />
             <Route path="tasks" element={<Tasks />} />
             <Route path="invoices" element={<Invoices />} />
             <Route path="calendar" element={<Calendar />} />
