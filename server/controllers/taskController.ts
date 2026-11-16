@@ -1,4 +1,5 @@
 const Task = require('../models/Task');
+const Project = require('../models/Project');
 
 exports.getTasks = async (req, res, next) => {
   try {
@@ -6,6 +7,15 @@ exports.getTasks = async (req, res, next) => {
     if (req.user.role === 'developer') {
       // Developers see tasks assigned to them or unassigned
       query.$or = [{ assignedTo: req.user.id }, { assignedTo: null }];
+    } else if (req.user.role === 'client') {
+      // Clients see tasks belonging to their projects
+      const clientProjects = await Project.find({ client: req.user.id }).select('_id title');
+      const projectIds = clientProjects.map((p: any) => p._id);
+      const projectTitles = clientProjects.map((p: any) => p.title);
+      query.$or = [
+        { projectId: { $in: projectIds } },
+        { project: { $in: projectTitles } }
+      ];
     }
 
     const tasks = await Task.find(query)

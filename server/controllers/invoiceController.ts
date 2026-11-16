@@ -88,3 +88,24 @@ exports.deleteInvoice = async (req, res, next) => {
     res.json({ success: true, message: 'Invoice deleted' });
   } catch (err) { next(err); }
 };
+
+exports.payInvoice = async (req, res, next) => {
+  try {
+    const invoice = await Invoice.findById(req.params.id);
+    if (!invoice) return res.status(404).json({ success: false, message: 'Invoice not found' });
+
+    // Client can only pay their own invoice
+    if (req.user.role === 'client' && invoice.client.toString() !== req.user.id) {
+      return res.status(403).json({ success: false, message: 'Not authorized to pay this invoice' });
+    }
+
+    invoice.status = 'Paid';
+    await invoice.save();
+
+    const populated = await Invoice.findById(invoice._id)
+      .populate('client', 'name email company')
+      .populate('project', 'title');
+
+    res.json({ success: true, message: 'Payment processed successfully', invoice: populated });
+  } catch (err) { next(err); }
+};

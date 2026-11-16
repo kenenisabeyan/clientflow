@@ -13,17 +13,16 @@ const { authorize } = require('../middleware/roleMiddleware');
 const router = express.Router();
 
 router.use(protect);
-router.use(authorize('admin'));
 
 router.route('/')
   .get(getUsers)
-  .post(createUser);
+  .post(authorize('admin'), createUser);
 
 router.route('/:id')
   .get(getUserById)
-  .put(updateUser)
-  .delete(deleteUser);
+  .put(authorize('admin'), updateUser)
+  .delete(authorize('admin'), deleteUser);
 
-router.put('/:id/role', updateUserRole);
+router.put('/:id/role', authorize('admin'), updateUserRole);
 
 module.exports = router;
