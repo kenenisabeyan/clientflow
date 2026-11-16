@@ -234,7 +234,7 @@ export default function UserManagement() {
           </p>
         </div>
 
-        <div style={{ display: 'flex', gap: '0.75rem' }}>
+        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
           <button
             onClick={() => loadUsers(true)}
             disabled={refreshing}
@@ -400,8 +400,8 @@ export default function UserManagement() {
         overflow: 'hidden',
         boxShadow: '0 4px 16px rgba(0, 0, 0, 0.02)'
       }}>
-        <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+        <div className="table-responsive" style={{ width: '100%', overflowX: 'auto' }}>
+          <table style={{ width: '100%', minWidth: '680px', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid var(--surface-border)', background: 'var(--bg-color)' }}>
                 <th style={{ padding: '0.9rem 1.25rem', fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase' }}>User / Member</th>
