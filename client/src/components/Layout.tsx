@@ -7,7 +7,7 @@ import {
   LayoutDashboard, Users, FolderKanban, CheckSquare, 
   FileText, Calendar as CalendarIcon, MessageSquare, 
   BarChart2, Settings as SettingsIcon, LogOut, Bell, Search, Sun, Moon, ArrowUp,
-  CheckCircle2, AlertCircle, Clock, History, ShieldCheck, X
+  CheckCircle2, AlertCircle, Clock, History, ShieldCheck, X, Menu
 } from 'lucide-react';
 
 export default function Layout() {
@@ -17,6 +17,7 @@ export default function Layout() {
   const navigate = useNavigate();
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [isNotifOpen, setIsNotifOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const notifRef = useRef<HTMLDivElement>(null);
 
   // Omnisearch State
@@ -31,6 +32,11 @@ export default function Layout() {
   }>({ projects: [], tasks: [], invoices: [], users: [] });
   const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Auto-close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
 
   // Global Keyboard shortcut: Ctrl+K or Cmd+K focuses Omnisearch
   useEffect(() => {
