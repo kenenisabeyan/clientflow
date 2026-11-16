@@ -398,7 +398,7 @@ export default function Clients() {
       {/* ERP Metric Cards (4 KPI Cards) */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
         gap: '1.25rem'
       }}>
         {[
