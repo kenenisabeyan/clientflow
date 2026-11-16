@@ -327,9 +327,9 @@ export default function Dashboard() {
         border: '1px solid var(--surface-border)',
         boxShadow: '0 2px 8px rgba(0,0,0,0.02)'
       }}>
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.35rem' }}>
-            <h2 style={{ fontSize: '1.45rem', fontWeight: 700, letterSpacing: '-0.4px' }}>
+        <div style={{ flex: '1 1 280px', minWidth: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.35rem', flexWrap: 'wrap' }}>
+            <h2 style={{ fontSize: '1.45rem', fontWeight: 700, letterSpacing: '-0.4px', wordBreak: 'break-word' }}>
               {isAdmin ? 'Admin Operations Center' : isClient ? 'Client Project Portal' : 'Developer Sprint Station'}
             </h2>
             <span style={{
@@ -346,7 +346,7 @@ export default function Dashboard() {
               <ShieldCheck size={14} /> LIVE ATLAS DB
             </span>
           </div>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem' }}>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', wordBreak: 'break-word' }}>
             {isAdmin ? (
               <>Welcome back, <strong style={{ color: 'var(--text-main)' }}>{user?.name || 'Administrator'}</strong>. Real-time control and analytics across all client operations.</>
             ) : isClient ? (
