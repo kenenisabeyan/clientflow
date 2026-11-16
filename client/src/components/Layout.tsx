@@ -139,22 +139,65 @@ export default function Layout() {
     return () => clearTimeout(timer);
   }, [searchQuery, user?.role]);
 
-  // Role-specific notifications
+  // Role-specific notifications with live Atlas synchronization
   const [notifications, setNotifications] = useState([
     ...(user?.role === 'admin' ? [
-      { id: 1, text: 'Delelegn paid Invoice INV-0001 ($5,000)', time: '10m ago', unread: true, type: 'payment' },
-      { id: 2, text: 'Kidane completed task: API route configuration', time: '1h ago', unread: true, type: 'task' },
-      { id: 3, text: 'New client inquiry in #client-support', time: '2h ago', unread: false, type: 'message' },
+      { id: 1, text: 'Delelegn paid Invoice INV-0001 ($5,000)', time: '10m ago', unread: true, type: 'payment', path: '/invoices' },
+      { id: 2, text: 'Kidane completed task: API route configuration', time: '1h ago', unread: true, type: 'task', path: '/tasks' },
+      { id: 3, text: 'New client inquiry in #client-support', time: '2h ago', unread: false, type: 'message', path: '/messages' },
     ] : user?.role === 'client' ? [
-      { id: 1, text: 'Your invoice INV-0001 has been confirmed Paid', time: '10m ago', unread: true, type: 'payment' },
-      { id: 2, text: 'Project milestone reached: Database & API ready', time: '1h ago', unread: true, type: 'task' },
-      { id: 3, text: 'New broadcast in #general channel', time: '1d ago', unread: false, type: 'message' },
+      { id: 1, text: 'Your invoice INV-0001 has been confirmed Paid', time: '10m ago', unread: true, type: 'payment', path: '/invoices' },
+      { id: 2, text: 'Project milestone reached: Database & API ready', time: '1h ago', unread: true, type: 'task', path: '/tasks' },
+      { id: 3, text: 'New broadcast in #general channel', time: '1d ago', unread: false, type: 'message', path: '/messages' },
     ] : [
-      { id: 1, text: 'New sprint task assigned to your queue', time: '30m ago', unread: true, type: 'task' },
-      { id: 2, text: 'Sprint velocity updated for current milestone', time: '2h ago', unread: true, type: 'task' },
-      { id: 3, text: 'New technical thread in #dev-team', time: '5h ago', unread: false, type: 'message' },
+      { id: 1, text: 'New sprint task assigned to your queue', time: '30m ago', unread: true, type: 'task', path: '/tasks' },
+      { id: 2, text: 'Sprint velocity updated for current milestone', time: '2h ago', unread: true, type: 'task', path: '/tasks' },
+      { id: 3, text: 'New technical thread in #dev-team', time: '5h ago', unread: false, type: 'message', path: '/messages' },
     ])
   ]);
+
+  // Synchronize live notifications from Atlas Activity feed
+  useEffect(() => {
+    const fetchLiveNotifications = async () => {
+      try {
+        const res = await api.get('/activity?limit=6');
+        if (res.data?.activities && res.data.activities.length > 0) {
+          const live = res.data.activities.map((a: any, idx: number) => {
+            const low = (a.action || '').toLowerCase();
+            let type = 'task';
+            let path = '/tasks';
+            if (low.includes('invoice') || low.includes('paid')) {
+              type = 'payment';
+              path = user?.role !== 'developer' ? '/invoices' : '/dashboard';
+            } else if (low.includes('project')) {
+              type = 'project';
+              path = a.project?._id ? `/projects/${a.project._id}` : '/projects';
+            } else if (low.includes('user') || low.includes('role')) {
+              type = 'security';
+              path = user?.role === 'admin' ? '/users' : '/settings';
+            }
+
+            const createdTime = new Date(a.createdAt);
+            const diffMin = Math.round((Date.now() - createdTime.getTime()) / 60000);
+            const timeStr = diffMin < 60 ? `${Math.max(1, diffMin)}m ago` : diffMin < 1440 ? `${Math.round(diffMin / 60)}h ago` : `${Math.round(diffMin / 1440)}d ago`;
+
+            return {
+              id: a._id || idx,
+              text: `${a.user?.name || 'System'}: ${a.action}`,
+              time: timeStr,
+              unread: idx < 2,
+              type,
+              path
+            };
+          });
+          setNotifications(live);
+        }
+      } catch (err) {
+        // Fallback to role defaults
+      }
+    };
+    fetchLiveNotifications();
+  }, [user?.role]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -577,7 +620,13 @@ export default function Layout() {
                      {notifications.map(n => (
                        <div
                          key={n.id}
+                         onClick={() => {
+                           if ((n as any).path) navigate((n as any).path);
+                           setNotifications(prev => prev.map(item => item.id === n.id ? { ...item, unread: false } : item));
+                           setIsNotifOpen(false);
+                         }}
                          style={{
+                           cursor: 'pointer',
                            padding: '0.85rem 1rem',
                            borderBottom: '1px solid var(--surface-border)',
                            background: n.unread ? 'rgba(59, 130, 246, 0.04)' : 'transparent',
