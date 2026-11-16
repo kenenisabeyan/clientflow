@@ -47,10 +47,20 @@ html.dark {
   --input-bg: rgba(15, 23, 42, 0.6);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.45) transparent;
+}
+
+html.dark * {
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
 }
 
 body {
@@ -413,19 +423,70 @@ html.dark .auth-page {
   to { opacity: 1; }
 }
 
-/* Scrollbar */
+/* =========================================
+   Advanced Modern Scrollbar Design
+   ========================================= */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
+  height: 6px;
 }
+
+/* Remove clunky native Windows buttons and arrows */
+::-webkit-scrollbar-button {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
 ::-webkit-scrollbar-track {
-  background: var(--bg-color);
+  background: transparent;
+  border-radius: 9999px;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: var(--surface-border);
-  border-radius: 4px;
+  background: rgba(148, 163, 184, 0.45);
+  border-radius: 9999px;
+  transition: background 0.25s ease, transform 0.2s ease;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
+  background: var(--primary);
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.45);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: var(--primary-hover);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Dark mode custom scrollbar */
+html.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.6);
+}
+
+html.dark ::-webkit-scrollbar-thumb:active {
+  background: var(--primary-hover);
+}
+
+/* Ultra-minimal sidebar scrollbar */
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.2);
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
 }
 
 /* Exact Dashboard Enhancements */
