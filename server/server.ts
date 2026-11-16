@@ -68,6 +68,8 @@ app.use(['/api/activity', '/activity'], activityRoutes);
 app.use(['/api/comments', '/comments'], commentRoutes);
 app.use(['/api/users', '/users'], userRoutes);
 app.use(['/api/tasks', '/tasks'], taskRoutes);
+app.use(['/api/invoices', '/invoices'], invoiceRoutes);
+app.use(['/api/messages', '/messages'], messageRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
