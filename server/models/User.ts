@@ -6,6 +6,9 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true, select: false },
   role: { type: String, enum: ['admin', 'client', 'developer'], default: 'client' },
+  phone: { type: String, default: '' },
+  company: { type: String, default: '' },
+  status: { type: String, enum: ['Active', 'Pending', 'Inactive'], default: 'Active' },
 }, { timestamps: true });
 
 userSchema.pre('save', async function() {
