@@ -1012,6 +1012,19 @@ html.dark ::-webkit-scrollbar-thumb:active {
   .page-title {
     display: none !important;
   }
+
+  .auth-header {
+    padding: 0.85rem 0.75rem !important;
+  }
+
+  .auth-bright-ideas-text {
+    display: none !important;
+  }
+
+  .auth-bright-ideas-widget {
+    padding: 0.35rem !important;
+    border-radius: 12px !important;
+  }
 }
 
 

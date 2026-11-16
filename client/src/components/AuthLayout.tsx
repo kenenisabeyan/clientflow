@@ -182,7 +182,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
       </svg>
 
       {/* Top Header Bar */}
-      <header style={{
+      <header className="auth-header" style={{
         position: 'absolute',
         top: 0,
         left: 0,
@@ -240,10 +240,10 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
         </div>
 
         {/* Top-Right: "Enterprise Resource Planning" & "Bright Ideas / Illuminating Growth" Widget */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
           
           {/* Floating "Bright Ideas" Translucent Widget (From Recording) */}
-          <div style={{
+          <div className="auth-bright-ideas-widget" style={{
             background: theme === 'dark' ? 'rgba(15, 23, 42, 0.65)' : 'rgba(255, 255, 255, 0.55)',
             backdropFilter: 'blur(16px)',
             WebkitBackdropFilter: 'blur(16px)',
@@ -271,7 +271,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
               <Lightbulb size={20} style={{ color: '#ffffff', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.2))' }} />
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div className="auth-bright-ideas-text" style={{ display: 'flex', flexDirection: 'column' }}>
               <span style={{
                 fontSize: '0.72rem',
                 fontWeight: 600,
@@ -316,7 +316,8 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
               justifyContent: 'center',
               backdropFilter: 'blur(10px)',
               boxShadow: '0 4px 12px rgba(0,0,0,0.04)',
-              transition: 'all 0.2s ease'
+              transition: 'all 0.2s ease',
+              flexShrink: 0
             }}
             title="Toggle Light/Dark Theme"
           >
