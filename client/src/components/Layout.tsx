@@ -311,8 +311,8 @@ export default function Layout() {
       )}
 
       <div className="main-content">
-        <header className="topbar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+        <header className="topbar">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', minWidth: 0, flexShrink: 1 }}>
             <button
               className="mobile-menu-btn"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -322,7 +322,7 @@ export default function Layout() {
             </button>
             <h1 className="page-title">{getPageTitle()}</h1>
           </div>
-          <div className="topbar-right" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+          <div className="topbar-right">
              
              {/* Global Omnisearch Container */}
              <div ref={searchRef} style={{ position: 'relative' }}>
@@ -330,28 +330,28 @@ export default function Layout() {
                  display: 'flex', 
                  alignItems: 'center', 
                  background: 'var(--bg-color)', 
-                 padding: '0.5rem 1rem', 
+                 padding: '0.45rem 0.85rem', 
                  borderRadius: '20px', 
                  border: '1px solid var(--surface-border)',
-                 width: '260px',
                  transition: 'all 0.2s ease',
                  boxShadow: isSearchOpen ? '0 0 0 2px var(--primary)' : 'none'
                }}>
-                 <Search size={16} style={{ color: 'var(--text-muted)', marginRight: '0.5rem', flexShrink: 0 }} />
+                 <Search size={15} style={{ color: 'var(--text-muted)', marginRight: '0.4rem', flexShrink: 0 }} />
                  <input 
                    ref={inputRef}
                    type="text" 
                    value={searchQuery}
                    onChange={(e) => setSearchQuery(e.target.value)}
                    onFocus={() => { if (searchQuery.trim().length >= 2) setIsSearchOpen(true); }}
-                   placeholder="Quick search (Ctrl+K)..." 
+                   placeholder="Search (Ctrl+K)..." 
                    style={{ 
                      background: 'transparent', 
                      border: 'none', 
                      color: 'var(--text-main)', 
                      outline: 'none', 
-                     fontSize: '0.88rem',
-                     width: '100%' 
+                     fontSize: '0.85rem',
+                     width: '100%',
+                     minWidth: 0
                    }} 
                  />
                  {searchQuery && (
@@ -369,8 +369,8 @@ export default function Layout() {
                  <div style={{
                    position: 'absolute',
                    top: 'calc(100% + 8px)',
-                   left: 0,
-                   width: '380px',
+                   right: 0,
+                   width: 'min(380px, calc(100vw - 2rem))',
                    maxHeight: '440px',
                    overflowY: 'auto',
                    background: 'var(--surface)',
