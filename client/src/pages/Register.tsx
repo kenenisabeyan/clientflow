@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { Link, useNavigate } from 'react-router-dom';
-import { Sun, Moon } from 'lucide-react';
+import AuthLayout from '../components/AuthLayout';
+import { Loader2 } from 'lucide-react';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -11,7 +12,7 @@ export default function Register() {
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const { register } = useAuth();
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -32,137 +33,226 @@ export default function Register() {
     }
   };
 
-  return (
-    <div className="auth-page">
-      {/* Theme Toggle Button */}
-      <button
-        type="button"
-        onClick={toggleTheme}
-        style={{
-          position: 'absolute',
-          top: '1.5rem',
-          right: '1.5rem',
-          padding: '0.5rem 0.75rem',
-          background: 'var(--surface)',
-          border: '1px solid var(--surface-border)',
-          borderRadius: '12px',
-          color: 'var(--text-main)',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.4rem',
-          boxShadow: 'var(--glass-shadow)',
-          fontSize: '0.8rem',
-          fontWeight: 500,
-          zIndex: 10
-        }}
-        title="Switch Light/Dark Mode"
-      >
-        {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
-        <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
-      </button>
+  const isDark = theme === 'dark';
 
-      <div style={{ 
-        width: '420px', maxWidth: '90%',
-        background: 'var(--surface)', border: '1px solid var(--surface-border)', 
-        borderRadius: '24px', padding: '3rem 2.5rem',
-        boxShadow: 'var(--glass-shadow)', backdropFilter: 'var(--blur)',
-        display: 'flex', flexDirection: 'column', alignItems: 'center'
+  return (
+    <AuthLayout>
+      <div style={{
+        background: isDark ? 'rgba(15, 23, 42, 0.65)' : 'rgba(255, 255, 255, 0.52)',
+        backdropFilter: 'blur(24px) saturate(190%)',
+        WebkitBackdropFilter: 'blur(24px) saturate(190%)',
+        border: isDark ? '1.5px solid rgba(255, 255, 255, 0.12)' : '1.5px solid rgba(255, 255, 255, 0.8)',
+        borderRadius: '28px',
+        padding: '3rem 2.5rem 2.5rem',
+        boxShadow: isDark 
+          ? '0 25px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset' 
+          : '0 25px 60px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.6) inset',
+        display: 'flex',
+        flexDirection: 'column',
+        boxSizing: 'border-box'
       }}>
         
-        {/* Logo and Title */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '1.75rem' }}>
-          <div style={{ 
-            width: '48px', height: '48px', borderRadius: '12px', 
-            background: 'linear-gradient(135deg, var(--primary), var(--accent))', 
-            display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem' 
+        {/* Card Header (Matches Video Styling) */}
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          <h1 style={{
+            fontSize: '2.3rem',
+            fontWeight: 800,
+            letterSpacing: '-0.5px',
+            color: isDark ? '#ffffff' : '#1e1b4b',
+            margin: '0 0 0.5rem 0'
           }}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
-          </div>
-          <h1 style={{ fontSize: '1.6rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '0.5rem' }}>Welcome to ClientFlow</h1>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Manage your workflow like a pro</p>
+            Create Account
+          </h1>
+          <p style={{
+            fontSize: '0.98rem',
+            color: isDark ? '#94a3b8' : '#64748b',
+            margin: 0
+          }}>
+            Register for your <strong style={{ color: '#2563eb' }}>ClientFlow ERP</strong> workspace
+          </p>
         </div>
 
-        {/* Tabs */}
-        <div style={{ display: 'flex', width: '100%', background: 'rgba(15,23,42,0.05)', borderRadius: '12px', padding: '0.25rem', marginBottom: '1.5rem' }}>
-          <Link to="/login" style={{ flex: 1, color: 'var(--text-muted)', textAlign: 'center', padding: '0.6rem', borderRadius: '8px', fontSize: '0.9rem', fontWeight: 500, textDecoration: 'none' }}>
-             Login
-          </Link>
-          <div style={{ flex: 1, background: 'var(--surface)', color: 'var(--text-main)', textAlign: 'center', padding: '0.6rem', borderRadius: '8px', fontSize: '0.9rem', fontWeight: 500, cursor: 'default', boxShadow: '0 2px 5px rgba(0,0,0,0.05)' }}>
-             Register
-          </div>
-        </div>
-
-        {/* Error message */}
+        {/* Error Feedback */}
         {error && (
           <div style={{
             width: '100%',
-            padding: '0.75rem 1rem',
-            marginBottom: '1.25rem',
-            background: 'rgba(239, 68, 68, 0.1)',
-            border: '1px solid rgba(239, 68, 68, 0.25)',
-            borderRadius: '10px',
+            padding: '0.85rem 1.1rem',
+            marginBottom: '1.5rem',
+            background: 'rgba(239, 68, 68, 0.12)',
+            border: '1px solid rgba(239, 68, 68, 0.3)',
+            borderRadius: '12px',
             color: '#ef4444',
-            fontSize: '0.85rem',
-            textAlign: 'center'
+            fontSize: '0.88rem',
+            textAlign: 'center',
+            fontWeight: 500,
+            animation: 'fadeIn 0.2s ease-out',
+            boxSizing: 'border-box'
           }}>
             {error}
           </div>
         )}
-        
+
+        {/* Registration Form */}
         <form onSubmit={handleSubmit} style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            <label style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--text-main)' }}>Name</label>
-            <input 
-              type="text" 
-              placeholder="Full Name"
-              value={name} 
-              onChange={(e) => setName(e.target.value)} 
-              required 
-              style={{ width: '100%', padding: '0.85rem 1rem', background: 'var(--input-bg)', border: '1px solid var(--surface-border)', borderRadius: '12px', color: 'var(--text-main)', outline: 'none' }}
-            />
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            <label style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--text-main)' }}>Email</label>
-            <input 
-              type="email" 
-              placeholder="example@test.com"
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
-              required 
-              style={{ width: '100%', padding: '0.85rem 1rem', background: 'var(--input-bg)', border: '1px solid var(--surface-border)', borderRadius: '12px', color: 'var(--text-main)', outline: 'none' }}
-            />
-          </div>
           
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            <label style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--text-main)' }}>Password</label>
-            <input 
-              type="password" 
-              placeholder="••••••••"
-              value={password} 
-              onChange={(e) => setPassword(e.target.value)} 
-              required 
-              style={{ width: '100%', padding: '0.85rem 1rem', background: 'var(--input-bg)', border: '1px solid var(--surface-border)', borderRadius: '12px', color: 'var(--text-main)', outline: 'none' }}
+          {/* Full Name */}
+          <div>
+            <label style={{
+              display: 'block',
+              fontSize: '0.88rem',
+              fontWeight: 600,
+              color: isDark ? '#cbd5e1' : '#334155',
+              marginBottom: '0.45rem'
+            }}>
+              Full Name
+            </label>
+            <input
+              type="text"
+              placeholder="e.g. Kenenisa Beyan"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              style={{
+                width: '100%',
+                padding: '0.95rem 1.15rem',
+                background: isDark ? 'rgba(15, 23, 42, 0.8)' : '#ffffff',
+                border: isDark ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(203, 213, 225, 0.9)',
+                borderRadius: '12px',
+                color: isDark ? '#ffffff' : '#0f172a',
+                fontSize: '0.95rem',
+                outline: 'none',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.02)',
+                transition: 'all 0.2s ease',
+                boxSizing: 'border-box'
+              }}
             />
           </div>
 
-          <button 
-            type="submit" 
+          {/* Email / Username */}
+          <div>
+            <label style={{
+              display: 'block',
+              fontSize: '0.88rem',
+              fontWeight: 600,
+              color: isDark ? '#cbd5e1' : '#334155',
+              marginBottom: '0.45rem'
+            }}>
+              Email Address
+            </label>
+            <input
+              type="email"
+              placeholder="e.g. kenenisa@gmail.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              style={{
+                width: '100%',
+                padding: '0.95rem 1.15rem',
+                background: isDark ? 'rgba(15, 23, 42, 0.8)' : '#ffffff',
+                border: isDark ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(203, 213, 225, 0.9)',
+                borderRadius: '12px',
+                color: isDark ? '#ffffff' : '#0f172a',
+                fontSize: '0.95rem',
+                outline: 'none',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.02)',
+                transition: 'all 0.2s ease',
+                boxSizing: 'border-box'
+              }}
+            />
+          </div>
+
+          {/* Password */}
+          <div>
+            <label style={{
+              display: 'block',
+              fontSize: '0.88rem',
+              fontWeight: 600,
+              color: isDark ? '#cbd5e1' : '#334155',
+              marginBottom: '0.45rem'
+            }}>
+              Create Password
+            </label>
+            <input
+              type="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              minLength={6}
+              style={{
+                width: '100%',
+                padding: '0.95rem 1.15rem',
+                background: isDark ? 'rgba(15, 23, 42, 0.8)' : '#ffffff',
+                border: isDark ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(203, 213, 225, 0.9)',
+                borderRadius: '12px',
+                color: isDark ? '#ffffff' : '#0f172a',
+                fontSize: '0.95rem',
+                outline: 'none',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.02)',
+                transition: 'all 0.2s ease',
+                boxSizing: 'border-box'
+              }}
+            />
+          </div>
+
+          {/* Primary Action Button (Teal-Blue Gradient from Video) */}
+          <button
+            type="submit"
             disabled={submitting}
-            style={{ 
-              width: '100%', padding: '0.85rem', background: 'var(--primary)', color: '#fff', 
-              border: 'none', borderRadius: '12px', fontWeight: 600, cursor: submitting ? 'not-allowed' : 'pointer', 
-              marginTop: '0.5rem', opacity: submitting ? 0.7 : 1,
-              boxShadow: '0 4px 15px rgba(59, 130, 246, 0.4)',
-              transition: 'var(--transition)'
+            style={{
+              width: '100%',
+              padding: '0.95rem',
+              background: 'linear-gradient(135deg, #0284c7 0%, #1e40af 100%)',
+              color: '#ffffff',
+              border: 'none',
+              borderRadius: '12px',
+              fontSize: '1.02rem',
+              fontWeight: 700,
+              cursor: submitting ? 'not-allowed' : 'pointer',
+              marginTop: '0.5rem',
+              boxShadow: '0 8px 24px rgba(2, 132, 199, 0.35)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.6rem',
+              transition: 'all 0.2s ease',
+              opacity: submitting ? 0.85 : 1
             }}
           >
-            {submitting ? 'Creating account...' : 'Register'}
+            {submitting ? (
+              <>
+                <Loader2 size={18} className="animate-spin" style={{ animation: 'spin 1s linear infinite' }} />
+                <span>Creating Account...</span>
+              </>
+            ) : (
+              <span>Create ClientFlow ERP Account</span>
+            )}
           </button>
         </form>
 
+        {/* Link back to Sign In */}
+        <div style={{
+          textAlign: 'center',
+          marginTop: '1.75rem',
+          fontSize: '0.88rem',
+          color: isDark ? '#94a3b8' : '#64748b'
+        }}>
+          Already have an ERP account?{' '}
+          <Link
+            to="/login"
+            style={{
+              color: '#0284c7',
+              fontWeight: 700,
+              textDecoration: 'none'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+            onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
+          >
+            Sign In Here
+          </Link>
+        </div>
+
       </div>
-    </div>
+    </AuthLayout>
   );
 }
