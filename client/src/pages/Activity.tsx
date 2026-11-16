@@ -338,7 +338,9 @@ export default function Activity() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  padding: '1.1rem 1.5rem',
+                  padding: '1rem',
+                  flexWrap: 'wrap',
+                  gap: '0.75rem',
                   borderBottom: index < filteredActivities.length - 1 ? '1px solid var(--surface-border)' : 'none',
                   transition: 'background 0.15s ease'
                 }}
