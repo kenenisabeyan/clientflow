@@ -24,4 +24,9 @@ const projectSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// High-performance compound indexes for role-scoped queries
+projectSchema.index({ client: 1, createdAt: -1 });
+projectSchema.index({ developer: 1, createdAt: -1 });
+projectSchema.index({ status: 1 });
+
 module.exports = mongoose.model('Project', projectSchema);

@@ -9,4 +9,8 @@ const messageSchema = new mongoose.Schema({
   read: { type: Boolean, default: false }
 }, { timestamps: true });
 
+// High-performance indexes for channel discussions and 1-on-1 direct messaging
+messageSchema.index({ channel: 1, createdAt: 1 });
+messageSchema.index({ sender: 1, recipient: 1, createdAt: 1 });
+
 module.exports = mongoose.model('Message', messageSchema);

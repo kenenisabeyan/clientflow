@@ -10,4 +10,9 @@ const activitySchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// High-speed chronological audit trail indexes
+activitySchema.index({ project: 1, createdAt: -1 });
+activitySchema.index({ user: 1, createdAt: -1 });
+activitySchema.index({ createdAt: -1 });
+
 module.exports = mongoose.model('Activity', activitySchema);

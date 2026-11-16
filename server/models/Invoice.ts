@@ -20,4 +20,9 @@ const invoiceSchema = new mongoose.Schema({
   notes: { type: String, default: '' }
 }, { timestamps: true });
 
+// Performance indexes for financial reconciliation and client billing
+invoiceSchema.index({ client: 1, status: 1 });
+invoiceSchema.index({ status: 1 });
+invoiceSchema.index({ project: 1 });
+
 module.exports = mongoose.model('Invoice', invoiceSchema);

@@ -12,4 +12,9 @@ const taskSchema = new mongoose.Schema({
   avatar: { type: String, default: 'U' },
 }, { timestamps: true });
 
+// Performance indexes for sprint Kanban and developer backlog
+taskSchema.index({ projectId: 1, status: 1 });
+taskSchema.index({ assignedTo: 1, status: 1 });
+taskSchema.index({ status: 1 });
+
 module.exports = mongoose.model('Task', taskSchema);

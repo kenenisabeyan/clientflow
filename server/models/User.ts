@@ -11,6 +11,10 @@ const userSchema = new mongoose.Schema({
   status: { type: String, enum: ['Active', 'Pending', 'Inactive'], default: 'Active' },
 }, { timestamps: true });
 
+// Role indexing for directory lookups and RBAC scoping
+userSchema.index({ role: 1 });
+userSchema.index({ status: 1 });
+
 userSchema.pre('save', async function() {
   if (!this.isModified('password')) return;
   const salt = await bcrypt.genSalt(10);
