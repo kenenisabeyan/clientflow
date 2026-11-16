@@ -38,11 +38,11 @@ html.dark {
   --blur: blur(12px);
 
   /* Sidebar styling */
-  --sidebar-bg: rgba(15, 23, 42, 0.4);
-  --sidebar-border: rgba(255, 255, 255, 0.05);
+  --sidebar-bg: #0f172a;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
   --sidebar-text: #f8fafc;
   --sidebar-muted: #94a3b8;
-  --sidebar-hover: rgba(255, 255, 255, 0.05);
+  --sidebar-hover: rgba(255, 255, 255, 0.06);
   --sidebar-active-bg: rgba(59, 130, 246, 0.15);
   --input-bg: rgba(15, 23, 42, 0.6);
 }
@@ -175,14 +175,23 @@ html.dark .auth-page {
 .app {
   display: flex;
   min-height: 100vh;
+  position: relative;
 }
 
 .sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
   width: 260px;
+  height: 100vh;
   background: var(--sidebar-bg);
   border-right: 1px solid var(--sidebar-border);
   display: flex;
   flex-direction: column;
+  z-index: 50;
+  overflow-y: auto;
+  scrollbar-width: thin;
 }
 
 .sidebar-logo {
@@ -191,7 +200,11 @@ html.dark .auth-page {
   font-weight: 700;
   color: var(--sidebar-text);
   letter-spacing: -0.5px;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid var(--sidebar-border);
+  position: sticky;
+  top: 0;
+  background: var(--sidebar-bg);
+  z-index: 10;
 }
 
 .sidebar-nav {
@@ -234,13 +247,19 @@ html.dark .auth-page {
 
 .main-content {
   flex: 1;
+  margin-left: 260px;
+  width: calc(100% - 260px);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  min-height: 100vh;
   background: var(--bg-color);
 }
 
 .topbar {
+  position: fixed;
+  top: 0;
+  left: 260px;
+  right: 0;
   height: 72px;
   background: var(--surface);
   border-bottom: 1px solid var(--surface-border);
@@ -248,6 +267,10 @@ html.dark .auth-page {
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
+  z-index: 40;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
 }
 
 .page-title {
@@ -270,7 +293,7 @@ html.dark .auth-page {
 
 .container {
   padding: 2.5rem;
-  overflow-y: auto;
+  padding-top: calc(72px + 2rem);
   flex: 1;
   animation: fadeIn 0.4s ease-out;
 }
