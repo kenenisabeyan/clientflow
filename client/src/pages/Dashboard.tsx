@@ -625,7 +625,7 @@ export default function Dashboard() {
       </div>
 
       {/* Visual Analytics Charts Section */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: '1.5rem' }}>
+      <div className="dashboard-charts-grid">
         
         {/* Project & Task Workload Velocity Chart */}
         <div style={{
@@ -738,7 +738,7 @@ export default function Dashboard() {
       </div>
 
       {/* Live Data Tables (Projects & Tasks) */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(480px, 1fr))', gap: '1.5rem' }}>
+      <div className="dashboard-tables-grid">
         
         {/* Real Projects Table */}
         <div style={{
@@ -943,7 +943,7 @@ export default function Dashboard() {
       </div>
 
       {/* Registered Clients & Recent Activity Row */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: '1.5rem' }}>
+      <div className="dashboard-bottom-grid">
         
         {/* Real Registered Clients Directory */}
         <div style={{
