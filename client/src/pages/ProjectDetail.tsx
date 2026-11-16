@@ -405,7 +405,7 @@ export default function ProjectDetail() {
         </div>
 
         {/* Progress Bar & Quick Stats */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem', paddingTop: '1.25rem', borderTop: '1px solid var(--surface-border)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: '1.25rem', paddingTop: '1.25rem', borderTop: '1px solid var(--surface-border)' }}>
           {/* Progress Slider */}
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', marginBottom: '0.4rem' }}>
@@ -506,7 +506,7 @@ export default function ProjectDetail() {
 
       {/* TAB 1: OVERVIEW */}
       {activeTab === 'overview' && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
+        <div className="project-detail-grid">
           {/* Left: Project Scope */}
           <div style={{
             background: 'var(--surface)',
