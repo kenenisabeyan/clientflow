@@ -8,6 +8,7 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "start:dev": "ts-node server.ts",
+    "seed": "node seed.js",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [
