@@ -53,12 +53,12 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-app.use('/api/auth', authRoutes);
-app.use('/api/projects', projectRoutes);
-app.use('/api/activity', activityRoutes);
-app.use('/api/comments', commentRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/tasks', taskRoutes);
+app.use(['/api/auth', '/auth'], authRoutes);
+app.use(['/api/projects', '/projects'], projectRoutes);
+app.use(['/api/activity', '/activity'], activityRoutes);
+app.use(['/api/comments', '/comments'], commentRoutes);
+app.use(['/api/users', '/users'], userRoutes);
+app.use(['/api/tasks', '/tasks'], taskRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
