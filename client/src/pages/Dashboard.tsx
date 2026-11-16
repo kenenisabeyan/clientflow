@@ -857,7 +857,9 @@ export default function Dashboard() {
           padding: '1.5rem',
           display: 'flex',
           flexDirection: 'column',
-          boxShadow: '0 2px 10px rgba(0,0,0,0.02)'
+          boxShadow: '0 2px 10px rgba(0,0,0,0.02)',
+          minWidth: 0,
+          overflow: 'hidden'
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
             <div>
