@@ -312,7 +312,7 @@ export default function Layout() {
 
       <div className="main-content">
         <header className="topbar">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', minWidth: 0, flexShrink: 1 }}>
+          <div className="topbar-left">
             <button
               className="mobile-menu-btn"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
