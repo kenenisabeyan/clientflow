@@ -211,25 +211,10 @@ export default function Messages() {
       </div>
 
       {/* Main Messaging Layout Box */}
-      <div style={{
-        display: 'flex',
-        flex: 1,
-        background: 'var(--surface)',
-        border: '1px solid var(--surface-border)',
-        borderRadius: 'var(--radius)',
-        overflow: 'hidden',
-        boxShadow: 'var(--glass-shadow)',
-        minHeight: 0
-      }}>
+      <div className="messages-layout-box">
         
         {/* Left Sidebar: Channels & Users */}
-        <div style={{
-          width: '320px',
-          background: 'var(--surface)',
-          borderRight: '1px solid var(--surface-border)',
-          display: 'flex',
-          flexDirection: 'column'
-        }}>
+        <div className="messages-sidebar">
           {/* Contact Search */}
           <div style={{ padding: '1rem', borderBottom: '1px solid var(--surface-border)' }}>
             <div style={{
@@ -353,7 +338,7 @@ export default function Messages() {
         </div>
 
         {/* Right Chat Area */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: 'var(--bg-color)' }}>
+        <div className="messages-chat-area">
           {/* Active Chat Header */}
           <div style={{
             padding: '1rem 1.5rem',
