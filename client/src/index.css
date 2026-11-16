@@ -66,9 +66,11 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: var(--bg-color);
+  background: #f8fafc;
+  background: radial-gradient(circle at 50% 0%, #eef2ff 0%, #f8fafc 75%);
   background-size: cover;
   background-position: center;
+  position: relative;
 }
 
 html.dark .auth-page {

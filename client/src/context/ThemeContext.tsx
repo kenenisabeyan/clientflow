@@ -11,14 +11,24 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light' || savedTheme === 'dark') return savedTheme;
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    // Default to 'light' (brightness/light mode) by default
+    const savedTheme = localStorage.getItem('clientflow_theme');
+    if (savedTheme === 'light' || savedTheme === 'dark') {
+      return savedTheme;
+    }
+    return 'light';
   });
 
   useEffect(() => {
-    localStorage.setItem('theme', theme);
-    document.documentElement.className = theme; // Applies .light or .dark to <html>
+    localStorage.setItem('clientflow_theme', theme);
+    document.documentElement.className = theme;
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+    }
   }, [theme]);
 
   const toggleTheme = () => {

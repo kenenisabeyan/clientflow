@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import { Link, useNavigate } from 'react-router-dom';
+import { Sun, Moon } from 'lucide-react';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -9,6 +11,7 @@ export default function Register() {
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const { register } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -31,6 +34,34 @@ export default function Register() {
 
   return (
     <div className="auth-page">
+      {/* Theme Toggle Button */}
+      <button
+        type="button"
+        onClick={toggleTheme}
+        style={{
+          position: 'absolute',
+          top: '1.5rem',
+          right: '1.5rem',
+          padding: '0.5rem 0.75rem',
+          background: 'var(--surface)',
+          border: '1px solid var(--surface-border)',
+          borderRadius: '12px',
+          color: 'var(--text-main)',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.4rem',
+          boxShadow: 'var(--glass-shadow)',
+          fontSize: '0.8rem',
+          fontWeight: 500,
+          zIndex: 10
+        }}
+        title="Switch Light/Dark Mode"
+      >
+        {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+        <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+      </button>
+
       <div style={{ 
         width: '420px', maxWidth: '90%',
         background: 'var(--surface)', border: '1px solid var(--surface-border)', 
