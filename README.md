@@ -130,6 +130,21 @@ graph TD
 | `POST` | `/api/invoices/:id/pay` | Process online payment and mark invoice as **Paid** | Admin / Client |
 | `GET` | `/api/messages` | Fetch messages by channel (`general`, `client-support`, `dev-team`) or direct recipient | All Roles |
 | `POST` | `/api/messages` | Send message with real-time optimistic feed update | All Roles |
+| `GET` | `/api/activity` | Enterprise audit trail scoped by role and associated projects | All Roles |
+| `GET` | `/api/users` | Directory of team members and clients (password excluded) | All Roles |
+| `POST` | `/api/users` | Create & invite new team member with assigned RBAC role | Admin |
+| `PUT` | `/api/users/:id/role` | Instant 1-click RBAC role update (`admin`, `client`, `developer`) | Admin |
+| `DELETE`| `/api/users/:id` | Remove user and invalidate session | Admin |
+
+---
+
+### 🎨 Non-Functional Architecture & UX Standards
+
+* **Zero-Arrow Floating Scrollbar Engine**: Clunky native Windows scrollbar stepper arrows are completely suppressed globally via `::-webkit-scrollbar-button`. Replaced by an ultra-clean 8px floating rounded pill thumb with smooth indigo hover glow.
+* **Invisible Sidebar Navigation Scroll**: The 260px fixed sidebar utilizes `scrollbar-width: none` and `display: none` on WebKit scrollbars to guarantee that no vertical scroll stick cuts into the sidebar border, while preserving smooth trackpad and mousewheel scrolling.
+* **Floating Corner Scroll Sticker**: A reactive bottom-right floating pill sticker appears smoothly when scrolling past 150px, providing one-click animated smooth scroll back to the top of any page.
+* **Fixed Topbar Omnisearch (`Ctrl+K` / `Cmd+K`)**: Universal search accessible from anywhere in the app with keyboard shortcuts, categorization by Projects, Tasks, Invoices, and Users, and instant navigation.
+* **Optimistic UI & Data Portability**: Instant UI state transitions across Kanban cards, project status, and invoice payments with toast confirmation and 1-click CSV export on every table.
 
 ---
 
