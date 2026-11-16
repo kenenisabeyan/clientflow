@@ -33,8 +33,8 @@ exports.getActivities = async (req, res, next) => {
     const skip = (page - 1) * limit;
 
     const activities = await Activity.find(query)
-      .populate('user', 'name')
-      .populate('project', 'title')
+      .populate('user', 'name email role')
+      .populate('project', 'title status')
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);

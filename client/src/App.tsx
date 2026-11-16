@@ -14,6 +14,8 @@ import Calendar from './pages/Calendar';
 import Messages from './pages/Messages';
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
+import Activity from './pages/Activity';
+import UserManagement from './pages/UserManagement';
 
 function LoadingScreen() {
   return (
@@ -71,6 +73,8 @@ function App() {
             <Route path="calendar" element={<Calendar />} />
             <Route path="messages" element={<Messages />} />
             <Route path="reports" element={<Reports />} />
+            <Route path="activity" element={<Activity />} />
+            <Route path="users" element={<UserManagement />} />
             <Route path="settings" element={<Settings />} />
           </Route>
         </Routes>
