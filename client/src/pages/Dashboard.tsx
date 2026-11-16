@@ -44,24 +44,54 @@ const upcomingTasks = [
 export default function Dashboard() {
   const { user } = useAuth();
   
+  const getGreeting = () => {
+    if (user?.role === 'client') {
+      return `Welcome back, ${user?.name || 'Client'}! Here is an overview of your active projects and deliverables.`;
+    }
+    if (user?.role === 'developer') {
+      return `Welcome back, ${user?.name || 'Developer'}! Here are your assigned sprint tasks and active deliverables.`;
+    }
+    return `Welcome back, ${user?.name || 'Admin'}! Here's what's happening with your business today.`;
+  };
+
+  const getStats = () => {
+    if (user?.role === 'client') {
+      return [
+        { title: 'My Projects', value: '3', change: 'Active', up: true, bg: 'linear-gradient(135deg, #3b82f6, #2563eb)' },
+        { title: 'Pending Tasks', value: '4', change: 'In Review', up: true, bg: 'linear-gradient(135deg, #f97316, #ea580c)' },
+        { title: 'Completed Tasks', value: '8', change: 'On Track', up: true, bg: 'linear-gradient(135deg, #10b981, #059669)' },
+        { title: 'Invoices & Reports', value: '2', change: 'Paid', up: true, bg: 'linear-gradient(135deg, #a855f7, #9333ea)' },
+      ];
+    }
+    if (user?.role === 'developer') {
+      return [
+        { title: 'Assigned Tasks', value: '8', change: '+2 new', up: true, bg: 'linear-gradient(135deg, #3b82f6, #2563eb)' },
+        { title: 'In Progress', value: '3', change: 'Active', up: true, bg: 'linear-gradient(135deg, #f97316, #ea580c)' },
+        { title: 'Completed Sprints', value: '14', change: '+12%', up: true, bg: 'linear-gradient(135deg, #10b981, #059669)' },
+        { title: 'Code Reviews', value: '4', change: 'Pending', up: false, bg: 'linear-gradient(135deg, #a855f7, #9333ea)' },
+      ];
+    }
+    return [
+      { title: 'New Customers', value: '25', change: '+8.1%', up: true, bg: 'linear-gradient(135deg, #3b82f6, #2563eb)' },
+      { title: 'Open Tasks', value: '12', change: '+15.2%', up: true, bg: 'linear-gradient(135deg, #f97316, #ea580c)' },
+      { title: 'Completed Tasks', value: '30', change: '-2.3%', up: false, bg: 'linear-gradient(135deg, #10b981, #059669)' },
+      { title: 'Notifications', value: '5', change: '+12.5%', up: true, bg: 'linear-gradient(135deg, #a855f7, #9333ea)' },
+    ];
+  };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', animation: 'fadeIn 0.4s ease-out' }}>
       
       {/* Header section similar to mockup */}
       <div>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
-          Welcome back, {user?.name || 'Jollie'}! Here's what's happening with your business today.
+          {getGreeting()}
         </p>
       </div>
 
       {/* Top Stats Row */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem' }}>
-        {[ 
-          { title: 'New Customers', value: '25', change: '+8.1%', up: true, bg: 'linear-gradient(135deg, #3b82f6, #2563eb)' },
-          { title: 'Open Tasks', value: '12', change: '+15.2%', up: true, bg: 'linear-gradient(135deg, #f97316, #ea580c)' },
-          { title: 'Completed Tasks', value: '30', change: '-2.3%', up: false, bg: 'linear-gradient(135deg, #10b981, #059669)' },
-          { title: 'Notifications', value: '5', change: '+12.5%', up: true, bg: 'linear-gradient(135deg, #a855f7, #9333ea)' },
-        ].map((stat, i) => (
+        {getStats().map((stat, i) => (
           <div key={i} style={{ 
             background: stat.bg, color: 'white',
             borderRadius: 'var(--radius)', padding: '1.5rem', display: 'flex', flexDirection: 'column',

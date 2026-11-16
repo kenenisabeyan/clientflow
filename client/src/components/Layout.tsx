@@ -39,13 +39,19 @@ export default function Layout() {
         </div>
         <nav className="sidebar-nav">
           <Link to="/dashboard" className={isActive('/dashboard')}><LayoutDashboard size={18} /> Dashboard</Link>
-          <Link to="/clients" className={isActive('/clients')}><Users size={18} /> Customers</Link>
-          <Link to="/projects" className={isActive('/projects')}><FolderKanban size={18} /> Projects</Link>
-          <Link to="/tasks" className={isActive('/tasks')}><CheckSquare size={18} /> Tasks</Link>
-          <Link to="/invoices" className={isActive('/invoices')}><FileText size={18} /> Invoices</Link>
+          {user?.role === 'admin' && (
+            <Link to="/clients" className={isActive('/clients')}><Users size={18} /> Customers</Link>
+          )}
+          <Link to="/projects" className={isActive('/projects')}><FolderKanban size={18} /> {user?.role === 'client' ? 'My Projects' : 'Projects'}</Link>
+          <Link to="/tasks" className={isActive('/tasks')}><CheckSquare size={18} /> {user?.role === 'client' ? 'My Tasks' : 'Tasks'}</Link>
+          {user?.role !== 'developer' && (
+            <Link to="/invoices" className={isActive('/invoices')}><FileText size={18} /> Invoices</Link>
+          )}
           <Link to="/calendar" className={isActive('/calendar')}><CalendarIcon size={18} /> Calendar</Link>
           <Link to="/messages" className={isActive('/messages')}><MessageSquare size={18} /> Messages</Link>
-          <Link to="/reports" className={isActive('/reports')}><BarChart2 size={18} /> Reports</Link>
+          {user?.role === 'admin' && (
+            <Link to="/reports" className={isActive('/reports')}><BarChart2 size={18} /> Reports</Link>
+          )}
           <Link to="/settings" className={isActive('/settings')}><SettingsIcon size={18} /> Settings</Link>
           
           <div style={{flex: 1}}></div>
