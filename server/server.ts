@@ -17,12 +17,16 @@ app.use(express.json());
 app.use(cors());
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
+let lastDbError: string | null = null;
+
 const connectDB = async () => {
   try {
     await mongoose.connect(MONGO_URI);
     console.log('MongoDB connected successfully');
+    lastDbError = null;
   } catch (err: any) {
-    console.error('MongoDB connection error:', err?.message || err);
+    lastDbError = err?.message || String(err);
+    console.error('MongoDB connection error:', lastDbError);
     console.log('Retrying MongoDB connection in 5 seconds...');
     setTimeout(connectDB, 5000);
   }
@@ -30,7 +34,7 @@ const connectDB = async () => {
 
 connectDB();
 
-app.get('/', (req, res) => {
+app.get('/', (req: any, res: any) => {
   const isConnected = mongoose.connection.readyState === 1;
   res.json({
     name: 'ClientFlow API',
@@ -42,12 +46,15 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/api/health', (req, res) => {
+app.get('/api/health', (req: any, res: any) => {
   const isConnected = mongoose.connection.readyState === 1;
+  const hostPart = MONGO_URI ? MONGO_URI.split('@')[1] || 'local' : 'none';
   res.status(isConnected ? 200 : 503).json({
     status: isConnected ? 'healthy' : 'degraded',
     uptime: process.uptime(),
     database: isConnected ? 'connected' : 'disconnected',
+    mongoHost: hostPart.split('/')[0],
+    lastDbError: isConnected ? null : lastDbError,
     help: isConnected ? undefined : 'Please configure MONGO_URI in Render Environment Variables.',
     timestamp: new Date().toISOString()
   });
