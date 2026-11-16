@@ -1,11 +1,22 @@
 import axios from 'axios';
 
-const rawBaseURL = (import.meta.env.VITE_API_BASE_URL || '/api').trim();
-const cleanURL = rawBaseURL.replace(/\/+$/, '');
-const baseURL = cleanURL.endsWith('/api') ? cleanURL : (cleanURL ? `${cleanURL}/api` : '/api');
+const getBaseURL = () => {
+  if (import.meta.env.VITE_API_BASE_URL) {
+    const raw = import.meta.env.VITE_API_BASE_URL.trim().replace(/\/+$/, '');
+    return raw.endsWith('/api') ? raw : `${raw}/api`;
+  }
+  // Automatic fallback for live Vercel deployment
+  if (typeof window !== 'undefined' && window.location.hostname.includes('vercel.app')) {
+    return 'https://clientflow-j8qr.onrender.com/api';
+  }
+  return '/api';
+};
+
+const baseURL = getBaseURL();
 
 const api = axios.create({
   baseURL,
+  timeout: 30000, // 30-second timeout for Render cold starts
 });
 
 api.interceptors.request.use((config) => {

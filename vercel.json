@@ -3,9 +3,12 @@
   "outputDirectory": "client/dist",
   "rewrites": [
     {
+      "source": "/api/(.*)",
+      "destination": "https://clientflow-j8qr.onrender.com/api/$1"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
 }
-
