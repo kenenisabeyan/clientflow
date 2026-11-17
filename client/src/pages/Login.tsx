@@ -166,14 +166,6 @@ export default function Login() {
               }}
             />
           </div>
-                fontSize: '0.95rem',
-                outline: 'none',
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.02)',
-                transition: 'all 0.2s ease',
-                boxSizing: 'border-box'
-              }}
-            />
-          </div>
 
           {/* Remember Me & Forgot Password Row (From Video) */}
           <div style={{
