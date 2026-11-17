@@ -320,9 +320,15 @@ html.dark .auth-page {
 /* Dashboard */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
   margin-bottom: 2.5rem;
+}
+
+.dashboard-stats-row {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 1rem !important;
 }
 
 .stat-card {
@@ -936,7 +942,26 @@ html.dark ::-webkit-scrollbar-thumb:active {
     padding: 1rem 0.85rem !important;
   }
 
-  .stats-grid {
+  .dashboard-stats-row {
+    display: flex !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 0.75rem !important;
+    padding-bottom: 0.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .dashboard-stats-row::-webkit-scrollbar {
+    display: none !important;
+  }
+  .dashboard-stats-row > div {
+    flex: 0 0 200px !important;
+    min-width: 200px !important;
+    scroll-snap-align: start !important;
+  }
+
+  .stats-grid:not(.dashboard-stats-row) {
     grid-template-columns: 1fr 1fr !important;
     gap: 0.75rem !important;
     margin-bottom: 1.5rem !important;
@@ -996,7 +1021,7 @@ html.dark ::-webkit-scrollbar-thumb:active {
     gap: 0.35rem !important;
   }
 
-  .stats-grid {
+  .stats-grid:not(.dashboard-stats-row) {
     grid-template-columns: 1fr !important;
   }
 

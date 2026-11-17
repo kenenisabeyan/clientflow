@@ -451,11 +451,12 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Live Operational Metrics (4 Stat Cards tailored per role) */}
-      <div className="stats-grid" style={{
+      {/* Live Operational Metrics (4 Stat Cards in ONE ROW) */}
+      <div className="stats-grid dashboard-stats-row" style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
-        gap: '1.25rem'
+        gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+        gap: '1rem',
+        marginBottom: '2rem'
       }}>
         {(isAdmin ? [
           {
@@ -571,54 +572,57 @@ export default function Dashboard() {
         ]).map((stat, i) => (
           <div
             key={i}
+            className="dashboard-stat-card"
             style={{
               background: stat.bg,
               color: 'white',
               borderRadius: 'var(--radius)',
-              padding: '1.6rem',
+              padding: '1.25rem 1.1rem 1.15rem',
               display: 'flex',
               flexDirection: 'column',
               boxShadow: '0 6px 18px rgba(0,0,0,0.08)',
               position: 'relative',
               overflow: 'hidden',
+              minWidth: 0,
               transition: 'transform 0.2s ease'
             }}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-              <span style={{ fontSize: '0.88rem', color: 'rgba(255,255,255,0.92)', fontWeight: 600 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem' }}>
+              <span className="stat-card-title" style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.92)', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 {stat.title}
               </span>
-              <div style={{ background: 'rgba(255,255,255,0.2)', padding: '0.4rem', borderRadius: '8px' }}>
-                <stat.icon size={18} />
+              <div style={{ background: 'rgba(255,255,255,0.2)', padding: '0.35rem', borderRadius: '8px', flexShrink: 0 }}>
+                <stat.icon size={16} />
               </div>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', zIndex: 1 }}>
-              <span style={{ fontSize: '2.4rem', fontWeight: 800, lineHeight: 1 }}>
+            <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '0.35rem', zIndex: 1 }}>
+              <span className="stat-card-value" style={{ fontSize: '2.1rem', fontWeight: 800, lineHeight: 1 }}>
                 {stat.value}
               </span>
-              <span style={{
+              <span className="stat-card-badge" style={{
                 display: 'flex',
                 alignItems: 'center',
-                fontSize: '0.78rem',
+                fontSize: '0.72rem',
                 fontWeight: 700,
                 color: 'white',
                 background: 'rgba(255,255,255,0.22)',
-                padding: '0.2rem 0.55rem',
-                borderRadius: '6px'
+                padding: '0.2rem 0.45rem',
+                borderRadius: '6px',
+                whiteSpace: 'nowrap'
               }}>
-                {stat.up ? <ArrowUpRight size={14} style={{ marginRight: '0.2rem' }} /> : <ArrowDownRight size={14} style={{ marginRight: '0.2rem' }} />}
+                {stat.up ? <ArrowUpRight size={13} style={{ marginRight: '0.15rem' }} /> : <ArrowDownRight size={13} style={{ marginRight: '0.15rem' }} />}
                 {stat.change}
               </span>
             </div>
 
-            <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.8)', marginTop: '0.75rem', zIndex: 1 }}>
+            <p className="stat-card-desc" style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.8)', marginTop: '0.65rem', marginBottom: 0, zIndex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {stat.desc}
             </p>
 
             {/* Decorative background watermark */}
-            <div style={{ position: 'absolute', right: '-12px', bottom: '-22px', opacity: 0.12, pointerEvents: 'none' }}>
-              <stat.icon size={110} />
+            <div style={{ position: 'absolute', right: '-10px', bottom: '-20px', opacity: 0.12, pointerEvents: 'none' }}>
+              <stat.icon size={95} />
             </div>
           </div>
         ))}
