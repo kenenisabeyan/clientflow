@@ -3,6 +3,7 @@ import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import api from '../api/axios';
+import BrandLogo, { BrandIcon } from './BrandLogo';
 import { 
   LayoutDashboard, Users, FolderKanban, CheckSquare, 
   FileText, Calendar as CalendarIcon, MessageSquare, 
@@ -257,13 +258,13 @@ export default function Layout() {
   return (
     <div className="app">
       <aside className={`sidebar ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
-        <div className="sidebar-logo" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div style={{ background: 'var(--primary)', color: '#fff', padding: '0.25rem', borderRadius: '0.375rem', marginRight: '0.5rem', display: 'inline-flex' }}>
-              <LayoutDashboard size={20} />
-            </div>
-            ClientFlow
-          </div>
+        <div className="sidebar-logo" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1.25rem 1.5rem' }}>
+          <Link to="/dashboard" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>
+            <BrandLogo 
+              size="md" 
+              subtitle={user?.role === 'admin' ? 'ADMIN ERP' : user?.role === 'client' ? 'CLIENT PORTAL' : 'DEVELOPER STATION'} 
+            />
+          </Link>
           <button 
             className="mobile-sidebar-close" 
             onClick={() => setIsMobileMenuOpen(false)}
