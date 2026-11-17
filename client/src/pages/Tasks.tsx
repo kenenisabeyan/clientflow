@@ -1159,7 +1159,7 @@ export default function Tasks() {
                       <div style={{
                         width: '28px',
                         height: '28px',
-                        borderRadius: '0px',
+                        borderRadius: '6px',
                         background: 'linear-gradient(135deg, var(--primary), var(--accent))',
                         display: 'flex',
                         alignItems: 'center',

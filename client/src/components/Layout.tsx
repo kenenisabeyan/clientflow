@@ -314,18 +314,6 @@ export default function Layout() {
       <div className="main-content">
         <header className="topbar">
           <div className="topbar-left" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-            {/* Mobile User Avatar in place of hamburger menu on the left */}
-            <div 
-              className="mobile-user-avatar" 
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              title="Toggle Navigation Menu"
-              style={{ display: 'none', cursor: 'pointer', alignItems: 'center' }}
-            >
-              <div className="user-avatar">
-                {user?.name ? user.name[0].toUpperCase() : 'U'}
-              </div>
-            </div>
-
             <div className="mobile-brand-mark" style={{ display: 'none', alignItems: 'center' }}>
               <BrandIcon size={26} rotate={false} />
             </div>
@@ -341,7 +329,7 @@ export default function Layout() {
                  alignItems: 'center', 
                  background: 'var(--bg-color)', 
                  padding: '0.45rem 0.85rem', 
-                 borderRadius: '0px', 
+                 borderRadius: '20px', 
                  border: '1px solid var(--surface-border)',
                  transition: 'all 0.2s ease',
                  boxShadow: isSearchOpen ? '0 0 0 2px var(--primary)' : 'none'
