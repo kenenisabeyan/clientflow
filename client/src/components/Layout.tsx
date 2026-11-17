@@ -313,7 +313,7 @@ export default function Layout() {
 
       <div className="main-content">
         <header className="topbar">
-          <div className="topbar-left">
+          <div className="topbar-left" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
             <button
               className="mobile-menu-btn"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -321,6 +321,9 @@ export default function Layout() {
             >
               <Menu size={22} />
             </button>
+            <div className="mobile-brand-mark" style={{ display: 'none', alignItems: 'center' }}>
+              <BrandIcon size={26} rotate={false} />
+            </div>
             <h1 className="page-title">{getPageTitle()}</h1>
           </div>
           <div className="topbar-right">
