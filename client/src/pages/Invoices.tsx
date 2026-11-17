@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
+import BrandLogo, { BrandIcon } from '../components/BrandLogo';
 import { 
   Plus, Search, Filter, Download, RefreshCw, CheckCircle2, 
   AlertCircle, Clock, DollarSign, FileText, X, ChevronRight, 
@@ -1156,9 +1157,8 @@ export default function Invoices() {
           >
             {/* Drawer Top Header */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--primary)' }}>ClientFlow</span>
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>| Official Invoice</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                <BrandLogo size="sm" subtitle="OFFICIAL INVOICE" />
               </div>
               <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                 <button
