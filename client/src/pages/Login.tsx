@@ -48,8 +48,8 @@ export default function Login() {
         backdropFilter: 'blur(24px) saturate(190%)',
         WebkitBackdropFilter: 'blur(24px) saturate(190%)',
         border: isDark ? '1.5px solid rgba(255, 255, 255, 0.12)' : '1.5px solid rgba(255, 255, 255, 0.8)',
-        borderRadius: '22px',
-        padding: '2.2rem 1.55rem 1.75rem',
+        borderRadius: '20px',
+        padding: '1.9rem 1.25rem 1.4rem',
         boxShadow: isDark 
           ? '0 25px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset' 
           : '0 25px 60px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.6) inset',
@@ -59,18 +59,18 @@ export default function Login() {
       }}>
         
         {/* Card Header (Matches Video Exactly) */}
-        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
           <h1 style={{
-            fontSize: '1.95rem',
+            fontSize: '1.8rem',
             fontWeight: 800,
             letterSpacing: '-0.5px',
             color: isDark ? '#ffffff' : '#1e1b4b',
-            margin: '0 0 0.35rem 0'
+            margin: '0 0 0.3rem 0'
           }}>
             Welcome Back
           </h1>
           <p style={{
-            fontSize: '0.9rem',
+            fontSize: '0.85rem',
             color: isDark ? '#94a3b8' : '#64748b',
             margin: 0
           }}>
@@ -82,13 +82,13 @@ export default function Login() {
         {error && (
           <div style={{
             width: '100%',
-            padding: '0.7rem 0.95rem',
-            marginBottom: '1.15rem',
+            padding: '0.65rem 0.85rem',
+            marginBottom: '1rem',
             background: 'rgba(239, 68, 68, 0.12)',
             border: '1px solid rgba(239, 68, 68, 0.3)',
-            borderRadius: '12px',
+            borderRadius: '10px',
             color: '#ef4444',
-            fontSize: '0.85rem',
+            fontSize: '0.82rem',
             textAlign: 'center',
             fontWeight: 500,
             animation: 'fadeIn 0.2s ease-out',
@@ -99,16 +99,16 @@ export default function Login() {
         )}
 
         {/* Authentication Form */}
-        <form onSubmit={handleSubmit} style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <form onSubmit={handleSubmit} style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
           
           {/* Username / Email Field */}
           <div>
             <label style={{
               display: 'block',
-              fontSize: '0.84rem',
+              fontSize: '0.82rem',
               fontWeight: 600,
               color: isDark ? '#cbd5e1' : '#334155',
-              marginBottom: '0.35rem'
+              marginBottom: '0.3rem'
             }}>
               Username
             </label>
@@ -120,12 +120,12 @@ export default function Login() {
               required
               style={{
                 width: '100%',
-                padding: '0.82rem 0.95rem',
+                padding: '0.78rem 0.85rem',
                 background: isDark ? 'rgba(15, 23, 42, 0.8)' : '#ffffff',
                 border: isDark ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(203, 213, 225, 0.9)',
-                borderRadius: '12px',
+                borderRadius: '10px',
                 color: isDark ? '#ffffff' : '#0f172a',
-                fontSize: '0.92rem',
+                fontSize: '0.9rem',
                 outline: 'none',
                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.02)',
                 transition: 'all 0.2s ease',
@@ -138,10 +138,10 @@ export default function Login() {
           <div>
             <label style={{
               display: 'block',
-              fontSize: '0.84rem',
+              fontSize: '0.82rem',
               fontWeight: 600,
               color: isDark ? '#cbd5e1' : '#334155',
-              marginBottom: '0.35rem'
+              marginBottom: '0.3rem'
             }}>
               Password
             </label>
@@ -153,12 +153,12 @@ export default function Login() {
               required
               style={{
                 width: '100%',
-                padding: '0.82rem 0.95rem',
+                padding: '0.78rem 0.85rem',
                 background: isDark ? 'rgba(15, 23, 42, 0.8)' : '#ffffff',
                 border: isDark ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(203, 213, 225, 0.9)',
-                borderRadius: '12px',
+                borderRadius: '10px',
                 color: isDark ? '#ffffff' : '#0f172a',
-                fontSize: '0.92rem',
+                fontSize: '0.9rem',
                 outline: 'none',
                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.02)',
                 transition: 'all 0.2s ease',
@@ -172,14 +172,14 @@ export default function Login() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            marginTop: '0.15rem'
+            marginTop: '0.1rem'
           }}>
             <label style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '0.55rem',
+              gap: '0.5rem',
               cursor: 'pointer',
-              fontSize: '0.88rem',
+              fontSize: '0.82rem',
               color: isDark ? '#94a3b8' : '#475569',
               userSelect: 'none'
             }}>
@@ -188,8 +188,8 @@ export default function Login() {
                 checked={rememberMe}
                 onChange={(e) => setRememberMe(e.target.checked)}
                 style={{
-                  width: '16px',
-                  height: '16px',
+                  width: '15px',
+                  height: '15px',
                   borderRadius: '4px',
                   accentColor: '#2563eb',
                   cursor: 'pointer'
@@ -205,7 +205,7 @@ export default function Login() {
                 alert('For demo accounts, use Admin: kenenisa@gmail.com (pw: 123456) or Client: delelegn@gmail.com (pw: 12345678)');
               }}
               style={{
-                fontSize: '0.88rem',
+                fontSize: '0.82rem',
                 fontWeight: 600,
                 color: '#4f46e5',
                 textDecoration: 'none'
@@ -223,27 +223,27 @@ export default function Login() {
             disabled={submitting}
             style={{
               width: '100%',
-              padding: '0.95rem',
+              padding: '0.84rem',
               background: 'linear-gradient(135deg, #0284c7 0%, #1e40af 100%)',
               color: '#ffffff',
               border: 'none',
-              borderRadius: '12px',
-              fontSize: '1.02rem',
+              borderRadius: '10px',
+              fontSize: '0.96rem',
               fontWeight: 700,
               cursor: submitting ? 'not-allowed' : 'pointer',
-              marginTop: '0.75rem',
+              marginTop: '0.5rem',
               boxShadow: '0 8px 24px rgba(2, 132, 199, 0.35)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '0.6rem',
+              gap: '0.5rem',
               transition: 'all 0.2s ease',
               opacity: submitting ? 0.85 : 1
             }}
           >
             {submitting ? (
               <>
-                <Loader2 size={18} className="animate-spin" style={{ animation: 'spin 1s linear infinite' }} />
+                <Loader2 size={16} className="animate-spin" style={{ animation: 'spin 1s linear infinite' }} />
                 <span>Signing In...</span>
               </>
             ) : (
@@ -254,15 +254,15 @@ export default function Login() {
 
         {/* Quick Demo Fill Buttons (Enterprise Role Testing) */}
         <div style={{
-          marginTop: '1.75rem',
-          paddingTop: '1.25rem',
+          marginTop: '1.25rem',
+          paddingTop: '1rem',
           borderTop: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(226, 232, 240, 0.8)',
           display: 'flex',
           flexDirection: 'column',
-          gap: '0.65rem'
+          gap: '0.55rem'
         }}>
           <span style={{
-            fontSize: '0.76rem',
+            fontSize: '0.72rem',
             color: isDark ? '#94a3b8' : '#64748b',
             textAlign: 'center',
             fontWeight: 600,
@@ -272,16 +272,16 @@ export default function Login() {
             1-Click Live MongoDB Atlas Credentials:
           </span>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.4rem' }}>
             <button
               type="button"
               onClick={() => fillCredentials('kenenisa@gmail.com', '123456')}
               style={{
-                padding: '0.55rem 0.4rem',
+                padding: '0.48rem 0.25rem',
                 background: isDark ? 'rgba(30, 41, 59, 0.7)' : 'rgba(255, 255, 255, 0.8)',
                 border: '1px solid rgba(59, 130, 246, 0.3)',
                 borderRadius: '8px',
-                fontSize: '0.75rem',
+                fontSize: '0.72rem',
                 fontWeight: 600,
                 color: isDark ? '#93c5fd' : '#1d4ed8',
                 cursor: 'pointer'
@@ -294,11 +294,11 @@ export default function Login() {
               type="button"
               onClick={() => fillCredentials('delelegn@gmail.com', '12345678')}
               style={{
-                padding: '0.55rem 0.4rem',
+                padding: '0.48rem 0.25rem',
                 background: isDark ? 'rgba(30, 41, 59, 0.7)' : 'rgba(255, 255, 255, 0.8)',
                 border: '1px solid rgba(16, 185, 129, 0.3)',
                 borderRadius: '8px',
-                fontSize: '0.75rem',
+                fontSize: '0.72rem',
                 fontWeight: 600,
                 color: isDark ? '#86efac' : '#047857',
                 cursor: 'pointer'
@@ -311,11 +311,11 @@ export default function Login() {
               type="button"
               onClick={() => fillCredentials('kidane@gmail.com', '12345678')}
               style={{
-                padding: '0.55rem 0.4rem',
+                padding: '0.48rem 0.25rem',
                 background: isDark ? 'rgba(30, 41, 59, 0.7)' : 'rgba(255, 255, 255, 0.8)',
                 border: '1px solid rgba(139, 92, 246, 0.3)',
                 borderRadius: '8px',
-                fontSize: '0.75rem',
+                fontSize: '0.72rem',
                 fontWeight: 600,
                 color: isDark ? '#c4b5fd' : '#6d28d9',
                 cursor: 'pointer'
@@ -329,8 +329,8 @@ export default function Login() {
         {/* Link to Register */}
         <div style={{
           textAlign: 'center',
-          marginTop: '1.25rem',
-          fontSize: '0.88rem',
+          marginTop: '1rem',
+          fontSize: '0.84rem',
           color: isDark ? '#94a3b8' : '#64748b'
         }}>
           Don't have an ERP account?{' '}
