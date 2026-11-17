@@ -492,7 +492,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
               padding: '0.6rem',
               background: isDark ? 'rgba(15, 23, 42, 0.65)' : 'rgba(255, 255, 255, 0.65)',
               border: '1px solid rgba(255, 255, 255, 0.5)',
-              borderRadius: '12px',
+              borderRadius: '0px',
               color: isDark ? '#f8fafc' : '#0f172a',
               cursor: 'pointer',
               display: 'flex',

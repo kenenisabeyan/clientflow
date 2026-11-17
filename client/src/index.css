@@ -1133,7 +1133,7 @@ html.dark ::-webkit-scrollbar-thumb:active {
   }
   .auth-bright-ideas-widget {
     padding: 0.35rem !important;
-    border-radius: 50% !important;
+    border-radius: 0px !important;
     gap: 0 !important;
   }
   .auth-card-container {
