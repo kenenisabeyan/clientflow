@@ -417,37 +417,41 @@ export default function Invoices() {
         </div>
       </div>
 
-      {/* Financial KPI Cards */}
-      <div style={{
+      {/* Financial KPI Cards (4 Stat Cards in ONE ROW) */}
+      <div className="stats-grid dashboard-stats-row" style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
-        gap: '1rem'
+        gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+        gap: '1rem',
+        marginBottom: '2rem'
       }}>
         {/* Total Billed */}
         <div style={{
           background: 'var(--surface)',
           border: '1px solid var(--surface-border)',
           borderRadius: 'var(--radius)',
-          padding: '1.25rem',
+          padding: '1.15rem 1rem',
           display: 'flex',
           alignItems: 'center',
-          gap: '1rem'
+          gap: '0.75rem',
+          minWidth: 0,
+          overflow: 'hidden'
         }}>
           <div style={{
-            width: '48px',
-            height: '48px',
+            width: '42px',
+            height: '42px',
             borderRadius: '12px',
             background: 'rgba(59, 130, 246, 0.1)',
             color: 'var(--primary)',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            flexShrink: 0
           }}>
-            <DollarSign size={24} />
+            <DollarSign size={20} />
           </div>
-          <div>
-            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 500 }}>Total Billed</span>
-            <h3 style={{ fontSize: '1.6rem', fontWeight: 700, margin: '0.1rem 0 0', color: 'var(--text-main)' }}>
+          <div style={{ minWidth: 0, overflow: 'hidden' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>Total Billed</span>
+            <h3 style={{ fontSize: '1.6rem', fontWeight: 700, margin: '0.1rem 0 0', color: 'var(--text-main)', whiteSpace: 'nowrap' }}>
               ${financialMetrics.total.toLocaleString()}
             </h3>
           </div>
@@ -458,26 +462,29 @@ export default function Invoices() {
           background: 'var(--surface)',
           border: '1px solid var(--surface-border)',
           borderRadius: 'var(--radius)',
-          padding: '1.25rem',
+          padding: '1.15rem 1rem',
           display: 'flex',
           alignItems: 'center',
-          gap: '1rem'
+          gap: '0.75rem',
+          minWidth: 0,
+          overflow: 'hidden'
         }}>
           <div style={{
-            width: '48px',
-            height: '48px',
+            width: '42px',
+            height: '42px',
             borderRadius: '12px',
             background: 'rgba(16, 185, 129, 0.1)',
             color: '#10b981',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            flexShrink: 0
           }}>
-            <CheckCircle2 size={24} />
+            <CheckCircle2 size={20} />
           </div>
-          <div>
-            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 500 }}>Paid & Settled</span>
-            <h3 style={{ fontSize: '1.6rem', fontWeight: 700, margin: '0.1rem 0 0', color: 'var(--text-main)' }}>
+          <div style={{ minWidth: 0, overflow: 'hidden' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>Paid & Settled</span>
+            <h3 style={{ fontSize: '1.6rem', fontWeight: 700, margin: '0.1rem 0 0', color: 'var(--text-main)', whiteSpace: 'nowrap' }}>
               ${financialMetrics.paid.toLocaleString()}
             </h3>
           </div>
@@ -488,26 +495,29 @@ export default function Invoices() {
           background: 'var(--surface)',
           border: '1px solid var(--surface-border)',
           borderRadius: 'var(--radius)',
-          padding: '1.25rem',
+          padding: '1.15rem 1rem',
           display: 'flex',
           alignItems: 'center',
-          gap: '1rem'
+          gap: '0.75rem',
+          minWidth: 0,
+          overflow: 'hidden'
         }}>
           <div style={{
-            width: '48px',
-            height: '48px',
+            width: '42px',
+            height: '42px',
             borderRadius: '12px',
             background: 'rgba(245, 158, 11, 0.1)',
             color: '#f59e0b',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            flexShrink: 0
           }}>
-            <Clock size={24} />
+            <Clock size={20} />
           </div>
-          <div>
-            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 500 }}>Pending Receivables</span>
-            <h3 style={{ fontSize: '1.6rem', fontWeight: 700, margin: '0.1rem 0 0', color: 'var(--text-main)' }}>
+          <div style={{ minWidth: 0, overflow: 'hidden' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>Pending Receivables</span>
+            <h3 style={{ fontSize: '1.6rem', fontWeight: 700, margin: '0.1rem 0 0', color: 'var(--text-main)', whiteSpace: 'nowrap' }}>
               ${financialMetrics.pending.toLocaleString()}
             </h3>
           </div>
@@ -518,26 +528,29 @@ export default function Invoices() {
           background: 'var(--surface)',
           border: '1px solid var(--surface-border)',
           borderRadius: 'var(--radius)',
-          padding: '1.25rem',
+          padding: '1.15rem 1rem',
           display: 'flex',
           alignItems: 'center',
-          gap: '1rem'
+          gap: '0.75rem',
+          minWidth: 0,
+          overflow: 'hidden'
         }}>
           <div style={{
-            width: '48px',
-            height: '48px',
+            width: '42px',
+            height: '42px',
             borderRadius: '12px',
             background: 'rgba(239, 68, 68, 0.1)',
             color: '#ef4444',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            flexShrink: 0
           }}>
-            <AlertCircle size={24} />
+            <AlertCircle size={20} />
           </div>
-          <div>
-            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 500 }}>Overdue Balance</span>
-            <h3 style={{ fontSize: '1.6rem', fontWeight: 700, margin: '0.1rem 0 0', color: 'var(--text-main)' }}>
+          <div style={{ minWidth: 0, overflow: 'hidden' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>Overdue Balance</span>
+            <h3 style={{ fontSize: '1.6rem', fontWeight: 700, margin: '0.1rem 0 0', color: 'var(--text-main)', whiteSpace: 'nowrap' }}>
               ${financialMetrics.overdue.toLocaleString()}
             </h3>
           </div>

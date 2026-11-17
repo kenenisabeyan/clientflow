@@ -480,37 +480,41 @@ export default function Tasks() {
         </div>
       </div>
 
-      {/* KPI Metric Cards */}
-      <div style={{
+      {/* KPI Metric Cards (4 Stat Cards in ONE ROW) */}
+      <div className="stats-grid dashboard-stats-row" style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
-        gap: '1rem'
+        gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+        gap: '1rem',
+        marginBottom: '2rem'
       }}>
         {/* Total Tasks */}
         <div style={{
           background: 'var(--surface)',
           border: '1px solid var(--surface-border)',
           borderRadius: 'var(--radius)',
-          padding: '1.25rem',
+          padding: '1.15rem 1rem',
           display: 'flex',
           alignItems: 'center',
-          gap: '1rem'
+          gap: '0.75rem',
+          minWidth: 0,
+          overflow: 'hidden'
         }}>
           <div style={{
-            width: '48px',
-            height: '48px',
+            width: '42px',
+            height: '42px',
             borderRadius: '12px',
             background: 'rgba(59, 130, 246, 0.1)',
             color: 'var(--primary)',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            flexShrink: 0
           }}>
-            <CheckSquare size={24} />
+            <CheckSquare size={20} />
           </div>
-          <div>
-            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 500 }}>Total Tasks</span>
-            <h3 style={{ fontSize: '1.6rem', fontWeight: 700, margin: '0.1rem 0 0', color: 'var(--text-main)' }}>{metrics.total}</h3>
+          <div style={{ minWidth: 0, overflow: 'hidden' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>Total Tasks</span>
+            <h3 style={{ fontSize: '1.6rem', fontWeight: 700, margin: '0.1rem 0 0', color: 'var(--text-main)', whiteSpace: 'nowrap' }}>{metrics.total}</h3>
           </div>
         </div>
 
@@ -519,26 +523,29 @@ export default function Tasks() {
           background: 'var(--surface)',
           border: '1px solid var(--surface-border)',
           borderRadius: 'var(--radius)',
-          padding: '1.25rem',
+          padding: '1.15rem 1rem',
           display: 'flex',
           alignItems: 'center',
-          gap: '1rem'
+          gap: '0.75rem',
+          minWidth: 0,
+          overflow: 'hidden'
         }}>
           <div style={{
-            width: '48px',
-            height: '48px',
+            width: '42px',
+            height: '42px',
             borderRadius: '12px',
             background: 'rgba(245, 158, 11, 0.1)',
             color: '#f59e0b',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            flexShrink: 0
           }}>
-            <AlertCircle size={24} />
+            <AlertCircle size={20} />
           </div>
-          <div>
-            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 500 }}>Backlog / To Do</span>
-            <h3 style={{ fontSize: '1.6rem', fontWeight: 700, margin: '0.1rem 0 0', color: 'var(--text-main)' }}>{metrics.todo}</h3>
+          <div style={{ minWidth: 0, overflow: 'hidden' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>Backlog / To Do</span>
+            <h3 style={{ fontSize: '1.6rem', fontWeight: 700, margin: '0.1rem 0 0', color: 'var(--text-main)', whiteSpace: 'nowrap' }}>{metrics.todo}</h3>
           </div>
         </div>
 
@@ -547,26 +554,29 @@ export default function Tasks() {
           background: 'var(--surface)',
           border: '1px solid var(--surface-border)',
           borderRadius: 'var(--radius)',
-          padding: '1.25rem',
+          padding: '1.15rem 1rem',
           display: 'flex',
           alignItems: 'center',
-          gap: '1rem'
+          gap: '0.75rem',
+          minWidth: 0,
+          overflow: 'hidden'
         }}>
           <div style={{
-            width: '48px',
-            height: '48px',
+            width: '42px',
+            height: '42px',
             borderRadius: '12px',
             background: 'rgba(59, 130, 246, 0.1)',
             color: '#3b82f6',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            flexShrink: 0
           }}>
-            <Clock size={24} />
+            <Clock size={20} />
           </div>
-          <div>
-            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 500 }}>In Progress</span>
-            <h3 style={{ fontSize: '1.6rem', fontWeight: 700, margin: '0.1rem 0 0', color: 'var(--text-main)' }}>{metrics.inProgress}</h3>
+          <div style={{ minWidth: 0, overflow: 'hidden' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>In Progress</span>
+            <h3 style={{ fontSize: '1.6rem', fontWeight: 700, margin: '0.1rem 0 0', color: 'var(--text-main)', whiteSpace: 'nowrap' }}>{metrics.inProgress}</h3>
           </div>
         </div>
 
@@ -575,29 +585,32 @@ export default function Tasks() {
           background: 'var(--surface)',
           border: '1px solid var(--surface-border)',
           borderRadius: 'var(--radius)',
-          padding: '1.25rem',
+          padding: '1.15rem 1rem',
           display: 'flex',
           alignItems: 'center',
-          gap: '1rem'
+          gap: '0.75rem',
+          minWidth: 0,
+          overflow: 'hidden'
         }}>
           <div style={{
-            width: '48px',
-            height: '48px',
+            width: '42px',
+            height: '42px',
             borderRadius: '12px',
             background: 'rgba(16, 185, 129, 0.1)',
             color: '#10b981',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            flexShrink: 0
           }}>
-            <CheckCircle2 size={24} />
+            <CheckCircle2 size={20} />
           </div>
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <div style={{ minWidth: 0, overflow: 'hidden' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', whiteSpace: 'nowrap' }}>
               <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 500 }}>Completed</span>
               <span style={{ fontSize: '0.7rem', color: '#10b981', fontWeight: 700 }}>{metrics.completionRate}%</span>
             </div>
-            <h3 style={{ fontSize: '1.6rem', fontWeight: 700, margin: '0.1rem 0 0', color: 'var(--text-main)' }}>{metrics.done}</h3>
+            <h3 style={{ fontSize: '1.6rem', fontWeight: 700, margin: '0.1rem 0 0', color: 'var(--text-main)', whiteSpace: 'nowrap' }}>{metrics.done}</h3>
           </div>
         </div>
       </div>

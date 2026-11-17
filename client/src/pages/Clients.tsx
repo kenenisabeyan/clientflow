@@ -395,11 +395,12 @@ export default function Clients() {
         </div>
       </div>
 
-      {/* ERP Metric Cards (4 KPI Cards) */}
-      <div style={{
+      {/* ERP Metric Cards (4 KPI Cards in ONE ROW) */}
+      <div className="stats-grid dashboard-stats-row" style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
-        gap: '1.25rem'
+        gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+        gap: '1rem',
+        marginBottom: '2rem'
       }}>
         {[
           { title: 'Total Clients', value: loading ? '...' : metrics.total, desc: 'Registered in database', icon: Users, color: '#3b82f6' },
@@ -411,19 +412,21 @@ export default function Clients() {
             background: 'var(--surface)',
             border: '1px solid var(--surface-border)',
             borderRadius: 'var(--radius)',
-            padding: '1.25rem 1.5rem',
+            padding: '1.2rem 1.1rem',
             boxShadow: '0 2px 6px rgba(0,0,0,0.02)',
             display: 'flex',
             justifyContent: 'space-between',
-            alignItems: 'center'
+            alignItems: 'center',
+            minWidth: 0,
+            overflow: 'hidden'
           }}>
-            <div>
-              <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 500 }}>{stat.title}</span>
-              <div style={{ fontSize: '1.9rem', fontWeight: 800, margin: '0.2rem 0' }}>{stat.value}</div>
-              <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{stat.desc}</span>
+            <div style={{ minWidth: 0, overflow: 'hidden' }}>
+              <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>{stat.title}</span>
+              <div style={{ fontSize: '1.8rem', fontWeight: 800, margin: '0.2rem 0', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{stat.value}</div>
+              <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>{stat.desc}</span>
             </div>
-            <div style={{ background: `${stat.color}18`, color: stat.color, padding: '0.75rem', borderRadius: '12px' }}>
-              <stat.icon size={24} />
+            <div style={{ background: `${stat.color}18`, color: stat.color, padding: '0.65rem', borderRadius: '12px', flexShrink: 0, marginLeft: '0.5rem' }}>
+              <stat.icon size={20} />
             </div>
           </div>
         ))}

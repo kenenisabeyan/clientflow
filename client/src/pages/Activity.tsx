@@ -200,30 +200,35 @@ export default function Activity() {
         </div>
       </div>
 
-      {/* 4 Stat Cards */}
-      <div className="stats-grid" style={{ marginBottom: '2rem' }}>
-        <div className="stat-card">
-          <h3>Total Audit Events</h3>
-          <p>{metrics.total}</p>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Recorded in MongoDB Atlas</span>
+      {/* 4 Stat Cards in ONE ROW */}
+      <div className="stats-grid dashboard-stats-row" style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+        gap: '1rem',
+        marginBottom: '2rem'
+      }}>
+        <div className="stat-card" style={{ padding: '1.2rem 1.1rem', minWidth: 0, overflow: 'hidden' }}>
+          <h3 style={{ fontSize: '0.82rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Total Audit Events</h3>
+          <p style={{ fontSize: '1.8rem', margin: '0.2rem 0', whiteSpace: 'nowrap' }}>{metrics.total}</p>
+          <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>Recorded in MongoDB Atlas</span>
         </div>
 
-        <div className="stat-card">
-          <h3>Project Updates</h3>
-          <p style={{ color: 'var(--primary)' }}>{metrics.projectOps}</p>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Scope & spec revisions</span>
+        <div className="stat-card" style={{ padding: '1.2rem 1.1rem', minWidth: 0, overflow: 'hidden' }}>
+          <h3 style={{ fontSize: '0.82rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Project Updates</h3>
+          <p style={{ color: 'var(--primary)', fontSize: '1.8rem', margin: '0.2rem 0', whiteSpace: 'nowrap' }}>{metrics.projectOps}</p>
+          <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>Scope & spec revisions</span>
         </div>
 
-        <div className="stat-card">
-          <h3>Task Transitions</h3>
-          <p style={{ color: '#10b981' }}>{metrics.taskOps}</p>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Kanban & sprint moves</span>
+        <div className="stat-card" style={{ padding: '1.2rem 1.1rem', minWidth: 0, overflow: 'hidden' }}>
+          <h3 style={{ fontSize: '0.82rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Task Transitions</h3>
+          <p style={{ color: '#10b981', fontSize: '1.8rem', margin: '0.2rem 0', whiteSpace: 'nowrap' }}>{metrics.taskOps}</p>
+          <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>Kanban & sprint moves</span>
         </div>
 
-        <div className="stat-card">
-          <h3>Financial Actions</h3>
-          <p style={{ color: '#f59e0b' }}>{metrics.financialOps}</p>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Invoices created & paid</span>
+        <div className="stat-card" style={{ padding: '1.2rem 1.1rem', minWidth: 0, overflow: 'hidden' }}>
+          <h3 style={{ fontSize: '0.82rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Financial Actions</h3>
+          <p style={{ color: '#f59e0b', fontSize: '1.8rem', margin: '0.2rem 0', whiteSpace: 'nowrap' }}>{metrics.financialOps}</p>
+          <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>Invoices created & paid</span>
         </div>
       </div>
 

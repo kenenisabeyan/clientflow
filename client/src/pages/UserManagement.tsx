@@ -300,30 +300,35 @@ export default function UserManagement() {
         </div>
       </div>
 
-      {/* 4 Metrics Cards */}
-      <div className="stats-grid" style={{ marginBottom: '2rem' }}>
-        <div className="stat-card">
-          <h3>Total Members</h3>
-          <p>{metrics.total}</p>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Registered ERP accounts</span>
+      {/* 4 Metrics Cards in ONE ROW */}
+      <div className="stats-grid dashboard-stats-row" style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+        gap: '1rem',
+        marginBottom: '2rem'
+      }}>
+        <div className="stat-card" style={{ padding: '1.2rem 1.1rem', minWidth: 0, overflow: 'hidden' }}>
+          <h3 style={{ fontSize: '0.82rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Total Members</h3>
+          <p style={{ fontSize: '1.8rem', margin: '0.2rem 0', whiteSpace: 'nowrap' }}>{metrics.total}</p>
+          <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>Registered ERP accounts</span>
         </div>
 
-        <div className="stat-card">
-          <h3>Admins</h3>
-          <p style={{ color: 'var(--primary)' }}>{metrics.admins}</p>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Full system authority</span>
+        <div className="stat-card" style={{ padding: '1.2rem 1.1rem', minWidth: 0, overflow: 'hidden' }}>
+          <h3 style={{ fontSize: '0.82rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Admins</h3>
+          <p style={{ color: 'var(--primary)', fontSize: '1.8rem', margin: '0.2rem 0', whiteSpace: 'nowrap' }}>{metrics.admins}</p>
+          <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>Full system authority</span>
         </div>
 
-        <div className="stat-card">
-          <h3>Clients</h3>
-          <p style={{ color: '#3b82f6' }}>{metrics.clients}</p>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Stakeholders & billable</span>
+        <div className="stat-card" style={{ padding: '1.2rem 1.1rem', minWidth: 0, overflow: 'hidden' }}>
+          <h3 style={{ fontSize: '0.82rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Clients</h3>
+          <p style={{ color: '#3b82f6', fontSize: '1.8rem', margin: '0.2rem 0', whiteSpace: 'nowrap' }}>{metrics.clients}</p>
+          <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>Stakeholders & billable</span>
         </div>
 
-        <div className="stat-card">
-          <h3>Developers</h3>
-          <p style={{ color: '#10b981' }}>{metrics.developers}</p>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Sprint engineers</span>
+        <div className="stat-card" style={{ padding: '1.2rem 1.1rem', minWidth: 0, overflow: 'hidden' }}>
+          <h3 style={{ fontSize: '0.82rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Developers</h3>
+          <p style={{ color: '#10b981', fontSize: '1.8rem', margin: '0.2rem 0', whiteSpace: 'nowrap' }}>{metrics.developers}</p>
+          <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>Sprint engineers</span>
         </div>
       </div>
 

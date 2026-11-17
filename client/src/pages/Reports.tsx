@@ -211,27 +211,29 @@ export default function Reports() {
         </div>
       </div>
 
-      {/* Top Financial Stats Row */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))', gap: '1.25rem' }}>
+      {/* Top Financial Stats Row (4 Stat Cards in ONE ROW) */}
+      <div className="stats-grid dashboard-stats-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
         {/* Total Paid Revenue */}
         <div style={{
           background: 'var(--surface)',
           border: '1px solid var(--surface-border)',
           borderRadius: 'var(--radius)',
-          padding: '1.5rem',
+          padding: '1.2rem 1.1rem',
           display: 'flex',
           flexDirection: 'column',
-          gap: '0.5rem',
-          boxShadow: 'var(--glass-shadow)'
+          gap: '0.4rem',
+          boxShadow: 'var(--glass-shadow)',
+          minWidth: 0,
+          overflow: 'hidden'
         }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: 600 }}>
-            <span>Settled Revenue</span>
-            <span style={{ color: '#10b981', display: 'flex', alignItems: 'center' }}><ArrowUpRight size={14} /> +100%</span>
+          <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden' }}>
+            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>Settled Revenue</span>
+            <span style={{ color: '#10b981', display: 'flex', alignItems: 'center', flexShrink: 0, marginLeft: '0.4rem' }}><ArrowUpRight size={14} /> +100%</span>
           </div>
-          <h3 style={{ fontSize: '1.8rem', fontWeight: 800, margin: 0, color: 'var(--text-main)' }}>
+          <h3 style={{ fontSize: '1.8rem', fontWeight: 800, margin: 0, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
             ${metrics.totalRevenue.toLocaleString()}
           </h3>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Verified Atlas ledger receipts</span>
+          <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>Verified Atlas ledger receipts</span>
         </div>
 
         {/* Pending Receivables */}
@@ -239,20 +241,22 @@ export default function Reports() {
           background: 'var(--surface)',
           border: '1px solid var(--surface-border)',
           borderRadius: 'var(--radius)',
-          padding: '1.5rem',
+          padding: '1.2rem 1.1rem',
           display: 'flex',
           flexDirection: 'column',
-          gap: '0.5rem',
-          boxShadow: 'var(--glass-shadow)'
+          gap: '0.4rem',
+          boxShadow: 'var(--glass-shadow)',
+          minWidth: 0,
+          overflow: 'hidden'
         }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: 600 }}>
-            <span>Pending Receivables</span>
-            <span style={{ color: '#f59e0b' }}>Outstanding</span>
+          <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden' }}>
+            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>Pending Receivables</span>
+            <span style={{ color: '#f59e0b', flexShrink: 0, marginLeft: '0.4rem' }}>Outstanding</span>
           </div>
-          <h3 style={{ fontSize: '1.8rem', fontWeight: 800, margin: 0, color: 'var(--text-main)' }}>
+          <h3 style={{ fontSize: '1.8rem', fontWeight: 800, margin: 0, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
             ${metrics.pendingRevenue.toLocaleString()}
           </h3>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Awaiting client settlement</span>
+          <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>Awaiting client settlement</span>
         </div>
 
         {/* Active Client Portfolios */}
@@ -260,20 +264,22 @@ export default function Reports() {
           background: 'var(--surface)',
           border: '1px solid var(--surface-border)',
           borderRadius: 'var(--radius)',
-          padding: '1.5rem',
+          padding: '1.2rem 1.1rem',
           display: 'flex',
           flexDirection: 'column',
-          gap: '0.5rem',
-          boxShadow: 'var(--glass-shadow)'
+          gap: '0.4rem',
+          boxShadow: 'var(--glass-shadow)',
+          minWidth: 0,
+          overflow: 'hidden'
         }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: 600 }}>
-            <span>Active Portfolios</span>
-            <span style={{ color: '#3b82f6' }}>{metrics.completedProjects} done</span>
+          <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden' }}>
+            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>Active Portfolios</span>
+            <span style={{ color: '#3b82f6', flexShrink: 0, marginLeft: '0.4rem' }}>{metrics.completedProjects} done</span>
           </div>
-          <h3 style={{ fontSize: '1.8rem', fontWeight: 800, margin: 0, color: 'var(--text-main)' }}>
+          <h3 style={{ fontSize: '1.8rem', fontWeight: 800, margin: 0, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
             {metrics.totalProjects}
           </h3>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Under contract development</span>
+          <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>Under contract development</span>
         </div>
 
         {/* Sprint Throughput */}
@@ -281,20 +287,22 @@ export default function Reports() {
           background: 'var(--surface)',
           border: '1px solid var(--surface-border)',
           borderRadius: 'var(--radius)',
-          padding: '1.5rem',
+          padding: '1.2rem 1.1rem',
           display: 'flex',
           flexDirection: 'column',
-          gap: '0.5rem',
-          boxShadow: 'var(--glass-shadow)'
+          gap: '0.4rem',
+          boxShadow: 'var(--glass-shadow)',
+          minWidth: 0,
+          overflow: 'hidden'
         }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: 600 }}>
-            <span>Sprint Velocity</span>
-            <span style={{ color: '#10b981' }}>{metrics.completionRate}%</span>
+          <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden' }}>
+            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>Sprint Velocity</span>
+            <span style={{ color: '#10b981', flexShrink: 0, marginLeft: '0.4rem' }}>{metrics.completionRate}%</span>
           </div>
-          <h3 style={{ fontSize: '1.8rem', fontWeight: 800, margin: 0, color: 'var(--text-main)' }}>
+          <h3 style={{ fontSize: '1.8rem', fontWeight: 800, margin: 0, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
             {tasks.filter(t => t.status === 'done').length} / {tasks.length}
           </h3>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Tasks successfully delivered</span>
+          <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>Tasks successfully delivered</span>
         </div>
       </div>
 
