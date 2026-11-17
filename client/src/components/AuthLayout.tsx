@@ -349,7 +349,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
           <div style={{
             width: '42px',
             height: '42px',
-            borderRadius: '12px',
+            borderRadius: '0px',
             background: 'linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #4f46e5 100%)',
             display: 'flex',
             alignItems: 'center',
@@ -401,7 +401,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
               border: isIdeasOpen 
                 ? '1.5px solid #f59e0b'
                 : (isDark ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(255, 255, 255, 0.85)'),
-              borderRadius: '20px',
+              borderRadius: '0px',
               padding: '0.6rem 1.15rem',
               display: 'flex',
               alignItems: 'center',
@@ -523,7 +523,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                 backdropFilter: 'blur(28px) saturate(200%)',
                 WebkitBackdropFilter: 'blur(28px) saturate(200%)',
                 border: isDark ? '1.5px solid rgba(255, 255, 255, 0.15)' : '1.5px solid rgba(255, 255, 255, 0.9)',
-                borderRadius: '24px',
+                borderRadius: '0px',
                 padding: '1.5rem',
                 boxShadow: isDark 
                   ? '0 25px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1) inset' 
@@ -545,7 +545,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                   <div style={{
                     width: '34px',
                     height: '34px',
-                    borderRadius: '10px',
+                    borderRadius: '0px',
                     background: 'linear-gradient(135deg, #fef08a 0%, #f59e0b 100%)',
                     display: 'flex',
                     alignItems: 'center',
@@ -579,7 +579,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                     color: isDark ? '#94a3b8' : '#64748b',
                     cursor: 'pointer',
                     padding: '0.35rem',
-                    borderRadius: '8px',
+                    borderRadius: '0px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center'
@@ -611,7 +611,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                     }}
                     style={{
                       padding: '0.35rem 0.75rem',
-                      borderRadius: '16px',
+                      borderRadius: '0px',
                       fontSize: '0.78rem',
                       fontWeight: 600,
                       border: 'none',
@@ -634,7 +634,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                 background: isDark ? 'rgba(30, 41, 59, 0.7)' : 'rgba(254, 243, 199, 0.45)',
                 border: '1px solid',
                 borderColor: isDark ? 'rgba(245, 158, 11, 0.3)' : 'rgba(245, 158, 11, 0.35)',
-                borderRadius: '16px',
+                borderRadius: '0px',
                 padding: '1.25rem',
                 margin: '0.5rem 0 1rem',
                 position: 'relative',
@@ -664,7 +664,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                     background: 'rgba(245, 158, 11, 0.2)',
                     color: isDark ? '#fde047' : '#b45309',
                     padding: '0.2rem 0.55rem',
-                    borderRadius: '12px'
+                    borderRadius: '0px'
                   }}>
                     {currentIdea.metric}
                   </span>
@@ -708,7 +708,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                         style={{
                           width: idx === (activeIdeaIndex % filteredIdeas.length) ? '12px' : '5px',
                           height: '5px',
-                          borderRadius: '3px',
+                          borderRadius: '0px',
                           background: idx === (activeIdeaIndex % filteredIdeas.length) ? '#f59e0b' : 'rgba(245, 158, 11, 0.3)',
                           transition: 'all 0.2s ease'
                         }}
@@ -729,7 +729,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                     background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
                     color: '#ffffff',
                     border: 'none',
-                    borderRadius: '12px',
+                    borderRadius: '0px',
                     fontSize: '0.88rem',
                     fontWeight: 700,
                     cursor: 'pointer',
@@ -753,7 +753,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                     background: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
                     border: '1px solid',
                     borderColor: sunbeamsEnabled ? '#f59e0b' : (isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'),
-                    borderRadius: '12px',
+                    borderRadius: '0px',
                     color: sunbeamsEnabled ? '#f59e0b' : (isDark ? '#94a3b8' : '#64748b'),
                     cursor: 'pointer',
                     display: 'flex',

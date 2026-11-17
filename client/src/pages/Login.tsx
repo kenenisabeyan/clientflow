@@ -48,7 +48,7 @@ export default function Login() {
         backdropFilter: 'blur(24px) saturate(190%)',
         WebkitBackdropFilter: 'blur(24px) saturate(190%)',
         border: isDark ? '1.5px solid rgba(255, 255, 255, 0.12)' : '1.5px solid rgba(255, 255, 255, 0.8)',
-        borderRadius: '16px',
+        borderRadius: '0px',
         padding: '1.35rem 0.85rem 0.95rem',
         boxShadow: isDark 
           ? '0 25px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset' 
@@ -86,7 +86,7 @@ export default function Login() {
             marginBottom: '0.65rem',
             background: 'rgba(239, 68, 68, 0.12)',
             border: '1px solid rgba(239, 68, 68, 0.3)',
-            borderRadius: '6px',
+            borderRadius: '0px',
             color: '#ef4444',
             fontSize: '0.74rem',
             textAlign: 'center',
@@ -123,7 +123,7 @@ export default function Login() {
                 padding: '0.55rem 0.68rem',
                 background: isDark ? 'rgba(15, 23, 42, 0.8)' : '#ffffff',
                 border: isDark ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(203, 213, 225, 0.9)',
-                borderRadius: '7px',
+                borderRadius: '0px',
                 color: isDark ? '#ffffff' : '#0f172a',
                 fontSize: '0.82rem',
                 outline: 'none',
@@ -156,7 +156,7 @@ export default function Login() {
                 padding: '0.55rem 0.68rem',
                 background: isDark ? 'rgba(15, 23, 42, 0.8)' : '#ffffff',
                 border: isDark ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(203, 213, 225, 0.9)',
-                borderRadius: '7px',
+                borderRadius: '0px',
                 color: isDark ? '#ffffff' : '#0f172a',
                 fontSize: '0.82rem',
                 outline: 'none',
@@ -190,7 +190,7 @@ export default function Login() {
                 style={{
                   width: '13px',
                   height: '13px',
-                  borderRadius: '3px',
+                  borderRadius: '0px',
                   accentColor: '#2563eb',
                   cursor: 'pointer'
                 }}
@@ -227,7 +227,7 @@ export default function Login() {
               background: 'linear-gradient(135deg, #0284c7 0%, #1e40af 100%)',
               color: '#ffffff',
               border: 'none',
-              borderRadius: '8px',
+              borderRadius: '0px',
               fontSize: '0.84rem',
               fontWeight: 700,
               cursor: submitting ? 'not-allowed' : 'pointer',
@@ -280,7 +280,7 @@ export default function Login() {
                 padding: '0.36rem 0.1rem',
                 background: isDark ? 'rgba(30, 41, 59, 0.7)' : 'rgba(255, 255, 255, 0.8)',
                 border: '1px solid rgba(59, 130, 246, 0.3)',
-                borderRadius: '5px',
+                borderRadius: '0px',
                 fontSize: '0.65rem',
                 fontWeight: 600,
                 color: isDark ? '#93c5fd' : '#1d4ed8',
@@ -297,7 +297,7 @@ export default function Login() {
                 padding: '0.36rem 0.1rem',
                 background: isDark ? 'rgba(30, 41, 59, 0.7)' : 'rgba(255, 255, 255, 0.8)',
                 border: '1px solid rgba(16, 185, 129, 0.3)',
-                borderRadius: '5px',
+                borderRadius: '0px',
                 fontSize: '0.65rem',
                 fontWeight: 600,
                 color: isDark ? '#86efac' : '#047857',
@@ -314,7 +314,7 @@ export default function Login() {
                 padding: '0.36rem 0.1rem',
                 background: isDark ? 'rgba(30, 41, 59, 0.7)' : 'rgba(255, 255, 255, 0.8)',
                 border: '1px solid rgba(139, 92, 246, 0.3)',
-                borderRadius: '5px',
+                borderRadius: '0px',
                 fontSize: '0.65rem',
                 fontWeight: 600,
                 color: isDark ? '#c4b5fd' : '#6d28d9',
@@ -330,8 +330,9 @@ export default function Login() {
         <div style={{
           textAlign: 'center',
           marginTop: '0.65rem',
-          fontSize: '0.72rem',
-          color: isDark ? '#94a3b8' : '#64748b'
+          fontSize: '0.7rem',
+          color: isDark ? '#94a3b8' : '#64748b',
+          lineHeight: 1.3
         }}>
           Don't have an ERP account?{' '}
           <Link
@@ -339,7 +340,8 @@ export default function Login() {
             style={{
               color: '#0284c7',
               fontWeight: 700,
-              textDecoration: 'none'
+              textDecoration: 'none',
+              whiteSpace: 'nowrap'
             }}
             onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
             onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
