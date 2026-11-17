@@ -375,7 +375,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
             }}>
               CLIENTFLOW
             </span>
-            <span style={{
+            <span className="auth-brand-subtitle" style={{
               fontSize: '0.68rem',
               fontWeight: 700,
               letterSpacing: '1.2px',
@@ -775,14 +775,15 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
       </header>
 
       {/* Main Glassmorphism Form Card */}
-      <div style={{
+      <div className="auth-card-container" style={{
         position: 'relative',
         zIndex: 5,
         width: '100%',
-        maxWidth: '400px',
+        maxWidth: '380px',
         margin: 'auto',
         marginTop: '5rem',
-        marginBottom: '2rem'
+        marginBottom: '2rem',
+        boxSizing: 'border-box'
       }}>
         {children}
       </div>

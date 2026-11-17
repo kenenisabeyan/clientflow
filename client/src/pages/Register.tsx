@@ -42,8 +42,8 @@ export default function Register() {
         backdropFilter: 'blur(24px) saturate(190%)',
         WebkitBackdropFilter: 'blur(24px) saturate(190%)',
         border: isDark ? '1.5px solid rgba(255, 255, 255, 0.12)' : '1.5px solid rgba(255, 255, 255, 0.8)',
-        borderRadius: '24px',
-        padding: '2.4rem 1.75rem 1.85rem',
+        borderRadius: '22px',
+        padding: '2.2rem 1.55rem 1.75rem',
         boxShadow: isDark 
           ? '0 25px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset' 
           : '0 25px 60px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.6) inset',
@@ -53,18 +53,18 @@ export default function Register() {
       }}>
         
         {/* Card Header (Matches Video Styling) */}
-        <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
           <h1 style={{
-            fontSize: '2.05rem',
+            fontSize: '1.95rem',
             fontWeight: 800,
             letterSpacing: '-0.5px',
             color: isDark ? '#ffffff' : '#1e1b4b',
-            margin: '0 0 0.4rem 0'
+            margin: '0 0 0.35rem 0'
           }}>
             Create Account
           </h1>
           <p style={{
-            fontSize: '0.92rem',
+            fontSize: '0.9rem',
             color: isDark ? '#94a3b8' : '#64748b',
             margin: 0
           }}>
@@ -76,8 +76,8 @@ export default function Register() {
         {error && (
           <div style={{
             width: '100%',
-            padding: '0.75rem 1rem',
-            marginBottom: '1.25rem',
+            padding: '0.7rem 0.95rem',
+            marginBottom: '1.15rem',
             background: 'rgba(239, 68, 68, 0.12)',
             border: '1px solid rgba(239, 68, 68, 0.3)',
             borderRadius: '12px',
@@ -93,16 +93,16 @@ export default function Register() {
         )}
 
         {/* Registration Form */}
-        <form onSubmit={handleSubmit} style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
+        <form onSubmit={handleSubmit} style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           
           {/* Full Name */}
           <div>
             <label style={{
               display: 'block',
-              fontSize: '0.85rem',
+              fontSize: '0.84rem',
               fontWeight: 600,
               color: isDark ? '#cbd5e1' : '#334155',
-              marginBottom: '0.4rem'
+              marginBottom: '0.35rem'
             }}>
               Full Name
             </label>
@@ -114,7 +114,7 @@ export default function Register() {
               required
               style={{
                 width: '100%',
-                padding: '0.85rem 1rem',
+                padding: '0.82rem 0.95rem',
                 background: isDark ? 'rgba(15, 23, 42, 0.8)' : '#ffffff',
                 border: isDark ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(203, 213, 225, 0.9)',
                 borderRadius: '12px',
@@ -132,10 +132,10 @@ export default function Register() {
           <div>
             <label style={{
               display: 'block',
-              fontSize: '0.85rem',
+              fontSize: '0.84rem',
               fontWeight: 600,
               color: isDark ? '#cbd5e1' : '#334155',
-              marginBottom: '0.4rem'
+              marginBottom: '0.35rem'
             }}>
               Email Address
             </label>
@@ -147,7 +147,7 @@ export default function Register() {
               required
               style={{
                 width: '100%',
-                padding: '0.85rem 1rem',
+                padding: '0.82rem 0.95rem',
                 background: isDark ? 'rgba(15, 23, 42, 0.8)' : '#ffffff',
                 border: isDark ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(203, 213, 225, 0.9)',
                 borderRadius: '12px',
@@ -165,10 +165,10 @@ export default function Register() {
           <div>
             <label style={{
               display: 'block',
-              fontSize: '0.85rem',
+              fontSize: '0.84rem',
               fontWeight: 600,
               color: isDark ? '#cbd5e1' : '#334155',
-              marginBottom: '0.4rem'
+              marginBottom: '0.35rem'
             }}>
               Create Password
             </label>
@@ -181,7 +181,7 @@ export default function Register() {
               minLength={6}
               style={{
                 width: '100%',
-                padding: '0.85rem 1rem',
+                padding: '0.82rem 0.95rem',
                 background: isDark ? 'rgba(15, 23, 42, 0.8)' : '#ffffff',
                 border: isDark ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(203, 213, 225, 0.9)',
                 borderRadius: '12px',
@@ -201,7 +201,7 @@ export default function Register() {
             disabled={submitting}
             style={{
               width: '100%',
-              padding: '0.88rem',
+              padding: '0.86rem',
               background: 'linear-gradient(135deg, #0284c7 0%, #1e40af 100%)',
               color: '#ffffff',
               border: 'none',

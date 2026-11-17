@@ -1120,4 +1120,27 @@ html.dark ::-webkit-scrollbar-thumb:active {
   animation: pineBreeze 7s ease-in-out infinite reverse;
 }
 
+/* Responsive Authentication Page Enhancements */
+@media (max-width: 640px) {
+  .auth-header {
+    padding: 0.85rem 1rem !important;
+  }
+  .auth-brand-subtitle {
+    display: none !important;
+  }
+  .auth-bright-ideas-text {
+    display: none !important;
+  }
+  .auth-bright-ideas-widget {
+    padding: 0.35rem !important;
+    border-radius: 50% !important;
+    gap: 0 !important;
+  }
+  .auth-card-container {
+    margin-top: 4.25rem !important;
+    padding: 0 0.5rem !important;
+  }
+}
+
+
 
