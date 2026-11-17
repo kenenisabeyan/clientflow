@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
-import BrandLogo, { BrandIcon } from '../components/BrandLogo';
 import { 
   Users, FolderKanban, CheckSquare, Plus, RefreshCw, 
   Download, ArrowUpRight, ArrowDownRight, Clock, CheckCircle2, 
@@ -329,37 +328,34 @@ export default function Dashboard() {
         boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
         padding: '1.25rem 1.5rem'
       }}>
-        <div style={{ flex: '1 1 280px', minWidth: 0, display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <BrandIcon size={46} rotate={true} />
-          <div style={{ minWidth: 0 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.35rem', flexWrap: 'wrap' }}>
-              <h2 style={{ fontSize: '1.45rem', fontWeight: 700, letterSpacing: '-0.4px', wordBreak: 'break-word', margin: 0 }}>
-                {isAdmin ? 'Admin Operations Center' : isClient ? 'Client Project Portal' : 'Developer Sprint Station'}
-              </h2>
-              <span style={{
-                background: 'rgba(59, 130, 246, 0.12)',
-                color: 'var(--primary)',
-                fontSize: '0.75rem',
-                fontWeight: 700,
-                padding: '0.2rem 0.6rem',
-                borderRadius: '20px',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.3rem'
-              }}>
-                <ShieldCheck size={14} /> LIVE ATLAS DB
-              </span>
-            </div>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', wordBreak: 'break-word', margin: 0 }}>
-              {isAdmin ? (
-                <>Welcome back, <strong style={{ color: 'var(--text-main)' }}>{user?.name || 'Administrator'}</strong>. Real-time control and analytics across all client operations.</>
-              ) : isClient ? (
-                <>Welcome back, <strong style={{ color: 'var(--text-main)' }}>{user?.name || 'Client'}</strong>. Real-time visibility into your active contracted projects, deliverables, and invoices.</>
-              ) : (
-                <>Welcome back, <strong style={{ color: 'var(--text-main)' }}>{user?.name || 'Developer'}</strong>. Real-time overview of your engineering sprint backlog, assigned tasks, and project velocity.</>
-              )}
-            </p>
+        <div style={{ flex: '1 1 280px', minWidth: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.35rem', flexWrap: 'wrap' }}>
+            <h2 style={{ fontSize: '1.45rem', fontWeight: 700, letterSpacing: '-0.4px', wordBreak: 'break-word', margin: 0 }}>
+              {isAdmin ? 'Admin Operations Center' : isClient ? 'Client Project Portal' : 'Developer Sprint Station'}
+            </h2>
+            <span style={{
+              background: 'rgba(59, 130, 246, 0.12)',
+              color: 'var(--primary)',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              padding: '0.2rem 0.6rem',
+              borderRadius: '20px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.3rem'
+            }}>
+              <ShieldCheck size={14} /> LIVE ATLAS DB
+            </span>
           </div>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', wordBreak: 'break-word', margin: 0 }}>
+            {isAdmin ? (
+              <>Welcome back, <strong style={{ color: 'var(--text-main)' }}>{user?.name || 'Administrator'}</strong>. Real-time control and analytics across all client operations.</>
+            ) : isClient ? (
+              <>Welcome back, <strong style={{ color: 'var(--text-main)' }}>{user?.name || 'Client'}</strong>. Real-time visibility into your active contracted projects, deliverables, and invoices.</>
+            ) : (
+              <>Welcome back, <strong style={{ color: 'var(--text-main)' }}>{user?.name || 'Developer'}</strong>. Real-time overview of your engineering sprint backlog, assigned tasks, and project velocity.</>
+            )}
+          </p>
         </div>
 
         {/* Action Controls */}
