@@ -314,16 +314,22 @@ export default function Layout() {
       <div className="main-content">
         <header className="topbar">
           <div className="topbar-left" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-            <button
-              className="mobile-menu-btn"
+            {/* Mobile User Avatar in place of hamburger menu on the left */}
+            <div 
+              className="mobile-user-avatar" 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               title="Toggle Navigation Menu"
+              style={{ display: 'none', cursor: 'pointer', alignItems: 'center' }}
             >
-              <Menu size={22} />
-            </button>
+              <div className="user-avatar" style={{ width: '28px', height: '28px', fontSize: '0.8rem' }}>
+                {user?.name ? user.name[0].toUpperCase() : 'U'}
+              </div>
+            </div>
+
             <div className="mobile-brand-mark" style={{ display: 'none', alignItems: 'center' }}>
               <BrandIcon size={26} rotate={false} />
             </div>
+
             <h1 className="page-title">{getPageTitle()}</h1>
           </div>
           <div className="topbar-right">
@@ -687,13 +693,22 @@ export default function Layout() {
                )}
              </div>
 
-             <div className="user-menu">
+             <div className="user-menu desktop-user-menu">
                <div className="user-avatar">{user?.name ? user.name[0].toUpperCase() : 'U'}</div>
                <div className="user-info">
                  <span className="user-name">{user?.name}</span>
                  <span className="user-role">{user?.role}</span>
                </div>
              </div>
+
+             {/* Mobile Hamburger Menu Button in place of user avatar on the right */}
+             <button
+               className="mobile-menu-btn"
+               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+               title="Toggle Navigation Menu"
+             >
+               <Menu size={22} />
+             </button>
           </div>
         </header>
 

@@ -842,6 +842,17 @@ html.dark ::-webkit-scrollbar-thumb:active {
     flex-shrink: 0 !important;
   }
 
+  .mobile-user-avatar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  .desktop-user-menu {
+    display: none !important;
+  }
+
   .mobile-sidebar-close {
     display: flex !important;
   }
