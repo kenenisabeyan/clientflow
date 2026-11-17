@@ -359,8 +359,9 @@ export default function Dashboard() {
         </div>
 
         {/* Action Controls */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', flexWrap: 'wrap' }}>
+        <div className="dashboard-action-controls" style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', flexWrap: 'wrap' }}>
           <button
+            className="dashboard-action-btn"
             onClick={() => fetchDashboardData(true)}
             disabled={refreshing}
             style={{
@@ -384,6 +385,7 @@ export default function Dashboard() {
 
           {isAdmin && (
             <button
+              className="dashboard-action-btn"
               onClick={handleExportCSV}
               style={{
                 display: 'flex',
@@ -406,6 +408,7 @@ export default function Dashboard() {
 
           {!isClient && (
             <button
+              className="dashboard-action-btn"
               onClick={() => setIsTaskModalOpen(true)}
               style={{
                 display: 'flex',
@@ -429,6 +432,7 @@ export default function Dashboard() {
 
           {isAdmin && (
             <button
+              className="dashboard-action-btn"
               onClick={() => setIsProjectModalOpen(true)}
               style={{
                 display: 'flex',
