@@ -691,11 +691,15 @@ export default function Layout() {
 
             <Link to="/settings" style={{ textDecoration: 'none', color: 'inherit' }} title="Profile & Avatar Settings">
               <div className="user-menu" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', cursor: 'pointer' }}>
-                <UserAvatar avatar={user?.avatar} name={user?.name} size={32} />
-                <div className="user-info">
-                  <span className="user-name">{user?.name}</span>
-                  <span className="user-role">{user?.role}</span>
+                <div className="user-info" style={{ textAlign: 'right', display: 'flex', flexDirection: 'column' }}>
+                  <span className="user-name" style={{ fontWeight: 600, fontSize: '0.88rem', color: 'var(--text-main)', lineHeight: 1.2 }}>
+                    {user?.name || 'User'}
+                  </span>
+                  <span className="user-role" style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'capitalize', lineHeight: 1.2 }}>
+                    {user?.role}
+                  </span>
                 </div>
+                <UserAvatar avatar={user?.avatar} name={user?.name} size={32} />
               </div>
             </Link>
           </div>
