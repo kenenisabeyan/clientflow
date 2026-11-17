@@ -42,8 +42,8 @@ export default function Register() {
         backdropFilter: 'blur(24px) saturate(190%)',
         WebkitBackdropFilter: 'blur(24px) saturate(190%)',
         border: isDark ? '1.5px solid rgba(255, 255, 255, 0.12)' : '1.5px solid rgba(255, 255, 255, 0.8)',
-        borderRadius: '18px',
-        padding: '1.75rem 1rem 1.25rem',
+        borderRadius: '16px',
+        padding: '1.35rem 0.85rem 0.95rem',
         boxShadow: isDark 
           ? '0 25px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset' 
           : '0 25px 60px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.6) inset',
@@ -53,18 +53,18 @@ export default function Register() {
       }}>
         
         {/* Card Header (Matches Video Styling) */}
-        <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '0.75rem' }}>
           <h1 style={{
-            fontSize: '1.65rem',
+            fontSize: '1.45rem',
             fontWeight: 800,
             letterSpacing: '-0.5px',
             color: isDark ? '#ffffff' : '#1e1b4b',
-            margin: '0 0 0.25rem 0'
+            margin: '0 0 0.15rem 0'
           }}>
             Create Account
           </h1>
           <p style={{
-            fontSize: '0.82rem',
+            fontSize: '0.75rem',
             color: isDark ? '#94a3b8' : '#64748b',
             margin: 0
           }}>
@@ -76,13 +76,13 @@ export default function Register() {
         {error && (
           <div style={{
             width: '100%',
-            padding: '0.6rem 0.75rem',
-            marginBottom: '0.85rem',
+            padding: '0.45rem 0.65rem',
+            marginBottom: '0.65rem',
             background: 'rgba(239, 68, 68, 0.12)',
             border: '1px solid rgba(239, 68, 68, 0.3)',
-            borderRadius: '8px',
+            borderRadius: '6px',
             color: '#ef4444',
-            fontSize: '0.8rem',
+            fontSize: '0.74rem',
             textAlign: 'center',
             fontWeight: 500,
             animation: 'fadeIn 0.2s ease-out',
@@ -93,16 +93,16 @@ export default function Register() {
         )}
 
         {/* Registration Form */}
-        <form onSubmit={handleSubmit} style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+        <form onSubmit={handleSubmit} style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
           
           {/* Full Name */}
           <div>
             <label style={{
               display: 'block',
-              fontSize: '0.8rem',
+              fontSize: '0.74rem',
               fontWeight: 600,
               color: isDark ? '#cbd5e1' : '#334155',
-              marginBottom: '0.25rem'
+              marginBottom: '0.2rem'
             }}>
               Full Name
             </label>
@@ -114,12 +114,12 @@ export default function Register() {
               required
               style={{
                 width: '100%',
-                padding: '0.72rem 0.8rem',
+                padding: '0.55rem 0.68rem',
                 background: isDark ? 'rgba(15, 23, 42, 0.8)' : '#ffffff',
                 border: isDark ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(203, 213, 225, 0.9)',
-                borderRadius: '8px',
+                borderRadius: '7px',
                 color: isDark ? '#ffffff' : '#0f172a',
-                fontSize: '0.88rem',
+                fontSize: '0.82rem',
                 outline: 'none',
                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.02)',
                 transition: 'all 0.2s ease',
@@ -132,10 +132,10 @@ export default function Register() {
           <div>
             <label style={{
               display: 'block',
-              fontSize: '0.8rem',
+              fontSize: '0.74rem',
               fontWeight: 600,
               color: isDark ? '#cbd5e1' : '#334155',
-              marginBottom: '0.25rem'
+              marginBottom: '0.2rem'
             }}>
               Email Address
             </label>
@@ -147,12 +147,12 @@ export default function Register() {
               required
               style={{
                 width: '100%',
-                padding: '0.72rem 0.8rem',
+                padding: '0.55rem 0.68rem',
                 background: isDark ? 'rgba(15, 23, 42, 0.8)' : '#ffffff',
                 border: isDark ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(203, 213, 225, 0.9)',
-                borderRadius: '8px',
+                borderRadius: '7px',
                 color: isDark ? '#ffffff' : '#0f172a',
-                fontSize: '0.88rem',
+                fontSize: '0.82rem',
                 outline: 'none',
                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.02)',
                 transition: 'all 0.2s ease',
@@ -165,10 +165,10 @@ export default function Register() {
           <div>
             <label style={{
               display: 'block',
-              fontSize: '0.8rem',
+              fontSize: '0.74rem',
               fontWeight: 600,
               color: isDark ? '#cbd5e1' : '#334155',
-              marginBottom: '0.25rem'
+              marginBottom: '0.2rem'
             }}>
               Create Password
             </label>
@@ -181,12 +181,12 @@ export default function Register() {
               minLength={6}
               style={{
                 width: '100%',
-                padding: '0.72rem 0.8rem',
+                padding: '0.55rem 0.68rem',
                 background: isDark ? 'rgba(15, 23, 42, 0.8)' : '#ffffff',
                 border: isDark ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(203, 213, 225, 0.9)',
-                borderRadius: '8px',
+                borderRadius: '7px',
                 color: isDark ? '#ffffff' : '#0f172a',
-                fontSize: '0.88rem',
+                fontSize: '0.82rem',
                 outline: 'none',
                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.02)',
                 transition: 'all 0.2s ease',
@@ -201,27 +201,27 @@ export default function Register() {
             disabled={submitting}
             style={{
               width: '100%',
-              padding: '0.78rem',
+              padding: '0.62rem',
               background: 'linear-gradient(135deg, #0284c7 0%, #1e40af 100%)',
               color: '#ffffff',
               border: 'none',
               borderRadius: '8px',
-              fontSize: '0.92rem',
+              fontSize: '0.84rem',
               fontWeight: 700,
               cursor: submitting ? 'not-allowed' : 'pointer',
-              marginTop: '0.35rem',
+              marginTop: '0.25rem',
               boxShadow: '0 8px 24px rgba(2, 132, 199, 0.35)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '0.5rem',
+              gap: '0.4rem',
               transition: 'all 0.2s ease',
               opacity: submitting ? 0.85 : 1
             }}
           >
             {submitting ? (
               <>
-                <Loader2 size={16} className="animate-spin" style={{ animation: 'spin 1s linear infinite' }} />
+                <Loader2 size={14} className="animate-spin" style={{ animation: 'spin 1s linear infinite' }} />
                 <span>Creating Account...</span>
               </>
             ) : (
@@ -233,8 +233,8 @@ export default function Register() {
         {/* Link back to Sign In */}
         <div style={{
           textAlign: 'center',
-          marginTop: '0.95rem',
-          fontSize: '0.8rem',
+          marginTop: '0.65rem',
+          fontSize: '0.72rem',
           color: isDark ? '#94a3b8' : '#64748b'
         }}>
           Already have an ERP account?{' '}
