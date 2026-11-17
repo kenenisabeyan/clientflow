@@ -321,7 +321,7 @@ export default function Layout() {
               title="Toggle Navigation Menu"
               style={{ display: 'none', cursor: 'pointer', alignItems: 'center' }}
             >
-              <div className="user-avatar" style={{ width: '28px', height: '28px', fontSize: '0.8rem' }}>
+              <div className="user-avatar">
                 {user?.name ? user.name[0].toUpperCase() : 'U'}
               </div>
             </div>
@@ -341,7 +341,7 @@ export default function Layout() {
                  alignItems: 'center', 
                  background: 'var(--bg-color)', 
                  padding: '0.45rem 0.85rem', 
-                 borderRadius: '20px', 
+                 borderRadius: '0px', 
                  border: '1px solid var(--surface-border)',
                  transition: 'all 0.2s ease',
                  boxShadow: isSearchOpen ? '0 0 0 2px var(--primary)' : 'none'
