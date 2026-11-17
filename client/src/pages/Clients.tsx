@@ -295,7 +295,7 @@ export default function Clients() {
       )}
 
       {/* Header & ERP Controls */}
-      <div style={{
+      <div className="dashboard-banner-header" style={{
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
@@ -329,8 +329,9 @@ export default function Clients() {
         </div>
 
         {/* Action Buttons */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', flexWrap: 'wrap' }}>
+        <div className="dashboard-action-controls" style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', flexWrap: 'wrap' }}>
           <button
+            className="dashboard-action-btn"
             onClick={() => fetchClientsData(true)}
             disabled={refreshing}
             style={{
@@ -352,6 +353,7 @@ export default function Clients() {
           </button>
 
           <button
+            className="dashboard-action-btn"
             onClick={handleExportCSV}
             style={{
               display: 'flex',
@@ -371,6 +373,7 @@ export default function Clients() {
           </button>
 
           <button
+            className="dashboard-action-btn"
             onClick={() => {
               setClientForm({ name: '', email: '', phone: '', company: '', status: 'Active', password: '' });
               setIsAddModalOpen(true);

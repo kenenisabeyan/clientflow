@@ -224,7 +224,7 @@ export default function UserManagement() {
       )}
 
       {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
+      <div className="dashboard-banner-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
         <div>
           <h1 style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--text-main)', margin: '0 0 0.25rem 0', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <ShieldCheck size={28} style={{ color: 'var(--primary)' }} /> Team & Role Management (RBAC)
@@ -234,8 +234,9 @@ export default function UserManagement() {
           </p>
         </div>
 
-        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+        <div className="dashboard-action-controls" style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
           <button
+            className="dashboard-action-btn"
             onClick={() => loadUsers(true)}
             disabled={refreshing}
             style={{
@@ -257,6 +258,7 @@ export default function UserManagement() {
           </button>
 
           <button
+            className="dashboard-action-btn"
             onClick={exportUsersCSV}
             style={{
               display: 'flex',
@@ -276,6 +278,7 @@ export default function UserManagement() {
           </button>
 
           <button
+            className="dashboard-action-btn"
             onClick={() => {
               setUserForm({ name: '', email: '', role: 'client', company: '', phone: '', password: '', status: 'Active' });
               setIsAddModalOpen(true);

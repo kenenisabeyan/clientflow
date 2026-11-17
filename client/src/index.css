@@ -966,8 +966,9 @@ html.dark ::-webkit-scrollbar-thumb:active {
     gap: 0.5rem !important;
   }
 
-  .dashboard-action-controls .dashboard-action-btn,
-  .dashboard-action-controls button {
+  .dashboard-action-controls > .dashboard-action-btn,
+  .dashboard-action-controls > button,
+  .dashboard-action-btn {
     flex: 1 1 calc(50% - 0.35rem) !important;
     min-width: 100px !important;
     justify-content: center !important;
@@ -975,6 +976,27 @@ html.dark ::-webkit-scrollbar-thumb:active {
     padding: 0.65rem 0.5rem !important;
     font-size: 0.82rem !important;
     box-sizing: border-box !important;
+  }
+
+  .dashboard-view-toggle {
+    display: flex !important;
+    flex: 1 1 calc(50% - 0.35rem) !important;
+    box-sizing: border-box !important;
+  }
+
+  .dashboard-view-toggle button {
+    flex: 1 !important;
+    min-width: 0 !important;
+    padding: 0.45rem 0.4rem !important;
+    font-size: 0.8rem !important;
+    justify-content: center !important;
+  }
+
+  .dashboard-action-select {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    margin-bottom: 0.25rem !important;
   }
 
   .mobile-brand-mark {

@@ -323,7 +323,7 @@ export default function Invoices() {
       )}
 
       {/* Header Bar */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+      <div className="dashboard-banner-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <h2 style={{ fontSize: '1.75rem', fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--text-main)', margin: 0 }}>
@@ -345,8 +345,9 @@ export default function Invoices() {
           </p>
         </div>
 
-        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+        <div className="dashboard-action-controls" style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
           <button
+            className="dashboard-action-btn"
             onClick={() => fetchInvoices(true)}
             disabled={refreshing}
             style={{
@@ -368,6 +369,7 @@ export default function Invoices() {
           </button>
 
           <button
+            className="dashboard-action-btn"
             onClick={handleExportCSV}
             style={{
               display: 'flex',
@@ -400,7 +402,7 @@ export default function Invoices() {
                 });
                 setIsCreateModalOpen(true);
               }}
-              className="btn-primary"
+              className="btn-primary dashboard-action-btn"
               style={{
                 marginTop: 0,
                 width: 'auto',

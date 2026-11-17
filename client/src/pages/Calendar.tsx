@@ -168,7 +168,7 @@ export default function Calendar() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', animation: 'fadeIn 0.4s ease-out', paddingBottom: '3rem' }}>
       
       {/* Top Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+      <div className="dashboard-banner-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <h2 style={{ fontSize: '1.75rem', fontWeight: 700, margin: 0, color: 'var(--text-main)' }}>
@@ -184,9 +184,10 @@ export default function Calendar() {
         </div>
 
         {/* Action Controls */}
-        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
+        <div className="dashboard-action-controls" style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
           {/* Type Filter */}
           <select
+            className="dashboard-action-select"
             value={typeFilter}
             onChange={(e: any) => setTypeFilter(e.target.value)}
             style={{
@@ -207,6 +208,7 @@ export default function Calendar() {
           </select>
 
           <button
+            className="dashboard-action-btn"
             onClick={() => fetchCalendarData(true)}
             disabled={refreshing}
             style={{
@@ -227,6 +229,7 @@ export default function Calendar() {
           </button>
 
           <button
+            className="dashboard-action-btn"
             onClick={handleExportSchedule}
             style={{
               display: 'flex',

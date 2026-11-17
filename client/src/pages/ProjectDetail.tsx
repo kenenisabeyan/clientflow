@@ -330,7 +330,7 @@ export default function ProjectDetail() {
         gap: '1.5rem',
         boxShadow: 'var(--glass-shadow)'
       }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
+        <div className="dashboard-banner-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
               <h2 style={{ fontSize: '1.85rem', fontWeight: 800, margin: 0, color: 'var(--text-main)' }}>{project.title}</h2>
@@ -342,8 +342,9 @@ export default function ProjectDetail() {
           </div>
 
           {/* Action buttons */}
-          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
+          <div className="dashboard-action-controls" style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
             <button
+              className="dashboard-action-btn"
               onClick={() => loadProjectData(true)}
               disabled={refreshing}
               style={{
@@ -364,6 +365,7 @@ export default function ProjectDetail() {
             </button>
 
             <button
+              className="dashboard-action-btn"
               onClick={handleExportBrief}
               style={{
                 display: 'flex',
@@ -383,6 +385,7 @@ export default function ProjectDetail() {
 
             {!isClient && project.status !== 'completed' && (
               <button
+                className="dashboard-action-btn"
                 onClick={() => handleUpdateStatus('completed')}
                 style={{
                   display: 'flex',

@@ -272,7 +272,7 @@ export default function Projects() {
       )}
 
       {/* Header & Controls */}
-      <div style={{
+      <div className="dashboard-banner-header" style={{
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
@@ -305,8 +305,9 @@ export default function Projects() {
           </p>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', flexWrap: 'wrap' }}>
+        <div className="dashboard-action-controls" style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', flexWrap: 'wrap' }}>
           <button
+            className="dashboard-action-btn"
             onClick={() => fetchProjectsData(true)}
             disabled={refreshing}
             style={{
@@ -328,6 +329,7 @@ export default function Projects() {
           </button>
 
           <button
+            className="dashboard-action-btn"
             onClick={handleExportCSV}
             style={{
               display: 'flex',
@@ -348,6 +350,7 @@ export default function Projects() {
 
           {isAdmin && (
             <button
+              className="dashboard-action-btn"
               onClick={() => {
                 setForm({ title: '', description: '', status: 'in-progress', clientId: '', developerId: '', budget: 0, deadline: '', progress: 10 });
                 setIsAddModalOpen(true);
