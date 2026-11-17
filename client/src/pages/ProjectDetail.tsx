@@ -404,11 +404,11 @@ export default function ProjectDetail() {
           </div>
         </div>
 
-        {/* Progress Bar & Quick Stats */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: '1.25rem', paddingTop: '1.25rem', borderTop: '1px solid var(--surface-border)' }}>
+        {/* Progress Bar & Quick Stats (4 Items in ONE ROW) */}
+        <div className="dashboard-stats-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: '1rem', paddingTop: '1.25rem', borderTop: '1px solid var(--surface-border)' }}>
           {/* Progress Slider */}
-          <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', marginBottom: '0.4rem' }}>
+          <div style={{ minWidth: 0, overflow: 'hidden' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', marginBottom: '0.4rem', whiteSpace: 'nowrap' }}>
               <span style={{ color: 'var(--text-muted)' }}>Completion Velocity</span>
               <span style={{ fontWeight: 700, color: 'var(--primary)' }}>{project.progress}%</span>
             </div>
@@ -428,36 +428,36 @@ export default function ProjectDetail() {
           </div>
 
           {/* Client Account */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: 'rgba(59, 130, 246, 0.1)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <User size={20} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', minWidth: 0, overflow: 'hidden' }}>
+            <div style={{ width: '38px', height: '38px', borderRadius: '8px', background: 'rgba(59, 130, 246, 0.1)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <User size={18} />
             </div>
-            <div>
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Contracted Client</span>
-              <div style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '0.95rem' }}>{project.client?.name || 'Independent Client'}</div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{project.client?.email}</div>
+            <div style={{ minWidth: 0, overflow: 'hidden' }}>
+              <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', whiteSpace: 'nowrap', display: 'block' }}>Contracted Client</span>
+              <div style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '0.9rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{project.client?.name || 'Independent Client'}</div>
+              <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{project.client?.email}</div>
             </div>
           </div>
 
           {/* Developer Assigned */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <ShieldCheck size={20} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', minWidth: 0, overflow: 'hidden' }}>
+            <div style={{ width: '38px', height: '38px', borderRadius: '8px', background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <ShieldCheck size={18} />
             </div>
-            <div>
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Lead Engineer</span>
-              <div style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '0.95rem' }}>{project.developer?.name || 'Unassigned'}</div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{project.developer?.email || 'Engineering Pool'}</div>
+            <div style={{ minWidth: 0, overflow: 'hidden' }}>
+              <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', whiteSpace: 'nowrap', display: 'block' }}>Lead Engineer</span>
+              <div style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '0.9rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{project.developer?.name || 'Unassigned'}</div>
+              <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{project.developer?.email || 'Engineering Pool'}</div>
             </div>
           </div>
 
           {/* Budget & Deadline */}
-          <div>
-            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Budget & Timeline</span>
-            <div style={{ fontWeight: 700, color: 'var(--text-main)', fontSize: '0.95rem' }}>
+          <div style={{ minWidth: 0, overflow: 'hidden' }}>
+            <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', whiteSpace: 'nowrap', display: 'block' }}>Budget & Timeline</span>
+            <div style={{ fontWeight: 700, color: 'var(--text-main)', fontSize: '0.9rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
               ${(project.budget || 0).toLocaleString()} USD
             </div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Due: {project.deadline || 'Flexible'}</div>
+            <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Due: {project.deadline || 'Flexible'}</div>
           </div>
         </div>
       </div>
