@@ -1137,7 +1137,7 @@ html.dark ::-webkit-scrollbar-thumb:active {
     gap: 0 !important;
   }
   .auth-card-container {
-    max-width: min(345px, calc(100vw - 1.5rem)) !important;
+    max-width: min(315px, calc(100vw - 1.2rem)) !important;
     margin-top: 4.25rem !important;
     padding: 0 0.5rem !important;
   }
