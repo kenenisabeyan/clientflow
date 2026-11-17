@@ -48,8 +48,8 @@ export default function Login() {
         backdropFilter: 'blur(24px) saturate(190%)',
         WebkitBackdropFilter: 'blur(24px) saturate(190%)',
         border: isDark ? '1.5px solid rgba(255, 255, 255, 0.12)' : '1.5px solid rgba(255, 255, 255, 0.8)',
-        borderRadius: '28px',
-        padding: '3rem 2.5rem 2.5rem',
+        borderRadius: '24px',
+        padding: '2.4rem 1.75rem 1.85rem',
         boxShadow: isDark 
           ? '0 25px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset' 
           : '0 25px 60px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.6) inset',
@@ -59,18 +59,18 @@ export default function Login() {
       }}>
         
         {/* Card Header (Matches Video Exactly) */}
-        <div style={{ textAlign: 'center', marginBottom: '2.25rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
           <h1 style={{
-            fontSize: '2.3rem',
+            fontSize: '2.05rem',
             fontWeight: 800,
             letterSpacing: '-0.5px',
             color: isDark ? '#ffffff' : '#1e1b4b',
-            margin: '0 0 0.5rem 0'
+            margin: '0 0 0.4rem 0'
           }}>
             Welcome Back
           </h1>
           <p style={{
-            fontSize: '0.98rem',
+            fontSize: '0.92rem',
             color: isDark ? '#94a3b8' : '#64748b',
             margin: 0
           }}>
@@ -82,13 +82,13 @@ export default function Login() {
         {error && (
           <div style={{
             width: '100%',
-            padding: '0.85rem 1.1rem',
-            marginBottom: '1.5rem',
+            padding: '0.75rem 1rem',
+            marginBottom: '1.25rem',
             background: 'rgba(239, 68, 68, 0.12)',
             border: '1px solid rgba(239, 68, 68, 0.3)',
             borderRadius: '12px',
             color: '#ef4444',
-            fontSize: '0.88rem',
+            fontSize: '0.85rem',
             textAlign: 'center',
             fontWeight: 500,
             animation: 'fadeIn 0.2s ease-out',
@@ -99,16 +99,16 @@ export default function Login() {
         )}
 
         {/* Authentication Form */}
-        <form onSubmit={handleSubmit} style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+        <form onSubmit={handleSubmit} style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
           
           {/* Username / Email Field */}
           <div>
             <label style={{
               display: 'block',
-              fontSize: '0.88rem',
+              fontSize: '0.85rem',
               fontWeight: 600,
               color: isDark ? '#cbd5e1' : '#334155',
-              marginBottom: '0.45rem'
+              marginBottom: '0.4rem'
             }}>
               Username
             </label>
@@ -120,12 +120,12 @@ export default function Login() {
               required
               style={{
                 width: '100%',
-                padding: '0.95rem 1.15rem',
+                padding: '0.85rem 1rem',
                 background: isDark ? 'rgba(15, 23, 42, 0.8)' : '#ffffff',
                 border: isDark ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(203, 213, 225, 0.9)',
                 borderRadius: '12px',
                 color: isDark ? '#ffffff' : '#0f172a',
-                fontSize: '0.95rem',
+                fontSize: '0.92rem',
                 outline: 'none',
                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.02)',
                 transition: 'all 0.2s ease',
@@ -138,10 +138,10 @@ export default function Login() {
           <div>
             <label style={{
               display: 'block',
-              fontSize: '0.88rem',
+              fontSize: '0.85rem',
               fontWeight: 600,
               color: isDark ? '#cbd5e1' : '#334155',
-              marginBottom: '0.45rem'
+              marginBottom: '0.4rem'
             }}>
               Password
             </label>
@@ -153,11 +153,19 @@ export default function Login() {
               required
               style={{
                 width: '100%',
-                padding: '0.95rem 1.15rem',
+                padding: '0.85rem 1rem',
                 background: isDark ? 'rgba(15, 23, 42, 0.8)' : '#ffffff',
                 border: isDark ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(203, 213, 225, 0.9)',
                 borderRadius: '12px',
                 color: isDark ? '#ffffff' : '#0f172a',
+                fontSize: '0.92rem',
+                outline: 'none',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.02)',
+                transition: 'all 0.2s ease',
+                boxSizing: 'border-box'
+              }}
+            />
+          </div>
                 fontSize: '0.95rem',
                 outline: 'none',
                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.02)',
