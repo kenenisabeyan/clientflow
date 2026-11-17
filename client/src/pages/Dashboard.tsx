@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
+import BrandLogo, { BrandIcon } from '../components/BrandLogo';
 import { 
   Users, FolderKanban, CheckSquare, Plus, RefreshCw, 
   Download, ArrowUpRight, ArrowDownRight, Clock, CheckCircle2, 
