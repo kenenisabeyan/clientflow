@@ -450,20 +450,26 @@ export default function UserManagement() {
                       {/* Name & Email */}
                       <td style={{ padding: '1rem 1.25rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-                          <div style={{
-                            width: '36px',
-                            height: '36px',
-                            borderRadius: '50%',
-                            background: roleStyle.bg,
-                            color: roleStyle.text,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontWeight: 700,
-                            fontSize: '0.9rem',
-                            border: `1px solid ${roleStyle.border}`,
-                            flexShrink: 0
-                          }}>
+                          <div 
+                            className="profile-avatar"
+                            style={{
+                              width: '36px',
+                              height: '36px',
+                              minWidth: '36px',
+                              minHeight: '36px',
+                              borderRadius: '50%',
+                              aspectRatio: '1 / 1',
+                              background: roleStyle.bg,
+                              color: roleStyle.text,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontWeight: 700,
+                              fontSize: '0.9rem',
+                              border: `1px solid ${roleStyle.border}`,
+                              flexShrink: 0
+                            }}
+                          >
                             {u.name.charAt(0).toUpperCase()}
                           </div>
                           <div>

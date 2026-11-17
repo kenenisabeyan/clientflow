@@ -985,18 +985,25 @@ export default function Dashboard() {
                 border: '1px solid var(--surface-border)'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-                  <div style={{
-                    width: '36px',
-                    height: '36px',
-                    borderRadius: '50%',
-                    background: 'linear-gradient(135deg, var(--primary), var(--accent))',
-                    color: '#ffffff',
-                    fontWeight: 700,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '0.9rem'
-                  }}>
+                  <div 
+                    className="profile-avatar"
+                    style={{
+                      width: '36px',
+                      height: '36px',
+                      minWidth: '36px',
+                      minHeight: '36px',
+                      borderRadius: '50%',
+                      aspectRatio: '1 / 1',
+                      flexShrink: 0,
+                      background: 'linear-gradient(135deg, var(--primary), var(--accent))',
+                      color: '#ffffff',
+                      fontWeight: 700,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '0.9rem'
+                    }}
+                  >
                     {c.name.charAt(0).toUpperCase()}
                   </div>
                   <div>

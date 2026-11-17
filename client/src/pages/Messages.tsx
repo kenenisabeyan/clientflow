@@ -305,19 +305,25 @@ export default function Messages() {
                       transition: 'background 0.15s'
                     }}
                   >
-                    <div style={{
-                      width: '32px',
-                      height: '32px',
-                      borderRadius: '50%',
-                      background: 'linear-gradient(135deg, var(--primary), var(--accent))',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'white',
-                      fontWeight: 700,
-                      fontSize: '0.8rem',
-                      flexShrink: 0
-                    }}>
+                    <div 
+                      className="profile-avatar"
+                      style={{
+                        width: '32px',
+                        height: '32px',
+                        minWidth: '32px',
+                        minHeight: '32px',
+                        borderRadius: '50%',
+                        aspectRatio: '1 / 1',
+                        background: 'linear-gradient(135deg, var(--primary), var(--accent))',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'white',
+                        fontWeight: 700,
+                        fontSize: '0.8rem',
+                        flexShrink: 0
+                      }}
+                    >
                       {c.name.charAt(0).toUpperCase()}
                     </div>
 
@@ -354,7 +360,24 @@ export default function Messages() {
                   <Hash size={20} />
                 </div>
               ) : (
-                <div style={{ width: '38px', height: '38px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--primary), var(--accent))', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700 }}>
+                <div 
+                  className="profile-avatar"
+                  style={{ 
+                    width: '38px', 
+                    height: '38px', 
+                    minWidth: '38px',
+                    minHeight: '38px',
+                    borderRadius: '50%', 
+                    aspectRatio: '1 / 1',
+                    flexShrink: 0,
+                    background: 'linear-gradient(135deg, var(--primary), var(--accent))', 
+                    color: '#fff', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    fontWeight: 700 
+                  }}
+                >
                   {activeRecipient?.name.charAt(0).toUpperCase()}
                 </div>
               )}
@@ -412,19 +435,25 @@ export default function Messages() {
                     }}
                   >
                     {!isMe && (
-                      <div style={{
-                        width: '32px',
-                        height: '32px',
-                        borderRadius: '50%',
-                        background: 'linear-gradient(135deg, var(--primary), var(--accent))',
-                        color: 'white',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontWeight: 700,
-                        fontSize: '0.75rem',
-                        flexShrink: 0
-                      }}>
+                      <div 
+                        className="profile-avatar"
+                        style={{
+                          width: '32px',
+                          height: '32px',
+                          minWidth: '32px',
+                          minHeight: '32px',
+                          borderRadius: '50%',
+                          aspectRatio: '1 / 1',
+                          background: 'linear-gradient(135deg, var(--primary), var(--accent))',
+                          color: 'white',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontWeight: 700,
+                          fontSize: '0.75rem',
+                          flexShrink: 0
+                        }}
+                      >
                         {m.sender?.name?.charAt(0).toUpperCase() || 'U'}
                       </div>
                     )}

@@ -706,19 +706,25 @@ export default function ProjectDetail() {
             ) : (
               comments.map(c => (
                 <div key={c._id} style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
-                  <div style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%',
-                    background: 'linear-gradient(135deg, var(--primary), var(--accent))',
-                    color: '#fff',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontWeight: 700,
-                    fontSize: '0.75rem',
-                    flexShrink: 0
-                  }}>
+                  <div 
+                    className="profile-avatar"
+                    style={{
+                      width: '32px',
+                      height: '32px',
+                      minWidth: '32px',
+                      minHeight: '32px',
+                      borderRadius: '50%',
+                      aspectRatio: '1 / 1',
+                      background: 'linear-gradient(135deg, var(--primary), var(--accent))',
+                      color: '#fff',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontWeight: 700,
+                      fontSize: '0.75rem',
+                      flexShrink: 0
+                    }}
+                  >
                     {c.user?.name?.charAt(0).toUpperCase() || 'U'}
                   </div>
                   <div style={{ flex: 1, background: 'var(--bg-color)', border: '1px solid var(--surface-border)', borderRadius: '8px', padding: '0.85rem 1.1rem' }}>

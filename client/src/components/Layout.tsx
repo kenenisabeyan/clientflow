@@ -529,18 +529,25 @@ export default function Layout() {
                                onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                              >
                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                                 <div style={{ 
-                                   width: '24px', 
-                                   height: '24px', 
-                                   borderRadius: '50%', 
-                                   background: 'var(--primary)', 
-                                   color: '#fff', 
-                                   fontSize: '0.75rem', 
-                                   display: 'flex', 
-                                   alignItems: 'center', 
-                                   justifyContent: 'center',
-                                   fontWeight: 600
-                                 }}>
+                                 <div 
+                                   className="profile-avatar"
+                                   style={{ 
+                                     width: '24px', 
+                                     height: '24px', 
+                                     minWidth: '24px',
+                                     minHeight: '24px',
+                                     borderRadius: '50%', 
+                                     aspectRatio: '1 / 1',
+                                     flexShrink: 0,
+                                     background: 'var(--primary)', 
+                                     color: '#fff', 
+                                     fontSize: '0.75rem', 
+                                     display: 'flex', 
+                                     alignItems: 'center', 
+                                     justifyContent: 'center',
+                                     fontWeight: 600
+                                   }}
+                                 >
                                    {u.name?.charAt(0).toUpperCase()}
                                  </div>
                                  <div>

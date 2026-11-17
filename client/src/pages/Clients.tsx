@@ -552,19 +552,26 @@ export default function Clients() {
                       {/* Client Name & Email */}
                       <td style={{ padding: '1.15rem 1.5rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-                          <div style={{
-                            width: '40px',
-                            height: '40px',
-                            borderRadius: '50%',
-                            background: 'linear-gradient(135deg, var(--primary), var(--accent))',
-                            color: '#ffffff',
-                            fontWeight: 700,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontSize: '0.95rem',
-                            boxShadow: '0 2px 8px rgba(59, 130, 246, 0.25)'
-                          }}>
+                          <div 
+                            className="profile-avatar"
+                            style={{
+                              width: '40px',
+                              height: '40px',
+                              minWidth: '40px',
+                              minHeight: '40px',
+                              borderRadius: '50%',
+                              aspectRatio: '1 / 1',
+                              flexShrink: 0,
+                              background: 'linear-gradient(135deg, var(--primary), var(--accent))',
+                              color: '#ffffff',
+                              fontWeight: 700,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: '0.95rem',
+                              boxShadow: '0 2px 8px rgba(59, 130, 246, 0.25)'
+                            }}
+                          >
                             {initial}
                           </div>
                           <div>
@@ -1233,18 +1240,25 @@ export default function Clients() {
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <div style={{
-                  width: '52px',
-                  height: '52px',
-                  borderRadius: '50%',
-                  background: 'linear-gradient(135deg, var(--primary), var(--accent))',
-                  color: '#ffffff',
-                  fontWeight: 700,
-                  fontSize: '1.4rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
+                <div 
+                  className="profile-avatar"
+                  style={{
+                    width: '52px',
+                    height: '52px',
+                    minWidth: '52px',
+                    minHeight: '52px',
+                    borderRadius: '50%',
+                    aspectRatio: '1 / 1',
+                    flexShrink: 0,
+                    background: 'linear-gradient(135deg, var(--primary), var(--accent))',
+                    color: '#ffffff',
+                    fontWeight: 700,
+                    fontSize: '1.4rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
                   {selectedClient.name.charAt(0).toUpperCase()}
                 </div>
                 <div>

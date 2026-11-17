@@ -146,18 +146,25 @@ export default function Settings() {
           boxShadow: 'var(--glass-shadow)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '2rem', paddingBottom: '1.5rem', borderBottom: '1px solid var(--surface-border)' }}>
-            <div style={{
-              width: '72px',
-              height: '72px',
-              borderRadius: '50%',
-              background: 'linear-gradient(135deg, var(--primary), var(--accent))',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#fff',
-              fontSize: '1.8rem',
-              fontWeight: 800
-            }}>
+            <div 
+              className="profile-avatar"
+              style={{
+                width: '72px',
+                height: '72px',
+                minWidth: '72px',
+                minHeight: '72px',
+                borderRadius: '50%',
+                aspectRatio: '1 / 1',
+                flexShrink: 0,
+                background: 'linear-gradient(135deg, var(--primary), var(--accent))',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#fff',
+                fontSize: '1.8rem',
+                fontWeight: 800
+              }}
+            >
               {user?.name?.charAt(0).toUpperCase() || 'U'}
             </div>
             <div>
