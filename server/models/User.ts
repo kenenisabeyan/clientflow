@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
   phone: { type: String, default: '' },
   company: { type: String, default: '' },
   status: { type: String, enum: ['Active', 'Pending', 'Inactive'], default: 'Active' },
+  avatar: { type: String, default: '' },
 }, { timestamps: true });
 
 // Role indexing for directory lookups and RBAC scoping

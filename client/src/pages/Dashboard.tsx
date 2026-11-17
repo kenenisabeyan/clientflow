@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import UserAvatar from '../components/UserAvatar';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
 import { 
@@ -41,6 +42,7 @@ interface UserItem {
   name: string;
   email: string;
   role: 'admin' | 'client' | 'developer';
+  avatar?: string;
   createdAt: string;
 }
 
@@ -985,27 +987,7 @@ export default function Dashboard() {
                 border: '1px solid var(--surface-border)'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-                  <div 
-                    className="profile-avatar"
-                    style={{
-                      width: '36px',
-                      height: '36px',
-                      minWidth: '36px',
-                      minHeight: '36px',
-                      borderRadius: '50%',
-                      aspectRatio: '1 / 1',
-                      flexShrink: 0,
-                      background: 'linear-gradient(135deg, var(--primary), var(--accent))',
-                      color: '#ffffff',
-                      fontWeight: 700,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '0.9rem'
-                    }}
-                  >
-                    {c.name.charAt(0).toUpperCase()}
-                  </div>
+<UserAvatar avatar={c.avatar} name={c.name} size={36} />
                   <div>
                     <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>{c.name}</div>
                     <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{c.email}</div>

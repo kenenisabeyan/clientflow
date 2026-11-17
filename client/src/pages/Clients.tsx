@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import UserAvatar from '../components/UserAvatar';
 import { useNavigate, Link } from 'react-router-dom';
 import { 
   Search, Filter, Plus, MoreHorizontal, ChevronLeft, ChevronRight, 
@@ -17,6 +18,7 @@ interface ClientItem {
   company?: string;
   status: 'Active' | 'Pending' | 'Inactive';
   role: string;
+  avatar?: string;
   createdAt?: string;
 }
 
@@ -552,28 +554,7 @@ export default function Clients() {
                       {/* Client Name & Email */}
                       <td style={{ padding: '1.15rem 1.5rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-                          <div 
-                            className="profile-avatar"
-                            style={{
-                              width: '40px',
-                              height: '40px',
-                              minWidth: '40px',
-                              minHeight: '40px',
-                              borderRadius: '50%',
-                              aspectRatio: '1 / 1',
-                              flexShrink: 0,
-                              background: 'linear-gradient(135deg, var(--primary), var(--accent))',
-                              color: '#ffffff',
-                              fontWeight: 700,
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              fontSize: '0.95rem',
-                              boxShadow: '0 2px 8px rgba(59, 130, 246, 0.25)'
-                            }}
-                          >
-                            {initial}
-                          </div>
+<UserAvatar avatar={client.avatar} name={client.name} size={40} />
                           <div>
                             <div style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '0.95rem' }}>
                               {client.name}
@@ -1240,27 +1221,7 @@ export default function Clients() {
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <div 
-                  className="profile-avatar"
-                  style={{
-                    width: '52px',
-                    height: '52px',
-                    minWidth: '52px',
-                    minHeight: '52px',
-                    borderRadius: '50%',
-                    aspectRatio: '1 / 1',
-                    flexShrink: 0,
-                    background: 'linear-gradient(135deg, var(--primary), var(--accent))',
-                    color: '#ffffff',
-                    fontWeight: 700,
-                    fontSize: '1.4rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                >
-                  {selectedClient.name.charAt(0).toUpperCase()}
-                </div>
+<UserAvatar avatar={selectedClient.avatar} name={selectedClient.name} size={52} fontSize="1.4rem" />
                 <div>
                   <h3 style={{ fontSize: '1.3rem', fontWeight: 700 }}>{selectedClient.name}</h3>
                   <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{selectedClient.company || 'Enterprise Account'}</span>

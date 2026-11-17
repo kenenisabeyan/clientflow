@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import UserAvatar from '../components/UserAvatar';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
@@ -51,6 +52,7 @@ interface CommentItem {
     _id: string;
     name: string;
     role: string;
+    avatar?: string;
   };
   createdAt: string;
 }
@@ -706,27 +708,7 @@ export default function ProjectDetail() {
             ) : (
               comments.map(c => (
                 <div key={c._id} style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
-                  <div 
-                    className="profile-avatar"
-                    style={{
-                      width: '32px',
-                      height: '32px',
-                      minWidth: '32px',
-                      minHeight: '32px',
-                      borderRadius: '50%',
-                      aspectRatio: '1 / 1',
-                      background: 'linear-gradient(135deg, var(--primary), var(--accent))',
-                      color: '#fff',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontWeight: 700,
-                      fontSize: '0.75rem',
-                      flexShrink: 0
-                    }}
-                  >
-                    {c.user?.name?.charAt(0).toUpperCase() || 'U'}
-                  </div>
+<UserAvatar avatar={c.user?.avatar} name={c.user?.name} size={32} />
                   <div style={{ flex: 1, background: 'var(--bg-color)', border: '1px solid var(--surface-border)', borderRadius: '8px', padding: '0.85rem 1.1rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
                       <span style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-main)' }}>{c.user?.name}</span>

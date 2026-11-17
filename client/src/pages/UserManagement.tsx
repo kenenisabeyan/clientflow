@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import api from '../api/axios';
+import UserAvatar from '../components/UserAvatar';
+import AvatarCaptureModal from '../components/AvatarCaptureModal';
 import { 
   Users, ShieldCheck, UserPlus, Search, Filter, Download, 
   Trash2, Edit3, X, CheckCircle2, AlertCircle, Clock, 
-  Building2, Mail, Phone, Lock, RefreshCw, Key
+  Building2, Mail, Phone, Lock, RefreshCw, Key, Camera
 } from 'lucide-react';
 
 interface UserItem {
@@ -14,6 +16,7 @@ interface UserItem {
   company?: string;
   phone?: string;
   status?: string;
+  avatar?: string;
   createdAt?: string;
 }
 
@@ -29,6 +32,7 @@ export default function UserManagement() {
   // Modals
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UserItem | null>(null);
 
   // Form State
@@ -40,7 +44,8 @@ export default function UserManagement() {
     company: '',
     phone: '',
     password: '',
-    status: 'Active'
+    status: 'Active',
+    avatar: ''
   });
 
   // Toast feedback
@@ -121,7 +126,7 @@ export default function UserManagement() {
       if (res.data.success) {
         showToast(`User ${userForm.name} created as ${userForm.role.toUpperCase()}!`);
         setIsAddModalOpen(false);
-        setUserForm({ name: '', email: '', role: 'client', company: '', phone: '', password: '', status: 'Active' });
+        setUserForm({ name: '', email: '', role: 'client', company: '', phone: '', password: '', status: 'Active', avatar: '' });
         loadUsers();
       }
     } catch (err: any) {
@@ -280,7 +285,7 @@ export default function UserManagement() {
           <button
             className="dashboard-action-btn"
             onClick={() => {
-              setUserForm({ name: '', email: '', role: 'client', company: '', phone: '', password: '', status: 'Active' });
+              setUserForm({ name: '', email: '', role: 'client', company: '', phone: '', password: '', status: 'Active', avatar: '' });
               setIsAddModalOpen(true);
             }}
             style={{
@@ -450,28 +455,7 @@ export default function UserManagement() {
                       {/* Name & Email */}
                       <td style={{ padding: '1rem 1.25rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-                          <div 
-                            className="profile-avatar"
-                            style={{
-                              width: '36px',
-                              height: '36px',
-                              minWidth: '36px',
-                              minHeight: '36px',
-                              borderRadius: '50%',
-                              aspectRatio: '1 / 1',
-                              background: roleStyle.bg,
-                              color: roleStyle.text,
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              fontWeight: 700,
-                              fontSize: '0.9rem',
-                              border: `1px solid ${roleStyle.border}`,
-                              flexShrink: 0
-                            }}
-                          >
-                            {u.name.charAt(0).toUpperCase()}
-                          </div>
+<UserAvatar avatar={u.avatar} name={u.name} size={36} />
                           <div>
                             <div style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '0.92rem' }}>
                               {u.name}
@@ -547,7 +531,8 @@ export default function UserManagement() {
                                 company: u.company || '',
                                 phone: u.phone || '',
                                 password: '',
-                                status: u.status || 'Active'
+                                status: u.status || 'Active',
+                                avatar: u.avatar || ''
                               });
                               setIsEditModalOpen(true);
                             }}
@@ -629,6 +614,53 @@ export default function UserManagement() {
             </div>
 
             <form onSubmit={handleAddUser} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {/* Profile Photo Capture / Upload */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.75rem 1rem', background: 'var(--bg-color)', borderRadius: '12px', border: '1px solid var(--surface-border)' }}>
+                <UserAvatar avatar={userForm.avatar} name={userForm.name || 'Member'} size={52} />
+                <div style={{ flex: 1 }}>
+                  <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-main)', display: 'block' }}>Member Photo</span>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', marginBottom: '0.35rem' }}>Take live photo from camera or upload from device</span>
+                  <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <button
+                      type="button"
+                      onClick={() => setIsAvatarModalOpen(true)}
+                      style={{
+                        padding: '0.35rem 0.65rem',
+                        fontSize: '0.78rem',
+                        fontWeight: 600,
+                        borderRadius: '6px',
+                        border: '1px solid var(--surface-border)',
+                        background: 'var(--surface)',
+                        color: 'var(--text-main)',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.35rem'
+                      }}
+                    >
+                      <Camera size={13} /> {userForm.avatar ? 'Change Photo' : 'Upload / Snap Photo'}
+                    </button>
+                    {userForm.avatar && (
+                      <button
+                        type="button"
+                        onClick={() => setUserForm(prev => ({ ...prev, avatar: '' }))}
+                        style={{
+                          padding: '0.35rem 0.65rem',
+                          fontSize: '0.78rem',
+                          fontWeight: 600,
+                          borderRadius: '6px',
+                          border: 'none',
+                          background: 'rgba(239, 68, 68, 0.1)',
+                          color: '#ef4444',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
               <div>
                 <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '0.4rem' }}>
                   Full Name *
@@ -781,6 +813,53 @@ export default function UserManagement() {
             </div>
 
             <form onSubmit={handleUpdateUser} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {/* Profile Photo Capture / Upload */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.75rem 1rem', background: 'var(--bg-color)', borderRadius: '12px', border: '1px solid var(--surface-border)' }}>
+                <UserAvatar avatar={userForm.avatar} name={userForm.name || 'Member'} size={52} />
+                <div style={{ flex: 1 }}>
+                  <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-main)', display: 'block' }}>Member Photo</span>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', marginBottom: '0.35rem' }}>Take live photo from camera or upload from device</span>
+                  <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <button
+                      type="button"
+                      onClick={() => setIsAvatarModalOpen(true)}
+                      style={{
+                        padding: '0.35rem 0.65rem',
+                        fontSize: '0.78rem',
+                        fontWeight: 600,
+                        borderRadius: '6px',
+                        border: '1px solid var(--surface-border)',
+                        background: 'var(--surface)',
+                        color: 'var(--text-main)',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.35rem'
+                      }}
+                    >
+                      <Camera size={13} /> {userForm.avatar ? 'Change Photo' : 'Upload / Snap Photo'}
+                    </button>
+                    {userForm.avatar && (
+                      <button
+                        type="button"
+                        onClick={() => setUserForm(prev => ({ ...prev, avatar: '' }))}
+                        style={{
+                          padding: '0.35rem 0.65rem',
+                          fontSize: '0.78rem',
+                          fontWeight: 600,
+                          borderRadius: '6px',
+                          border: 'none',
+                          background: 'rgba(239, 68, 68, 0.1)',
+                          color: '#ef4444',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
               <div>
                 <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '0.4rem' }}>
                   Full Name
@@ -895,6 +974,15 @@ export default function UserManagement() {
         </div>
       )}
 
+      {/* Photo Capture / Upload Modal */}
+      <AvatarCaptureModal
+        isOpen={isAvatarModalOpen}
+        onClose={() => setIsAvatarModalOpen(false)}
+        onSave={(img) => setUserForm(prev => ({ ...prev, avatar: img }))}
+        onRemove={() => setUserForm(prev => ({ ...prev, avatar: '' }))}
+        currentAvatar={userForm.avatar}
+        userName={userForm.name}
+      />
     </div>
   );
 }

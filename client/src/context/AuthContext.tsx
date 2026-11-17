@@ -6,7 +6,7 @@ const AuthContext = createContext<any>(null);
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<{name: string, email: string, role: string, _id?: string} | null>(null);
+  const [user, setUser] = useState<{name: string, email: string, role: string, avatar?: string, phone?: string, company?: string, _id?: string} | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,6 +24,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
     fetchUser();
   }, []);
+
+  const updateUser = (updatedUser: any) => {
+    setUser((prev: any) => ({ ...prev, ...updatedUser }));
+  };
 
   const login = async (email: string, password: string) => {
     try {
@@ -53,7 +57,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

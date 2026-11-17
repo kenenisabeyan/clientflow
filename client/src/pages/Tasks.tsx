@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import UserAvatar from '../components/UserAvatar';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
 import { 
@@ -1158,27 +1159,7 @@ export default function Tasks() {
                 >
                   <td style={{ padding: '1rem 1.25rem', fontWeight: 600, color: 'var(--text-main)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                      <div 
-                        className="profile-avatar"
-                        style={{
-                          width: '28px',
-                          height: '28px',
-                          minWidth: '28px',
-                          minHeight: '28px',
-                          borderRadius: '50%',
-                          aspectRatio: '1 / 1',
-                          flexShrink: 0,
-                          background: 'linear-gradient(135deg, var(--primary), var(--accent))',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: 'white',
-                          fontSize: '0.75rem',
-                          fontWeight: 'bold'
-                        }}
-                      >
-                        {t.avatar || t.title.charAt(0).toUpperCase()}
-                      </div>
+<UserAvatar avatar={t.avatar} name={t.assignedTo?.name || t.title} size={28} />
                       <div>
                         <div>{t.title}</div>
                         {t.description && (

@@ -27,7 +27,7 @@ exports.getUserById = async (req, res, next) => {
 
 exports.createUser = async (req, res, next) => {
   try {
-    const { name, email, password, phone, company, status, role } = req.body;
+    const { name, email, password, phone, company, status, role, avatar } = req.body;
     if (!name || !email) {
       return res.status(400).json({ success: false, message: 'Name and email are required' });
     }
@@ -44,7 +44,8 @@ exports.createUser = async (req, res, next) => {
       phone: phone || '+1 555-0100',
       company: company || 'Independent Client',
       status: status || 'Active',
-      role: role || 'client'
+      role: role || 'client',
+      avatar: avatar || ''
     });
 
     const userObj = newUser.toObject();
@@ -56,7 +57,7 @@ exports.createUser = async (req, res, next) => {
 
 exports.updateUser = async (req, res, next) => {
   try {
-    const { name, email, phone, company, status, role } = req.body;
+    const { name, email, phone, company, status, role, avatar } = req.body;
     const updateData: any = {};
     if (name !== undefined) updateData.name = name;
     if (email !== undefined) updateData.email = email;
@@ -64,6 +65,7 @@ exports.updateUser = async (req, res, next) => {
     if (company !== undefined) updateData.company = company;
     if (status !== undefined) updateData.status = status;
     if (role !== undefined) updateData.role = role;
+    if (avatar !== undefined) updateData.avatar = avatar;
 
     const user = await User.findByIdAndUpdate(req.params.id, updateData, { new: true }).select('-password');
     if (!user) return res.status(404).json({ success: false, message: 'User not found' });

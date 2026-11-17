@@ -31,7 +31,7 @@ const register = async (req, res) => {
     res.status(201).json({
       success: true,
       token: generateToken(user._id),
-      user: { id: user._id, name: user.name, email: user.email, role: user.role }
+      user: { id: user._id, name: user.name, email: user.email, role: user.role, avatar: user.avatar || '' }
     });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -52,7 +52,7 @@ const login = async (req, res) => {
     res.json({
       success: true,
       token: generateToken(user._id),
-      user: { id: user._id, name: user.name, email: user.email, role: user.role }
+      user: { id: user._id, name: user.name, email: user.email, role: user.role, avatar: user.avatar || '' }
     });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -68,4 +68,21 @@ const getMe = async (req, res) => {
   }
 };
 
-module.exports = { register, login, getMe };
+const updateProfile = async (req: any, res: any) => {
+  try {
+    const { name, phone, company, avatar } = req.body;
+    const updateData: any = {};
+    if (name !== undefined) updateData.name = name;
+    if (phone !== undefined) updateData.phone = phone;
+    if (company !== undefined) updateData.company = company;
+    if (avatar !== undefined) updateData.avatar = avatar;
+
+    const user = await User.findByIdAndUpdate(req.user.id, updateData, { new: true }).select('-password');
+    if (!user) return res.status(404).json({ success: false, message: 'User not found' });
+    res.json({ success: true, user });
+  } catch (err: any) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+module.exports = { register, login, getMe, updateProfile };

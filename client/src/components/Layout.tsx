@@ -4,9 +4,10 @@ import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import api from '../api/axios';
 import BrandLogo, { BrandIcon } from './BrandLogo';
-import { 
-  LayoutDashboard, Users, FolderKanban, CheckSquare, 
-  FileText, Calendar as CalendarIcon, MessageSquare, 
+import UserAvatar from './UserAvatar';
+import {
+  LayoutDashboard, Users, FolderKanban, CheckSquare,
+  FileText, Calendar as CalendarIcon, MessageSquare,
   BarChart2, Settings as SettingsIcon, LogOut, Bell, Search, Sun, Moon, ArrowUp,
   CheckCircle2, AlertCircle, Clock, History, ShieldCheck, X, Menu
 } from 'lucide-react';
@@ -95,7 +96,7 @@ export default function Layout() {
         }
 
         const results = await Promise.allSettled(calls);
-        
+
         let pList: any[] = [];
         let tList: any[] = [];
         let iList: any[] = [];
@@ -103,24 +104,24 @@ export default function Layout() {
 
         if (results[0].status === 'fulfilled') {
           const raw = results[0].value.data.projects || [];
-          pList = raw.filter((p: any) => 
-            p.title?.toLowerCase().includes(query) || 
+          pList = raw.filter((p: any) =>
+            p.title?.toLowerCase().includes(query) ||
             p.description?.toLowerCase().includes(query)
           ).slice(0, 4);
         }
 
         if (results[1].status === 'fulfilled') {
           const raw = results[1].value.data.tasks || [];
-          tList = raw.filter((t: any) => 
-            t.title?.toLowerCase().includes(query) || 
+          tList = raw.filter((t: any) =>
+            t.title?.toLowerCase().includes(query) ||
             t.description?.toLowerCase().includes(query)
           ).slice(0, 4);
         }
 
         if (user?.role !== 'developer' && results[2]?.status === 'fulfilled') {
           const raw = results[2].value.data.invoices || [];
-          iList = raw.filter((inv: any) => 
-            (inv.invoiceNumber || '').toLowerCase().includes(query) || 
+          iList = raw.filter((inv: any) =>
+            (inv.invoiceNumber || '').toLowerCase().includes(query) ||
             (inv.client?.name || '').toLowerCase().includes(query)
           ).slice(0, 3);
         }
@@ -128,8 +129,8 @@ export default function Layout() {
         const userIdx = user?.role !== 'developer' ? 3 : 2;
         if (user?.role === 'admin' && results[userIdx]?.status === 'fulfilled') {
           const raw = results[userIdx].value.data.users || [];
-          uList = raw.filter((u: any) => 
-            u.name?.toLowerCase().includes(query) || 
+          uList = raw.filter((u: any) =>
+            u.name?.toLowerCase().includes(query) ||
             u.email?.toLowerCase().includes(query)
           ).slice(0, 3);
         }
@@ -249,10 +250,10 @@ export default function Layout() {
     setSearchQuery('');
   };
 
-  const hasAnyResults = 
-    searchResults.projects.length > 0 || 
-    searchResults.tasks.length > 0 || 
-    searchResults.invoices.length > 0 || 
+  const hasAnyResults =
+    searchResults.projects.length > 0 ||
+    searchResults.tasks.length > 0 ||
+    searchResults.invoices.length > 0 ||
     searchResults.users.length > 0;
 
   return (
@@ -260,13 +261,13 @@ export default function Layout() {
       <aside className={`sidebar ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
         <div className="sidebar-logo" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1.25rem 1.5rem' }}>
           <Link to="/dashboard" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>
-            <BrandLogo 
-              size="md" 
-              subtitle={user?.role === 'admin' ? 'ADMIN ERP' : user?.role === 'client' ? 'CLIENT PORTAL' : 'DEVELOPER STATION'} 
+            <BrandLogo
+              size="md"
+              subtitle={user?.role === 'admin' ? 'ADMIN ERP' : user?.role === 'client' ? 'CLIENT PORTAL' : 'DEVELOPER STATION'}
             />
           </Link>
-          <button 
-            className="mobile-sidebar-close" 
+          <button
+            className="mobile-sidebar-close"
             onClick={() => setIsMobileMenuOpen(false)}
             title="Close navigation"
           >
@@ -293,12 +294,12 @@ export default function Layout() {
             </>
           )}
           <Link to="/settings" onClick={() => setIsMobileMenuOpen(false)} className={isActive('/settings')}><SettingsIcon size={18} /> Settings</Link>
-          
-          <div style={{flex: 1}}></div>
-          
+
+          <div style={{ flex: 1 }}></div>
+
           <button onClick={logout} className="logout-btn mt-auto" style={{
-            display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.85rem 1rem', 
-            background: 'transparent', border: 'none', color: 'var(--text-muted)', 
+            display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.85rem 1rem',
+            background: 'transparent', border: 'none', color: 'var(--text-muted)',
             cursor: 'pointer', width: '100%', textAlign: 'left', fontWeight: 500
           }}>
             <LogOut size={18} /> Logout
@@ -321,389 +322,382 @@ export default function Layout() {
             <h1 className="page-title">{getPageTitle()}</h1>
           </div>
           <div className="topbar-right">
-             
-             {/* Global Omnisearch Container */}
-             <div ref={searchRef} style={{ position: 'relative' }}>
-               <div className="search-bar" style={{ 
-                 display: 'flex', 
-                 alignItems: 'center', 
-                 background: 'var(--bg-color)', 
-                 padding: '0.45rem 0.85rem', 
-                 borderRadius: '20px', 
-                 border: '1px solid var(--surface-border)',
-                 transition: 'all 0.2s ease',
-                 boxShadow: isSearchOpen ? '0 0 0 2px var(--primary)' : 'none'
-               }}>
-                 <Search size={15} style={{ color: 'var(--text-muted)', marginRight: '0.4rem', flexShrink: 0 }} />
-                 <input 
-                   ref={inputRef}
-                   type="text" 
-                   value={searchQuery}
-                   onChange={(e) => setSearchQuery(e.target.value)}
-                   onFocus={() => { if (searchQuery.trim().length >= 2) setIsSearchOpen(true); }}
-                   placeholder="Search (Ctrl+K)..." 
-                   style={{ 
-                     background: 'transparent', 
-                     border: 'none', 
-                     color: 'var(--text-main)', 
-                     outline: 'none', 
-                     fontSize: '0.85rem',
-                     width: '100%',
-                     minWidth: 0
-                   }} 
-                 />
-                 {searchQuery && (
-                   <button 
-                     onClick={() => { setSearchQuery(''); setIsSearchOpen(false); }}
-                     style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '2px', display: 'flex' }}
-                   >
-                     <X size={14} />
-                   </button>
-                 )}
-               </div>
 
-               {/* Omnisearch Floating Results Popover */}
-               {isSearchOpen && (
-                 <div style={{
-                   position: 'absolute',
-                   top: 'calc(100% + 8px)',
-                   right: 0,
-                   width: 'min(380px, calc(100vw - 2rem))',
-                   maxHeight: '440px',
-                   overflowY: 'auto',
-                   background: 'var(--surface)',
-                   border: '1px solid var(--surface-border)',
-                   borderRadius: '12px',
-                   boxShadow: '0 12px 36px rgba(0, 0, 0, 0.14)',
-                   zIndex: 100,
-                   padding: '0.75rem 0',
-                   animation: 'fadeIn 0.2s ease-out'
-                 }}>
-                   {isSearching ? (
-                     <div style={{ padding: '1.5rem', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.88rem' }}>
-                       <Clock size={18} style={{ animation: 'spin 1s linear infinite', marginBottom: '0.5rem' }} />
-                       <div>Searching ClientFlow database...</div>
-                     </div>
-                   ) : !hasAnyResults ? (
-                     <div style={{ padding: '1.5rem', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.88rem' }}>
-                       No matches found for "{searchQuery}"
-                     </div>
-                   ) : (
-                     <div>
-                       {/* Projects Category */}
-                       {searchResults.projects.length > 0 && (
-                         <div style={{ marginBottom: '0.5rem' }}>
-                           <div style={{ padding: '0.4rem 1rem', fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.5px' }}>
-                             PROJECTS
-                           </div>
-                           {searchResults.projects.map(p => (
-                             <div 
-                               key={p._id}
-                               onClick={() => handleSearchResultClick(`/projects/${p._id}`)}
-                               style={{
-                                 display: 'flex',
-                                 alignItems: 'center',
-                                 justifyContent: 'space-between',
-                                 padding: '0.6rem 1rem',
-                                 cursor: 'pointer',
-                                 transition: 'background 0.15s ease'
-                               }}
-                               onMouseEnter={(e) => e.currentTarget.style.background = 'var(--surface-hover, rgba(0,0,0,0.03))'}
-                               onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                             >
-                               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', overflow: 'hidden' }}>
-                                 <FolderKanban size={16} style={{ color: 'var(--primary)', flexShrink: 0 }} />
-                                 <span style={{ fontSize: '0.88rem', fontWeight: 500, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                                   {p.title}
-                                 </span>
-                               </div>
-                               <span style={{ fontSize: '0.72rem', padding: '0.2rem 0.5rem', borderRadius: '4px', background: 'rgba(59, 130, 246, 0.1)', color: 'var(--primary)', fontWeight: 600 }}>
-                                 {p.status}
-                               </span>
-                             </div>
-                           ))}
-                         </div>
-                       )}
+            {/* Global Omnisearch Container */}
+            <div ref={searchRef} style={{ position: 'relative' }}>
+              <div className="search-bar" style={{
+                display: 'flex',
+                alignItems: 'center',
+                background: 'var(--bg-color)',
+                padding: '0.45rem 0.85rem',
+                borderRadius: '20px',
+                border: '1px solid var(--surface-border)',
+                transition: 'all 0.2s ease',
+                boxShadow: isSearchOpen ? '0 0 0 2px var(--primary)' : 'none'
+              }}>
+                <Search size={15} style={{ color: 'var(--text-muted)', marginRight: '0.4rem', flexShrink: 0 }} />
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => { if (searchQuery.trim().length >= 2) setIsSearchOpen(true); }}
+                  placeholder="Search (Ctrl+K)..."
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    color: 'var(--text-main)',
+                    outline: 'none',
+                    fontSize: '0.85rem',
+                    width: '100%',
+                    minWidth: 0
+                  }}
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => { setSearchQuery(''); setIsSearchOpen(false); }}
+                    style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '2px', display: 'flex' }}
+                  >
+                    <X size={14} />
+                  </button>
+                )}
+              </div>
 
-                       {/* Tasks Category */}
-                       {searchResults.tasks.length > 0 && (
-                         <div style={{ marginBottom: '0.5rem' }}>
-                           <div style={{ padding: '0.4rem 1rem', fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.5px' }}>
-                             TASKS & DELIVERABLES
-                           </div>
-                           {searchResults.tasks.map(t => (
-                             <div 
-                               key={t._id}
-                               onClick={() => handleSearchResultClick('/tasks')}
-                               style={{
-                                 display: 'flex',
-                                 alignItems: 'center',
-                                 justifyContent: 'space-between',
-                                 padding: '0.6rem 1rem',
-                                 cursor: 'pointer',
-                                 transition: 'background 0.15s ease'
-                               }}
-                               onMouseEnter={(e) => e.currentTarget.style.background = 'var(--surface-hover, rgba(0,0,0,0.03))'}
-                               onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                             >
-                               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', overflow: 'hidden' }}>
-                                 <CheckSquare size={16} style={{ color: '#10b981', flexShrink: 0 }} />
-                                 <span style={{ fontSize: '0.88rem', fontWeight: 500, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                                   {t.title}
-                                 </span>
-                               </div>
-                               <span style={{ fontSize: '0.72rem', padding: '0.2rem 0.5rem', borderRadius: '4px', background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', fontWeight: 600 }}>
-                                 {t.status}
-                               </span>
-                             </div>
-                           ))}
-                         </div>
-                       )}
+              {/* Omnisearch Floating Results Popover */}
+              {isSearchOpen && (
+                <div style={{
+                  position: 'absolute',
+                  top: 'calc(100% + 8px)',
+                  right: 0,
+                  width: 'min(380px, calc(100vw - 2rem))',
+                  maxHeight: '440px',
+                  overflowY: 'auto',
+                  background: 'var(--surface)',
+                  border: '1px solid var(--surface-border)',
+                  borderRadius: '12px',
+                  boxShadow: '0 12px 36px rgba(0, 0, 0, 0.14)',
+                  zIndex: 100,
+                  padding: '0.75rem 0',
+                  animation: 'fadeIn 0.2s ease-out'
+                }}>
+                  {isSearching ? (
+                    <div style={{ padding: '1.5rem', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.88rem' }}>
+                      <Clock size={18} style={{ animation: 'spin 1s linear infinite', marginBottom: '0.5rem' }} />
+                      <div>Searching ClientFlow database...</div>
+                    </div>
+                  ) : !hasAnyResults ? (
+                    <div style={{ padding: '1.5rem', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.88rem' }}>
+                      No matches found for "{searchQuery}"
+                    </div>
+                  ) : (
+                    <div>
+                      {/* Projects Category */}
+                      {searchResults.projects.length > 0 && (
+                        <div style={{ marginBottom: '0.5rem' }}>
+                          <div style={{ padding: '0.4rem 1rem', fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.5px' }}>
+                            PROJECTS
+                          </div>
+                          {searchResults.projects.map(p => (
+                            <div
+                              key={p._id}
+                              onClick={() => handleSearchResultClick(`/projects/${p._id}`)}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                padding: '0.6rem 1rem',
+                                cursor: 'pointer',
+                                transition: 'background 0.15s ease'
+                              }}
+                              onMouseEnter={(e) => e.currentTarget.style.background = 'var(--surface-hover, rgba(0,0,0,0.03))'}
+                              onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                            >
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', overflow: 'hidden' }}>
+                                <FolderKanban size={16} style={{ color: 'var(--primary)', flexShrink: 0 }} />
+                                <span style={{ fontSize: '0.88rem', fontWeight: 500, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                  {p.title}
+                                </span>
+                              </div>
+                              <span style={{ fontSize: '0.72rem', padding: '0.2rem 0.5rem', borderRadius: '4px', background: 'rgba(59, 130, 246, 0.1)', color: 'var(--primary)', fontWeight: 600 }}>
+                                {p.status}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
 
-                       {/* Invoices Category */}
-                       {searchResults.invoices.length > 0 && (
-                         <div style={{ marginBottom: '0.5rem' }}>
-                           <div style={{ padding: '0.4rem 1rem', fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.5px' }}>
-                             INVOICES & SETTLEMENTS
-                           </div>
-                           {searchResults.invoices.map(inv => (
-                             <div 
-                               key={inv._id}
-                               onClick={() => handleSearchResultClick('/invoices')}
-                               style={{
-                                 display: 'flex',
-                                 alignItems: 'center',
-                                 justifyContent: 'space-between',
-                                 padding: '0.6rem 1rem',
-                                 cursor: 'pointer',
-                                 transition: 'background 0.15s ease'
-                               }}
-                               onMouseEnter={(e) => e.currentTarget.style.background = 'var(--surface-hover, rgba(0,0,0,0.03))'}
-                               onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                             >
-                               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                                 <FileText size={16} style={{ color: '#8b5cf6', flexShrink: 0 }} />
-                                 <div>
-                                   <div style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--text-main)' }}>
-                                     {inv.invoiceNumber || 'Invoice'}
-                                   </div>
-                                   <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                                     ${(inv.amount || 0).toLocaleString()} • {inv.client?.name || 'Client'}
-                                   </div>
-                                 </div>
-                               </div>
-                               <span style={{ 
-                                 fontSize: '0.72rem', 
-                                 padding: '0.2rem 0.5rem', 
-                                 borderRadius: '4px', 
-                                 background: inv.status === 'Paid' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(245, 158, 11, 0.1)', 
-                                 color: inv.status === 'Paid' ? '#10b981' : '#f59e0b', 
-                                 fontWeight: 600 
-                               }}>
-                                 {inv.status}
-                               </span>
-                             </div>
-                           ))}
-                         </div>
-                       )}
+                      {/* Tasks Category */}
+                      {searchResults.tasks.length > 0 && (
+                        <div style={{ marginBottom: '0.5rem' }}>
+                          <div style={{ padding: '0.4rem 1rem', fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.5px' }}>
+                            TASKS & DELIVERABLES
+                          </div>
+                          {searchResults.tasks.map(t => (
+                            <div
+                              key={t._id}
+                              onClick={() => handleSearchResultClick('/tasks')}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                padding: '0.6rem 1rem',
+                                cursor: 'pointer',
+                                transition: 'background 0.15s ease'
+                              }}
+                              onMouseEnter={(e) => e.currentTarget.style.background = 'var(--surface-hover, rgba(0,0,0,0.03))'}
+                              onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                            >
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', overflow: 'hidden' }}>
+                                <CheckSquare size={16} style={{ color: '#10b981', flexShrink: 0 }} />
+                                <span style={{ fontSize: '0.88rem', fontWeight: 500, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                  {t.title}
+                                </span>
+                              </div>
+                              <span style={{ fontSize: '0.72rem', padding: '0.2rem 0.5rem', borderRadius: '4px', background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', fontWeight: 600 }}>
+                                {t.status}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
 
-                       {/* Users Category (Admin Only) */}
-                       {searchResults.users.length > 0 && (
-                         <div>
-                           <div style={{ padding: '0.4rem 1rem', fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.5px' }}>
-                             CLIENTS & TEAM MEMBERS
-                           </div>
-                           {searchResults.users.map(u => (
-                             <div 
-                               key={u._id}
-                               onClick={() => handleSearchResultClick(u.role === 'client' ? '/clients' : '/users')}
-                               style={{
-                                 display: 'flex',
-                                 alignItems: 'center',
-                                 justifyContent: 'space-between',
-                                 padding: '0.6rem 1rem',
-                                 cursor: 'pointer',
-                                 transition: 'background 0.15s ease'
-                               }}
-                               onMouseEnter={(e) => e.currentTarget.style.background = 'var(--surface-hover, rgba(0,0,0,0.03))'}
-                               onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                             >
-                               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                                 <div 
-                                   className="profile-avatar"
-                                   style={{ 
-                                     width: '24px', 
-                                     height: '24px', 
-                                     minWidth: '24px',
-                                     minHeight: '24px',
-                                     borderRadius: '50%', 
-                                     aspectRatio: '1 / 1',
-                                     flexShrink: 0,
-                                     background: 'var(--primary)', 
-                                     color: '#fff', 
-                                     fontSize: '0.75rem', 
-                                     display: 'flex', 
-                                     alignItems: 'center', 
-                                     justifyContent: 'center',
-                                     fontWeight: 600
-                                   }}
-                                 >
-                                   {u.name?.charAt(0).toUpperCase()}
-                                 </div>
-                                 <div>
-                                   <div style={{ fontSize: '0.88rem', fontWeight: 500, color: 'var(--text-main)' }}>
-                                     {u.name}
-                                   </div>
-                                   <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                                     {u.email}
-                                   </div>
-                                 </div>
-                               </div>
-                               <span style={{ fontSize: '0.72rem', padding: '0.2rem 0.5rem', borderRadius: '4px', background: 'rgba(99, 102, 241, 0.1)', color: 'var(--primary)', textTransform: 'capitalize', fontWeight: 600 }}>
-                                 {u.role}
-                               </span>
-                             </div>
-                           ))}
-                         </div>
-                       )}
-                     </div>
-                   )}
-                 </div>
-               )}
-             </div>
-             
-             <button onClick={toggleTheme} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex' }}>
-               {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-             </button>
+                      {/* Invoices Category */}
+                      {searchResults.invoices.length > 0 && (
+                        <div style={{ marginBottom: '0.5rem' }}>
+                          <div style={{ padding: '0.4rem 1rem', fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.5px' }}>
+                            INVOICES & SETTLEMENTS
+                          </div>
+                          {searchResults.invoices.map(inv => (
+                            <div
+                              key={inv._id}
+                              onClick={() => handleSearchResultClick('/invoices')}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                padding: '0.6rem 1rem',
+                                cursor: 'pointer',
+                                transition: 'background 0.15s ease'
+                              }}
+                              onMouseEnter={(e) => e.currentTarget.style.background = 'var(--surface-hover, rgba(0,0,0,0.03))'}
+                              onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                            >
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                                <FileText size={16} style={{ color: '#8b5cf6', flexShrink: 0 }} />
+                                <div>
+                                  <div style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--text-main)' }}>
+                                    {inv.invoiceNumber || 'Invoice'}
+                                  </div>
+                                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                                    ${(inv.amount || 0).toLocaleString()} • {inv.client?.name || 'Client'}
+                                  </div>
+                                </div>
+                              </div>
+                              <span style={{
+                                fontSize: '0.72rem',
+                                padding: '0.2rem 0.5rem',
+                                borderRadius: '4px',
+                                background: inv.status === 'Paid' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(245, 158, 11, 0.1)',
+                                color: inv.status === 'Paid' ? '#10b981' : '#f59e0b',
+                                fontWeight: 600
+                              }}>
+                                {inv.status}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
 
-             {/* Notifications Bell with Interactive Dropdown */}
-             <div style={{ position: 'relative' }} ref={notifRef}>
-               <button
-                 onClick={() => setIsNotifOpen(!isNotifOpen)}
-                 style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', position: 'relative', display: 'flex', padding: '0.25rem' }}
-                 title="Notifications"
-               >
-                 <Bell size={20} />
-                 {unreadCount > 0 && (
-                   <span style={{
-                     position: 'absolute',
-                     top: '-2px',
-                     right: '-2px',
-                     minWidth: '16px',
-                     height: '16px',
-                     background: 'var(--primary)',
-                     color: '#fff',
-                     fontSize: '0.65rem',
-                     fontWeight: 700,
-                     borderRadius: '8px',
-                     display: 'flex',
-                     alignItems: 'center',
-                     justifyContent: 'center',
-                     padding: '0 3px'
-                   }}>
-                     {unreadCount}
-                   </span>
-                 )}
-               </button>
+                      {/* Users Category (Admin Only) */}
+                      {searchResults.users.length > 0 && (
+                        <div>
+                          <div style={{ padding: '0.4rem 1rem', fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.5px' }}>
+                            CLIENTS & TEAM MEMBERS
+                          </div>
+                          {searchResults.users.map(u => (
+                            <div
+                              key={u._id}
+                              onClick={() => handleSearchResultClick(u.role === 'client' ? '/clients' : '/users')}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                padding: '0.6rem 1rem',
+                                cursor: 'pointer',
+                                transition: 'background 0.15s ease'
+                              }}
+                              onMouseEnter={(e) => e.currentTarget.style.background = 'var(--surface-hover, rgba(0,0,0,0.03))'}
+                              onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                            >
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                                <div style={{
+                                  width: '24px',
+                                  height: '24px',
+                                  borderRadius: '50%',
+                                  background: 'var(--primary)',
+                                  color: '#fff',
+                                  fontSize: '0.75rem',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  fontWeight: 600
+                                }}>
+                                  {u.name?.charAt(0).toUpperCase()}
+                                </div>
+                                <div>
+                                  <div style={{ fontSize: '0.88rem', fontWeight: 500, color: 'var(--text-main)' }}>
+                                    {u.name}
+                                  </div>
+                                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                                    {u.email}
+                                  </div>
+                                </div>
+                              </div>
+                              <span style={{ fontSize: '0.72rem', padding: '0.2rem 0.5rem', borderRadius: '4px', background: 'rgba(99, 102, 241, 0.1)', color: 'var(--primary)', textTransform: 'capitalize', fontWeight: 600 }}>
+                                {u.role}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
 
-               {/* Dropdown Menu */}
-               {isNotifOpen && (
-                 <div style={{
-                   position: 'absolute',
-                   right: 0,
-                   top: 'calc(100% + 12px)',
-                   width: '320px',
-                   background: 'var(--surface)',
-                   border: '1px solid var(--surface-border)',
-                   borderRadius: '12px',
-                   boxShadow: '0 12px 30px rgba(0, 0, 0, 0.12)',
-                   zIndex: 100,
-                   overflow: 'hidden',
-                   animation: 'fadeIn 0.2s ease-out'
-                 }}>
-                   <div style={{
-                     padding: '1rem',
-                     borderBottom: '1px solid var(--surface-border)',
-                     display: 'flex',
-                     justifyContent: 'space-between',
-                     alignItems: 'center'
-                   }}>
-                     <div style={{ fontWeight: 600, fontSize: '0.95rem', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                       <Bell size={16} /> Notifications
-                     </div>
-                     {unreadCount > 0 && (
-                       <button
-                         onClick={markAllRead}
-                         style={{
-                           background: 'transparent',
-                           border: 'none',
-                           color: 'var(--primary)',
-                           fontSize: '0.78rem',
-                           fontWeight: 600,
-                           cursor: 'pointer',
-                           padding: '0.2rem 0.5rem'
-                         }}
-                       >
-                         Mark all read
-                       </button>
-                     )}
-                   </div>
+            <button onClick={toggleTheme} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex' }}>
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
 
-                   <div style={{ maxHeight: '280px', overflowY: 'auto' }}>
-                     {notifications.map(n => (
-                       <div
-                         key={n.id}
-                         onClick={() => {
-                           if ((n as any).path) navigate((n as any).path);
-                           setNotifications(prev => prev.map(item => item.id === n.id ? { ...item, unread: false } : item));
-                           setIsNotifOpen(false);
-                         }}
-                         style={{
-                           cursor: 'pointer',
-                           padding: '0.85rem 1rem',
-                           borderBottom: '1px solid var(--surface-border)',
-                           background: n.unread ? 'rgba(59, 130, 246, 0.04)' : 'transparent',
-                           display: 'flex',
-                           alignItems: 'flex-start',
-                           gap: '0.75rem',
-                           transition: 'background 0.2s ease'
-                         }}
-                       >
-                         <div style={{ marginTop: '0.2rem', color: n.type === 'payment' ? '#10b981' : n.type === 'task' ? 'var(--primary)' : '#f59e0b' }}>
-                           {n.type === 'payment' ? <CheckCircle2 size={16} /> : n.type === 'task' ? <Clock size={16} /> : <AlertCircle size={16} />}
-                         </div>
-                         <div style={{ flex: 1 }}>
-                           <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-main)', lineHeight: 1.4, fontWeight: n.unread ? 600 : 400 }}>
-                             {n.text}
-                           </p>
-                           <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{n.time}</span>
-                         </div>
-                         {n.unread && (
-                           <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--primary)', marginTop: '0.4rem' }} />
-                         )}
-                       </div>
-                     ))}
-                   </div>
-                 </div>
-               )}
-             </div>
+            {/* Notifications Bell with Interactive Dropdown */}
+            <div style={{ position: 'relative' }} ref={notifRef}>
+              <button
+                onClick={() => setIsNotifOpen(!isNotifOpen)}
+                style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', position: 'relative', display: 'flex', padding: '0.25rem' }}
+                title="Notifications"
+              >
+                <Bell size={20} />
+                {unreadCount > 0 && (
+                  <span style={{
+                    position: 'absolute',
+                    top: '-2px',
+                    right: '-2px',
+                    minWidth: '16px',
+                    height: '16px',
+                    background: 'var(--primary)',
+                    color: '#fff',
+                    fontSize: '0.65rem',
+                    fontWeight: 700,
+                    borderRadius: '8px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '0 3px'
+                  }}>
+                    {unreadCount}
+                  </span>
+                )}
+              </button>
 
-             <div className="user-menu desktop-user-menu">
-               <div className="user-avatar">{user?.name ? user.name[0].toUpperCase() : 'U'}</div>
-               <div className="user-info">
-                 <span className="user-name">{user?.name}</span>
-                 <span className="user-role">{user?.role}</span>
-               </div>
-             </div>
+              {/* Dropdown Menu */}
+              {isNotifOpen && (
+                <div style={{
+                  position: 'absolute',
+                  right: 0,
+                  top: 'calc(100% + 12px)',
+                  width: '320px',
+                  background: 'var(--surface)',
+                  border: '1px solid var(--surface-border)',
+                  borderRadius: '12px',
+                  boxShadow: '0 12px 30px rgba(0, 0, 0, 0.12)',
+                  zIndex: 100,
+                  overflow: 'hidden',
+                  animation: 'fadeIn 0.2s ease-out'
+                }}>
+                  <div style={{
+                    padding: '1rem',
+                    borderBottom: '1px solid var(--surface-border)',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                  }}>
+                    <div style={{ fontWeight: 600, fontSize: '0.95rem', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <Bell size={16} /> Notifications
+                    </div>
+                    {unreadCount > 0 && (
+                      <button
+                        onClick={markAllRead}
+                        style={{
+                          background: 'transparent',
+                          border: 'none',
+                          color: 'var(--primary)',
+                          fontSize: '0.78rem',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          padding: '0.2rem 0.5rem'
+                        }}
+                      >
+                        Mark all read
+                      </button>
+                    )}
+                  </div>
 
-             {/* Mobile Hamburger Menu Button in place of user avatar on the right */}
-             <button
-               className="mobile-menu-btn"
-               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-               title="Toggle Navigation Menu"
-             >
-               <Menu size={22} />
-             </button>
+                  <div style={{ maxHeight: '280px', overflowY: 'auto' }}>
+                    {notifications.map(n => (
+                      <div
+                        key={n.id}
+                        onClick={() => {
+                          if ((n as any).path) navigate((n as any).path);
+                          setNotifications(prev => prev.map(item => item.id === n.id ? { ...item, unread: false } : item));
+                          setIsNotifOpen(false);
+                        }}
+                        style={{
+                          cursor: 'pointer',
+                          padding: '0.85rem 1rem',
+                          borderBottom: '1px solid var(--surface-border)',
+                          background: n.unread ? 'rgba(59, 130, 246, 0.04)' : 'transparent',
+                          display: 'flex',
+                          alignItems: 'flex-start',
+                          gap: '0.75rem',
+                          transition: 'background 0.2s ease'
+                        }}
+                      >
+                        <div style={{ marginTop: '0.2rem', color: n.type === 'payment' ? '#10b981' : n.type === 'task' ? 'var(--primary)' : '#f59e0b' }}>
+                          {n.type === 'payment' ? <CheckCircle2 size={16} /> : n.type === 'task' ? <Clock size={16} /> : <AlertCircle size={16} />}
+                        </div>
+                        <div style={{ flex: 1 }}>
+                          <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-main)', lineHeight: 1.4, fontWeight: n.unread ? 600 : 400 }}>
+                            {n.text}
+                          </p>
+                          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{n.time}</span>
+                        </div>
+                        {n.unread && (
+                          <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--primary)', marginTop: '0.4rem' }} />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="user-menu desktop-user-menu">
+              <div className="user-avatar">{user?.name ? user.name[0].toUpperCase() : 'U'}</div>
+              <div className="user-info">
+                <span className="user-name">{user?.name}</span>
+                <span className="user-role">{user?.role}</span>
+              </div>
+            </div>
+
+            {/* Mobile Hamburger Menu Button in place of user avatar on the right */}
+            <button
+              className="mobile-menu-btn"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              title="Toggle Navigation Menu"
+            >
+              <Menu size={22} />
+            </button>
           </div>
         </header>
 

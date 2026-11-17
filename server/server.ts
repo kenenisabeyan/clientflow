@@ -15,7 +15,8 @@ const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 const { PORT, MONGO_URI } = require('./config/env');
 
 const app = express();
-app.use(express.json());
+app.use(express.json({ limit: '15mb' }));
+app.use(express.urlencoded({ limit: '15mb', extended: true }));
 app.use(cors());
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 

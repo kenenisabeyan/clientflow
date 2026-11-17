@@ -1,27 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import api from '../api/axios';
+import UserAvatar from '../components/UserAvatar';
+import AvatarCaptureModal from '../components/AvatarCaptureModal';
 import { 
   User as UserIcon, Shield, Lock, Bell, Palette, CheckCircle2, 
-  AlertCircle, Briefcase, Mail, Phone, Building, Check, Sparkles
+  AlertCircle, Briefcase, Mail, Phone, Building, Check, Sparkles,
+  Camera, Upload, Trash2, Image as ImageIcon
 } from 'lucide-react';
 
 export default function Settings() {
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
   const isAdmin = user?.role === 'admin';
   const isDev = user?.role === 'developer';
   const isClient = user?.role === 'client';
 
   const [activeTab, setActiveTab] = useState<'profile' | 'permissions' | 'security' | 'preferences'>('profile');
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+  const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
 
   // Form states
   const [profileForm, setProfileForm] = useState({
     name: user?.name || '',
     email: user?.email || '',
-    phone: '+1 555-0199',
-    company: isClient ? 'Client Enterprise' : 'ClientFlow Agency',
+    phone: user?.phone || '+1 555-0199',
+    company: user?.company || (isClient ? 'Client Enterprise' : 'ClientFlow Agency'),
     bio: isDev ? 'Senior Full-Stack Engineer focusing on React & Node.js architecture.' : isClient ? 'Authorized Portfolio Manager.' : 'Agency Principal & Administrator.'
   });
+
+  useEffect(() => {
+    if (user) {
+      setProfileForm({
+        name: user.name || '',
+        email: user.email || '',
+        phone: user.phone || '+1 555-0199',
+        company: user.company || (isClient ? 'Client Enterprise' : 'ClientFlow Agency'),
+        bio: isDev ? 'Senior Full-Stack Engineer focusing on React & Node.js architecture.' : isClient ? 'Authorized Portfolio Manager.' : 'Agency Principal & Administrator.'
+      });
+    }
+  }, [user]);
 
   const [passForm, setPassForm] = useState({
     currentPassword: '',
@@ -41,9 +58,49 @@ export default function Settings() {
     setTimeout(() => setToast(null), 3500);
   };
 
-  const handleSaveProfile = (e: React.FormEvent) => {
+  const handleSaveProfile = async (e: React.FormEvent) => {
     e.preventDefault();
-    showToast('Profile preferences updated successfully!');
+    try {
+      const res = await api.put('/auth/profile', {
+        name: profileForm.name,
+        phone: profileForm.phone,
+        company: profileForm.company
+      });
+      if (res.data.success) {
+        updateUser({
+          name: profileForm.name,
+          phone: profileForm.phone,
+          company: profileForm.company
+        });
+        showToast('Profile preferences updated successfully in database!');
+      }
+    } catch (err: any) {
+      showToast(err.response?.data?.message || 'Failed to update profile', 'error');
+    }
+  };
+
+  const handleSaveAvatar = async (base64Image: string) => {
+    try {
+      const res = await api.put('/auth/profile', { avatar: base64Image });
+      if (res.data.success) {
+        updateUser({ avatar: base64Image });
+        showToast('Profile photo updated successfully!');
+      }
+    } catch (err: any) {
+      showToast(err.response?.data?.message || 'Failed to update profile photo', 'error');
+    }
+  };
+
+  const handleRemoveAvatar = async () => {
+    try {
+      const res = await api.put('/auth/profile', { avatar: '' });
+      if (res.data.success) {
+        updateUser({ avatar: '' });
+        showToast('Profile photo removed. Reverted to default initial circle.');
+      }
+    } catch (err: any) {
+      showToast(err.response?.data?.message || 'Failed to remove photo', 'error');
+    }
   };
 
   const handleUpdatePassword = (e: React.FormEvent) => {
@@ -145,30 +202,43 @@ export default function Settings() {
           padding: '2rem',
           boxShadow: 'var(--glass-shadow)'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '2rem', paddingBottom: '1.5rem', borderBottom: '1px solid var(--surface-border)' }}>
-            <div 
-              className="profile-avatar"
-              style={{
-                width: '72px',
-                height: '72px',
-                minWidth: '72px',
-                minHeight: '72px',
-                borderRadius: '50%',
-                aspectRatio: '1 / 1',
-                flexShrink: 0,
-                background: 'linear-gradient(135deg, var(--primary), var(--accent))',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#fff',
-                fontSize: '1.8rem',
-                fontWeight: 800
-              }}
-            >
-              {user?.name?.charAt(0).toUpperCase() || 'U'}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '2rem', paddingBottom: '1.5rem', borderBottom: '1px solid var(--surface-border)', flexWrap: 'wrap' }}>
+            <div style={{ position: 'relative' }}>
+              <UserAvatar
+                avatar={user?.avatar}
+                name={user?.name}
+                size={84}
+                fontSize="2rem"
+                borderColor="var(--primary)"
+              />
+              <button
+                type="button"
+                onClick={() => setIsAvatarModalOpen(true)}
+                title="Change photo with camera or files"
+                style={{
+                  position: 'absolute',
+                  bottom: '-2px',
+                  right: '-2px',
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, var(--primary), var(--accent))',
+                  color: '#ffffff',
+                  border: '2px solid var(--surface)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 10px rgba(0,0,0,0.25)',
+                  transition: 'transform 0.2s ease'
+                }}
+              >
+                <Camera size={16} />
+              </button>
             </div>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+
+            <div style={{ flex: 1, minWidth: '220px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
                 <h3 style={{ fontSize: '1.3rem', fontWeight: 700, margin: 0, color: 'var(--text-main)' }}>{user?.name}</h3>
                 <span style={{
                   fontSize: '0.75rem',
@@ -182,7 +252,51 @@ export default function Settings() {
                   {user?.role}
                 </span>
               </div>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', margin: '0.25rem 0 0' }}>{user?.email}</p>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', margin: '0.25rem 0 0.85rem 0' }}>{user?.email}</p>
+
+              <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap' }}>
+                <button
+                  type="button"
+                  onClick={() => setIsAvatarModalOpen(true)}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.45rem',
+                    padding: '0.45rem 0.85rem',
+                    borderRadius: '8px',
+                    border: '1px solid var(--surface-border)',
+                    background: 'var(--bg-color)',
+                    color: 'var(--text-main)',
+                    fontSize: '0.82rem',
+                    fontWeight: 600,
+                    cursor: 'pointer'
+                  }}
+                >
+                  <Camera size={14} /> Take Photo / Upload
+                </button>
+
+                {user?.avatar && (
+                  <button
+                    type="button"
+                    onClick={handleRemoveAvatar}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.45rem',
+                      padding: '0.45rem 0.85rem',
+                      borderRadius: '8px',
+                      border: 'none',
+                      background: 'rgba(239, 68, 68, 0.1)',
+                      color: '#ef4444',
+                      fontSize: '0.82rem',
+                      fontWeight: 600,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <Trash2 size={14} /> Remove Photo
+                  </button>
+                )}
+              </div>
             </div>
           </div>
 
@@ -556,6 +670,15 @@ export default function Settings() {
         </div>
       )}
 
+      {/* Photo Capture / Upload Modal */}
+      <AvatarCaptureModal
+        isOpen={isAvatarModalOpen}
+        onClose={() => setIsAvatarModalOpen(false)}
+        onSave={handleSaveAvatar}
+        onRemove={handleRemoveAvatar}
+        currentAvatar={user?.avatar}
+        userName={user?.name}
+      />
     </div>
   );
 }
