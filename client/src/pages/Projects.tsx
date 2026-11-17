@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import UserAvatar from '../components/UserAvatar';
 import { 
   Search, Filter, Plus, ChevronLeft, ChevronRight, MoreHorizontal, 
   FolderKanban, CheckCircle2, Clock, DollarSign, Download, Eye, 
@@ -14,8 +15,8 @@ interface ProjectItem {
   title: string;
   description?: string;
   status: 'pending' | 'in-progress' | 'completed';
-  client?: { _id: string; name: string; email: string; company?: string };
-  developer?: { _id: string; name: string; email: string };
+  client?: { _id: string; name: string; email: string; company?: string; avatar?: string };
+  developer?: { _id: string; name: string; email: string; avatar?: string };
   budget?: number;
   deadline?: string;
   progress?: number;
@@ -523,22 +524,18 @@ export default function Projects() {
                     <tr key={p._id} style={{ borderBottom: '1px solid var(--surface-border)' }}>
                       <td style={{ padding: '1.15rem 1.5rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-                          <div style={{
-                            width: '40px',
-                            height: '40px',
-                            borderRadius: '10px',
-                            background: p.status === 'completed' 
-                              ? 'linear-gradient(135deg, #10b981, #059669)' 
-                              : 'linear-gradient(135deg, var(--primary), var(--accent))',
-                            color: '#ffffff',
-                            fontWeight: 700,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontSize: '1rem'
-                          }}>
-                            {initial}
-                          </div>
+                          <UserAvatar
+                            name={p.title}
+                            size={40}
+                            style={{
+                              borderRadius: '50%',
+                              aspectRatio: '1 / 1',
+                              flexShrink: 0,
+                              background: p.status === 'completed' 
+                                ? 'linear-gradient(135deg, #10b981, #059669)' 
+                                : 'linear-gradient(135deg, var(--primary), var(--accent))'
+                            }}
+                          />
                           <div>
                             <Link to={`/projects/${p._id}`} style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '0.95rem', textDecoration: 'none' }}>
                               {p.title}
@@ -551,13 +548,18 @@ export default function Projects() {
                       </td>
 
                       <td style={{ padding: '1.15rem 1.5rem', color: 'var(--text-main)' }}>
-                        <div style={{ fontWeight: 500, fontSize: '0.88rem' }}>{p.client?.name || 'Unassigned'}</div>
-                        <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{p.client?.email || ''}</div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                          <UserAvatar avatar={p.client?.avatar} name={p.client?.name || 'Client'} size={26} />
+                          <div>
+                            <div style={{ fontWeight: 500, fontSize: '0.88rem' }}>{p.client?.name || 'Unassigned'}</div>
+                            <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{p.client?.email || ''}</div>
+                          </div>
+                        </div>
                       </td>
 
                       <td style={{ padding: '1.15rem 1.5rem', color: 'var(--text-muted)', fontSize: '0.88rem' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                          <UserCheck size={15} style={{ color: p.developer ? '#10b981' : 'var(--text-muted)' }} />
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                          <UserAvatar avatar={p.developer?.avatar} name={p.developer?.name || 'Developer'} size={26} />
                           <span style={{ fontWeight: 500, color: p.developer ? 'var(--text-main)' : 'var(--text-muted)' }}>
                             {p.developer?.name || 'Unassigned'}
                           </span>

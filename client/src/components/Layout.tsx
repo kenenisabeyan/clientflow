@@ -315,6 +315,13 @@ export default function Layout() {
       <div className="main-content">
         <header className="topbar">
           <div className="topbar-left" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+            <button
+              className="mobile-menu-btn"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              title="Toggle Navigation Menu"
+            >
+              <Menu size={22} />
+            </button>
             <div className="mobile-brand-mark" style={{ display: 'none', alignItems: 'center' }}>
               <BrandIcon size={26} rotate={false} />
             </div>
@@ -682,22 +689,15 @@ export default function Layout() {
               )}
             </div>
 
-            <div className="user-menu desktop-user-menu">
-              <div className="user-avatar">{user?.name ? user.name[0].toUpperCase() : 'U'}</div>
-              <div className="user-info">
-                <span className="user-name">{user?.name}</span>
-                <span className="user-role">{user?.role}</span>
+            <Link to="/settings" style={{ textDecoration: 'none', color: 'inherit' }} title="Profile & Avatar Settings">
+              <div className="user-menu" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', cursor: 'pointer' }}>
+                <UserAvatar avatar={user?.avatar} name={user?.name} size={32} />
+                <div className="user-info">
+                  <span className="user-name">{user?.name}</span>
+                  <span className="user-role">{user?.role}</span>
+                </div>
               </div>
-            </div>
-
-            {/* Mobile Hamburger Menu Button in place of user avatar on the right */}
-            <button
-              className="mobile-menu-btn"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              title="Toggle Navigation Menu"
-            >
-              <Menu size={22} />
-            </button>
+            </Link>
           </div>
         </header>
 
