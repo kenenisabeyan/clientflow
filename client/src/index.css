@@ -1122,8 +1122,23 @@ html.dark ::-webkit-scrollbar-thumb:active {
 
 /* Responsive Authentication Page Enhancements */
 @media (max-width: 640px) {
+  .auth-outer-root {
+    padding: 0.35rem 0.25rem !important;
+  }
   .auth-header {
-    padding: 0.85rem 1rem !important;
+    padding: 0.35rem 0.5rem !important;
+  }
+  .auth-logo-icon {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  .auth-logo-icon svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+  .auth-brand-title {
+    font-size: 1.1rem !important;
+    letter-spacing: 0.8px !important;
   }
   .auth-brand-subtitle {
     display: none !important;
@@ -1132,14 +1147,31 @@ html.dark ::-webkit-scrollbar-thumb:active {
     display: none !important;
   }
   .auth-bright-ideas-widget {
-    padding: 0.35rem !important;
+    padding: 0.2rem !important;
     border-radius: 0px !important;
     gap: 0 !important;
   }
+  .bulb-animated {
+    width: 28px !important;
+    height: 28px !important;
+  }
+  .bulb-animated svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+  .auth-theme-toggle {
+    padding: 0.3rem !important;
+    width: 28px !important;
+    height: 28px !important;
+  }
   .auth-card-container {
-    max-width: min(280px, calc(100vw - 1rem)) !important;
-    margin-top: 4.25rem !important;
-    padding: 0 0.5rem !important;
+    max-width: min(280px, calc(100vw - 0.75rem)) !important;
+    margin: 0.4rem auto !important;
+    padding: 0 !important;
+  }
+  .auth-footer {
+    font-size: 0.62rem !important;
+    padding: 0.25rem 0.35rem !important;
   }
 }
 

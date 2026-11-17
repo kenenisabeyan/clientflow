@@ -142,16 +142,17 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
   const isDark = theme === 'dark';
 
   return (
-    <div style={{
+    <div className="auth-outer-root" style={{
       position: 'relative',
       minHeight: '100vh',
       width: '100%',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center',
-      padding: '2rem 1rem',
-      overflow: 'hidden',
+      justifyContent: 'space-between',
+      padding: '0.75rem',
+      overflowX: 'hidden',
+      overflowY: 'auto',
       boxSizing: 'border-box',
       background: isDark 
         ? 'linear-gradient(180deg, #1e1b4b 0%, #0f172a 40%, #022c22 100%)'
@@ -331,11 +332,11 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
 
       {/* Top Header Bar */}
       <header className="auth-header" style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        padding: '1.25rem 2rem',
+        position: 'relative',
+        width: '100%',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '0.6rem 1rem',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -344,20 +345,21 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
       }}>
         
         {/* Top-Left: Modern Brand Mark & Logo (Exactly like video) */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
           {/* Dynamic Origami Emblem Icon */}
-          <div style={{
-            width: '42px',
-            height: '42px',
+          <div className="auth-logo-icon" style={{
+            width: '38px',
+            height: '38px',
             borderRadius: '0px',
             background: 'linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #4f46e5 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             boxShadow: '0 6px 16px rgba(37, 99, 235, 0.35)',
-            transform: 'rotate(-4deg)'
+            transform: 'rotate(-4deg)',
+            flexShrink: 0
           }}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
               <path d="M12 2L3 9L12 16L21 9L12 2Z" fill="#ffffff" fillOpacity="0.9" />
               <path d="M3 9L12 16V22L3 15V9Z" fill="#ffffff" fillOpacity="0.7" />
               <path d="M21 9L12 16V22L21 15V9Z" fill="#ffffff" fillOpacity="0.5" />
@@ -365,10 +367,10 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{
-              fontSize: '1.45rem',
+            <span className="auth-brand-title" style={{
+              fontSize: '1.35rem',
               fontWeight: 800,
-              letterSpacing: '1.5px',
+              letterSpacing: '1.2px',
               color: isDark ? '#ffffff' : '#0f172a',
               textTransform: 'uppercase',
               lineHeight: 1.1
@@ -388,7 +390,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
         </div>
 
         {/* Top-Right: Interactive "Bright Ideas / Illuminating Growth" System */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', position: 'relative' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', position: 'relative' }}>
           
           {/* Interactive Floating "Bright Ideas" Widget with Alive Lightbulb Animation */}
           <div
@@ -486,6 +488,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
 
           {/* Theme Switcher Button */}
           <button
+            className="auth-theme-toggle"
             type="button"
             onClick={toggleTheme}
             style={{
@@ -780,22 +783,22 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
         zIndex: 5,
         width: '100%',
         maxWidth: '280px',
-        margin: 'auto',
-        marginTop: '4.25rem',
-        marginBottom: '1.5rem',
+        margin: '0.5rem auto',
         boxSizing: 'border-box'
       }}>
         {children}
       </div>
 
       {/* Bottom Subtitle / Watermark */}
-      <footer style={{
+      <footer className="auth-footer" style={{
         position: 'relative',
         zIndex: 5,
-        fontSize: '0.78rem',
+        fontSize: '0.68rem',
         color: isDark ? 'rgba(255, 255, 255, 0.45)' : 'rgba(15, 23, 42, 0.55)',
         textAlign: 'center',
-        padding: '0.5rem 0'
+        padding: '0.4rem 0.5rem',
+        boxSizing: 'border-box',
+        maxWidth: '100%'
       }}>
         &copy; {new Date().getFullYear()} ClientFlow Enterprise ERP • High Availability Cloud Platform
       </footer>
