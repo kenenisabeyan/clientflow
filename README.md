@@ -148,6 +148,70 @@ graph TD
 
 ---
 
+## 🛡️ 2. The 7 Non-Functional Architectural Pillars
+
+ClientFlow is built around 7 core non-functional software engineering pillars designed for high-availability enterprise environments:
+
+### 1. 🚀 Performance
+* **Compound MongoDB Indexes**: High-frequency queries leverage B-Tree compound indexes on `{ client: 1, status: 1 }`, `{ project: 1, status: 1 }`, `{ user: 1, createdAt: -1 }`, ensuring sub-millisecond execution times.
+* **Vendor Chunk Code-Splitting**: Vite configuration splits dependencies into isolated vendor bundles (`vendor-react`, `vendor-charts`, `vendor-icons`, `vendor-axios`), reducing the initial application bundle down to ~105 kB gzipped.
+* **Debounced Omnisearch**: Universal live search queries are debounced by 250ms with `Promise.allSettled`, preventing backend saturation during rapid typing.
+
+### 2. 🟢 Availability
+* **Cloud Database Replica Sets**: Powered by a 3-node MongoDB Atlas replica set with automated primary failover and zero data loss.
+* **Self-Healing Reconnection Loop**: If connection drops or transient network errors occur, the backend initiates a 5-second backoff loop to automatically reconnect.
+* **Live Health Probing (`/api/health`)**: Exposes real-time uptime, database connectivity state, and cloud host metadata for automated monitoring.
+
+### 3. ⚙️ Reliability
+* **Process-Level Error Interceptors**: Global listeners for `unhandledRejection` and `uncaughtException` in `server.ts` prevent server crashes under unhandled promise conditions.
+* **Cold-Start Resilience**: Axios client in `client/src/api/axios.ts` is configured with a 30-second timeout to smoothly absorb Render free-tier cold starts without failing user requests.
+* **Graceful Degradation**: Dashboard, Kanban, and detail views use `Promise.allSettled` to display available datasets even if one sub-service is slow or unavailable.
+
+### 4. 🔒 Security
+* **Stateless JWT Verification**: Every protected route validates cryptographically signed JWT tokens with database user existence checks on each invocation.
+* **Role-Based Access Control (RBAC)**: Enforced via Express middleware (`authorize('admin')`, `authorize('admin', 'client')`) preventing unauthorized resource inspection (e.g., developers strictly blocked from `/api/invoices` with HTTP 403 Forbidden).
+* **Password Sanitization**: Passwords hashed with 10-round salted `bcryptjs` and stripped from all controller responses using Mongoose `.select('-password')`.
+
+### 5. 🎨 Adaptability
+* **Dynamic Theme Tokens**: Full-spectrum Light and Dark mode switching powered by CSS custom properties, applied instantly across surfaces, modals, text tokens, Recharts SVGs, and scrollbars.
+* **Adaptive Multi-Role Layout**: Viewports and navigation links dynamically morph based on the authenticated actor (Admin, Client, Developer).
+
+### 6. 🔄 Interoperability
+* **Standard RESTful Contracts**: Consistent JSON payloads with standard HTTP response codes (200 OK, 201 Created, 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, 500 Internal Error).
+* **1-Click CSV Report Exports**: Instant CSV data export on Dashboard, Projects, Tasks, Invoices, Team Management, and Activity Audit Log for seamless interoperability with Excel, Google Sheets, or corporate ERPs.
+
+### 7. 📦 Portability
+* **Fail-Safe API Resolution**: Axios automatically switches from relative `/api` on Vercel reverse-proxy to direct Render backend (`https://clientflow-j8qr.onrender.com/api`) when deployed to cloud environments.
+* **Multi-Stage Docker Architecture**: Includes production-grade `Dockerfile.client` (Nginx Alpine) and `Dockerfile.server` (Node.js Alpine) ready to deploy on any Docker/Kubernetes container infrastructure.
+
+---
+
+## 📱 3. Universal Multi-Device & Mobile Responsive Architecture
+
+The entire user interface was re-architected to deliver fluid, responsive layouts across ultra-compact smartphones (≤ 480px), tablets (768px – 1024px), laptops, and 4K displays:
+
+### Horizontal Viewport Containment
+* **Root Boundary Constraints**: `html`, `body`, `#root`, and `.app` enforce `width: 100% !important; max-width: 100vw !important; overflow-x: hidden !important;`, preventing off-screen horizontal expansion.
+* **Fluid Grid Breakpoints**: Replaced fixed minima (`minmax(480px, 1fr)`) with adaptive CSS grid classes (`.dashboard-charts-grid`, `.dashboard-tables-grid`, `.dashboard-bottom-grid`, `.kanban-board-grid`, `.project-detail-grid`, `.reports-charts-grid`) that automatically stack to `1fr` on screens ≤ 768px.
+* **Internal Table Touch-Scrolling**: All data tables are wrapped in `.table-responsive` with `-webkit-overflow-scrolling: touch !important`, keeping card containers strictly bounded to the phone screen while allowing data tables to scroll horizontally internally.
+* **Non-Colliding Topbar Navigation**: Split into `.topbar-left` (`flex-shrink: 0; min-width: 0`) and `.topbar-right` (`flex-shrink: 1; min-width: 0`), ensuring the hamburger menu toggle and page title never collide or get pushed off-screen.
+* **Adaptive Messaging Layout**: The messaging center (`.messages-layout-box`) smoothly transitions from a dual-column desktop view to a vertically stacked list-and-chat interface on mobile.
+
+---
+
+## 🌄 4. Scenic Authentication Architecture
+
+The login and registration experiences feature a scenic, glassmorphic visual system:
+
+* **Sunset/Dawn Landscape Vector Art**: Crisp SVG scenery with soft sunrise gradients (`#f472b6` → `#fed7aa` → `#fef08a`), distant mountain silhouettes, rolling hills (`#86efac`, `#10b981`, `#059669`), and geometric stepped pine conifers.
+* **Top Header Branding**: Dynamic geometric origami emblem with uppercase typography and a floating **Enterprise Resource Planning • Bright Ideas (Illuminating Growth)** frosted badge with a glowing amber lightbulb.
+* **Frosted Glassmorphism Card**: `backdrop-filter: blur(24px) saturate(190%)`, `background: rgba(255, 255, 255, 0.52)`, and a crisp 1.5px translucent border with smooth 28px rounded corners.
+* **Action Form Controls**: Rounded white input containers, "Remember me" checkbox, "Forgot password?" link, and a teal-to-deep-blue gradient submit button (`linear-gradient(135deg, #0284c7 0%, #1e40af 100%)`).
+* **Interactive Submission State**: Transitions seamlessly to an animated spinning ring with **"Signing In..."** text during authentication.
+* **1-Click Live Credential Testing**: Embedded pills for instant testing of all 3 MongoDB Atlas roles (**Admin**, **Client**, **Developer**).
+
+---
+
 ## ⚡ Tech Stack
 
 | Domain | Technology | Description |
@@ -156,7 +220,7 @@ graph TD
 | **Routing & UI** | React Router DOM v6, Lucide React, Recharts | Declarative navigation, accessible icons & analytics charts |
 | **Styling** | Custom CSS Design System | Themeable design tokens, dark/light surface modes |
 | **Backend** | Node.js, Express.js 5.x, TypeScript | Strongly typed, modular REST API |
-| **Database & ORM** | Prisma ORM, PostgreSQL / MongoDB | Relational data integrity, migrations, and type-safe queries |
+| **Database & ODM** | Mongoose ODM, MongoDB Atlas Cloud Cluster | Replica sets, compound B-Tree indexing, self-healing reconnection |
 | **Auth & Security** | JWT (JSON Web Tokens), bcryptjs | Secure stateless authentication & Role-Based Access Control |
 | **DevOps & Containers** | Docker, Docker Compose, Nginx | Multi-stage production container builds and local orchestration |
 | **CI/CD** | GitHub Actions | Automated linting, type-checking, and build validation |
