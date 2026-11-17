@@ -779,10 +779,10 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
         position: 'relative',
         zIndex: 5,
         width: '100%',
-        maxWidth: '315px',
+        maxWidth: '280px',
         margin: 'auto',
-        marginTop: '4.5rem',
-        marginBottom: '2rem',
+        marginTop: '4.25rem',
+        marginBottom: '1.5rem',
         boxSizing: 'border-box'
       }}>
         {children}
