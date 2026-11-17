@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTheme } from '../context/ThemeContext';
-import { Sun, Moon, Lightbulb, Sparkles, X, Shuffle, SunMedium, Shield, Briefcase, Zap, CheckCircle2 } from 'lucide-react';
+import { Sun, Moon, Lightbulb, X, Shuffle, SunMedium, Shield, Briefcase, Zap, CheckCircle2 } from 'lucide-react';
 
 interface AuthLayoutProps {
   children: React.ReactNode;
@@ -465,7 +465,6 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                 gap: '0.35rem'
               }}>
                 Enterprise Resource Planning
-                <Sparkles size={11} style={{ color: '#f59e0b', animation: 'sparkRotate 4s linear infinite' }} />
               </span>
               <span style={{
                 fontSize: '0.96rem',

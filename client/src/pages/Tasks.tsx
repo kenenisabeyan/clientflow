@@ -6,7 +6,7 @@ import {
   Plus, Search, Filter, MoreHorizontal, CheckCircle2, Clock, 
   AlertCircle, Calendar, User as UserIcon, ArrowRight, Trash2, 
   Edit3, LayoutGrid, List, Download, RefreshCw, X, ChevronDown,
-  Briefcase, CheckSquare, Sparkles, FolderKanban
+  Briefcase, CheckSquare, FolderKanban
 } from 'lucide-react';
 
 interface TaskItem {

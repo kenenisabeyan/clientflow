@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Camera, Upload, X, RefreshCw, Check, Trash2, SwitchCamera, AlertCircle, Sparkles } from 'lucide-react';
+import { Camera, Upload, X, RefreshCw, Check, Trash2, SwitchCamera, AlertCircle } from 'lucide-react';
 
 interface AvatarCaptureModalProps {
   isOpen: boolean;

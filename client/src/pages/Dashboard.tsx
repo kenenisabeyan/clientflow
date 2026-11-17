@@ -5,7 +5,7 @@ import api from '../api/axios';
 import { 
   Users, FolderKanban, CheckSquare, Plus, RefreshCw, 
   Download, ArrowUpRight, ArrowDownRight, Clock, CheckCircle2, 
-  AlertCircle, X, Search, Filter, TrendingUp, Sparkles, 
+  AlertCircle, X, Search, Filter, TrendingUp, 
   ExternalLink, ShieldCheck, ChevronRight, BarChart3, Activity as ActivityIcon
 } from 'lucide-react';
 import { 

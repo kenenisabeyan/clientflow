@@ -5,7 +5,7 @@ import UserAvatar from '../components/UserAvatar';
 import AvatarCaptureModal from '../components/AvatarCaptureModal';
 import { 
   User as UserIcon, Shield, Lock, Bell, Palette, CheckCircle2, 
-  AlertCircle, Briefcase, Mail, Phone, Building, Check, Sparkles,
+  AlertCircle, Briefcase, Mail, Phone, Building, Check,
   Camera, Upload, Trash2, Image as ImageIcon
 } from 'lucide-react';
 

@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
 import { 
   Search, Send, Hash, User as UserIcon, CheckCheck, 
-  RefreshCw, Shield, Code2, Briefcase, Sparkles, AlertCircle
+  RefreshCw, Shield, Code2, Briefcase, AlertCircle
 } from 'lucide-react';
 
 interface MessageItem {
@@ -378,7 +378,6 @@ export default function Messages() {
               </div>
             ) : messages.length === 0 ? (
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--text-muted)', gap: '0.5rem' }}>
-                <Sparkles size={32} style={{ color: 'var(--primary)', opacity: 0.7 }} />
                 <span style={{ fontWeight: 600, color: 'var(--text-main)' }}>Start the Conversation</span>
                 <span style={{ fontSize: '0.85rem' }}>Send a message to begin real-time collaboration.</span>
               </div>
