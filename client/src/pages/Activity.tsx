@@ -32,7 +32,18 @@ export default function Activity() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCategory, setFilterCategory] = useState<'All' | 'Projects' | 'Tasks' | 'Invoices' | 'Security'>('All');
 
-  const fetchActivities = async (isManual = false) => {
+  const {
+  data: activitiesData,
+  isLoading: activitiesLoading,
+  refetch: refetchActivities,
+} = useQuery(['activities'], async () => {
+  const res = await api.get('/activity?limit=100');
+  return res.data.activities || [];
+}, { staleTime: 5 * 60_000, refetchInterval: 60000, refetchIntervalInBackground: true });
+
+// Replace state usage
+const activities = activitiesData || [];
+const loading = activitiesLoading;
     if (isManual) setRefreshing(true);
     try {
       const res = await api.get('/activity?limit=100');
