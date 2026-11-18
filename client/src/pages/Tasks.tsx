@@ -140,6 +140,11 @@ export default function Tasks() {
     await refetchTasks();
     queryClient.invalidateQueries(['projects']);
     queryClient.invalidateQueries(['users']);
+    setCurrentPage(1); // reset pagination on refresh
+    showToast('Tasks synchronized with MongoDB Atlas!');
+    await refetchTasks();
+    queryClient.invalidateQueries(['projects']);
+    queryClient.invalidateQueries(['users']);
     showToast('Tasks synchronized with MongoDB Atlas!');
   };
 
