@@ -76,31 +76,41 @@ export default function Messages() {
     fetchContacts();
   }, [user]);
 
-  // Fetch messages for active thread
-  const fetchMessages = async () => {
-    try {
+  // Use React Query to fetch messages with auto-refresh
+  const queryClient = useQueryClient();
+
+  const { data: messagesData, isLoading: messagesLoading, refetch: refetchMessages } = useQuery(
+    ['messages', activeType, activeChannel, activeRecipient?.['_id']],
+    async () => {
       let url = '/messages';
       if (activeType === 'channel') {
         url = `/messages?channel=${activeChannel}`;
       } else if (activeRecipient) {
         url = `/messages?recipientId=${activeRecipient._id}`;
       }
-
       const res = await api.get(url);
-      if (res.data.messages) {
-        setMessages(res.data.messages);
-      }
-    } catch (err) {
-      console.error('Failed to load messages', err);
-    } finally {
-      setLoading(false);
+      return res.data.messages ?? [];
+    },
+    {
+      refetchInterval: 60000,
+      refetchIntervalInBackground: true,
+      keepPreviousData: true,
     }
-  };
+  );
 
+  // Sync query result to local state
   useEffect(() => {
-    setLoading(true);
-    fetchMessages();
-  }, [activeType, activeChannel, activeRecipient]);
+    setLoading(messagesLoading);
+    if (messagesData) {
+      setMessages(messagesData);
+    }
+  }, [messagesData, messagesLoading]);
+
+  // Manual refresh handler (if a button uses it)
+  const handleRefresh = () => {
+    refetchMessages();
+    // Reset pagination if applicable (not present currently)
+  };
 
   useEffect(() => {
     scrollToBottom();
