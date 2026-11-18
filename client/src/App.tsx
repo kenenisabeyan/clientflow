@@ -1,22 +1,26 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
-import { lazy, Suspense } from 'react';
 const Layout = lazy(() => import('./components/Layout'));
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
-import Clients from './pages/Clients';
-import Projects from './pages/Projects';
-import ProjectDetail from './pages/ProjectDetail';
-import Tasks from './pages/Tasks';
-import Invoices from './pages/Invoices';
-import Calendar from './pages/Calendar';
-import Messages from './pages/Messages';
-import Reports from './pages/Reports';
-import Settings from './pages/Settings';
-import Activity from './pages/Activity';
-import UserManagement from './pages/UserManagement';
+const Login = lazy(() => import('./pages/Login'));
+const Register = lazy(() => import('./pages/Register'));
+
+import { lazy, Suspense } from 'react';
+
+// Lazy‑load heavy pages
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Clients = lazy(() => import('./pages/Clients'));
+const Projects = lazy(() => import('./pages/Projects'));
+const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
+const Tasks = lazy(() => import('./pages/Tasks'));
+const Invoices = lazy(() => import('./pages/Invoices'));
+const Calendar = lazy(() => import('./pages/Calendar'));
+const Messages = lazy(() => import('./pages/Messages'));
+const Reports = lazy(() => import('./pages/Reports'));
+const Settings = lazy(() => import('./pages/Settings'));
+const Activity = lazy(() => import('./pages/Activity'));
+const UserManagement = lazy(() => import('./pages/UserManagement'));
+
 
 function LoadingScreen() {
   return (
