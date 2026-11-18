@@ -122,6 +122,10 @@ export default function Projects() {
   const handleRefresh = async () => {
     await refetchProjects();
     if (isAdmin) queryClient.invalidateQueries(['users']);
+    setCurrentPage(1); // reset pagination on refresh
+    showToast('Projects synchronized with MongoDB Atlas!');
+    await refetchProjects();
+    if (isAdmin) queryClient.invalidateQueries(['users']);
     showToast('Projects synchronized with MongoDB Atlas!');
   };
 
