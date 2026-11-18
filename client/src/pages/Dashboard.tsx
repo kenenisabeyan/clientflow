@@ -99,43 +99,73 @@ export default function Dashboard() {
     setTimeout(() => setToast(null), 4000);
   };
 
-  const fetchDashboardData = async (isManual = false) => {
-    if (isManual) setRefreshing(true);
-    try {
-      const [projRes, taskRes, usersRes, actRes] = await Promise.allSettled([
-        api.get('/projects'),
-        api.get('/tasks'),
-        api.get('/users'),
-        api.get('/activity')
-      ]);
+  import { useQuery, useQueries } from '@tanstack/react-query';
 
-      if (projRes.status === 'fulfilled' && projRes.value.data.projects) {
-        setProjects(projRes.value.data.projects);
-      }
-      if (taskRes.status === 'fulfilled' && taskRes.value.data) {
-        const tData = taskRes.value.data;
-        const allTasks: TaskItem[] = [];
-        if (tData.todo) tData.todo.forEach((t: any) => allTasks.push({ ...t, status: 'todo' }));
-        if (tData.inProgress) tData.inProgress.forEach((t: any) => allTasks.push({ ...t, status: 'inProgress' }));
-        if (tData.done) tData.done.forEach((t: any) => allTasks.push({ ...t, status: 'done' }));
-        setTasks(allTasks);
-      }
-      if (usersRes.status === 'fulfilled' && usersRes.value.data.users) {
-        setClients(usersRes.value.data.users);
-      }
-      if (actRes.status === 'fulfilled' && actRes.value.data.activities) {
-        setActivities(actRes.value.data.activities);
-      }
+// Replace manual fetch with React Query
+const [{ data: projects = [], isLoading: projectsLoading, refetch: refetchProjects },
+       { data: tasksData, isLoading: tasksLoading, refetch: refetchTasks },
+       { data: clients = [], isLoading: usersLoading, refetch: refetchUsers },
+       { data: activities = [], isLoading: activitiesLoading, refetch: refetchActivities }] = useQueries([
+  {
+    queryKey: ['projects'],
+    queryFn: async () => {
+      const res = await api.get('/projects');
+      return res.data.projects;
+    },
+    staleTime: 5 * 60_000,
+  },
+  {
+    queryKey: ['tasks'],
+    queryFn: async () => {
+      const res = await api.get('/tasks');
+      return res.data;
+    },
+    staleTime: 2 * 60_000,
+  },
+  {
+    queryKey: ['users'],
+    queryFn: async () => {
+      const res = await api.get('/users');
+      return res.data.users;
+    },
+    staleTime: 5 * 60_000,
+  },
+  {
+    queryKey: ['activities'],
+    queryFn: async () => {
+      const res = await api.get('/activity');
+      return res.data.activities;
+    },
+    staleTime: 5 * 60_000,
+  },
+]);
 
-      if (isManual) showToast('Dashboard data refreshed live from MongoDB Atlas!');
-    } catch (err: any) {
-      console.error('Error fetching dashboard data:', err);
-      if (isManual) showToast('Failed to refresh data: ' + err.message, 'error');
-    } finally {
-      setLoading(false);
-      setRefreshing(false);
-    }
-  };
+// Build unified tasks array from tasksData
+const tasks: TaskItem[] = useMemo(() => {
+  if (!tasksData) return [];
+  const all: TaskItem[] = [];
+  if (tasksData.todo) tasksData.todo.forEach((t: any) => all.push({ ...t, status: 'todo' }));
+  if (tasksData.inProgress) tasksData.inProgress.forEach((t: any) => all.push({ ...t, status: 'inProgress' }));
+  if (tasksData.done) tasksData.done.forEach((t: any) => all.push({ ...t, status: 'done' }));
+  return all;
+}, [tasksData]);
+
+// Refresh all queries manually
+const manualRefresh = async () => {
+  setRefreshing(true);
+  await Promise.all([
+    refetchProjects(),
+    refetchTasks(),
+    refetchUsers(),
+    refetchActivities(),
+  ]);
+  setRefreshing(false);
+  showToast('Dashboard data refreshed live from MongoDB Atlas!');
+};
+
+// Loading flag for the whole dashboard
+const loading = projectsLoading || tasksLoading || usersLoading || activitiesLoading;
+
 
   useEffect(() => {
     fetchDashboardData();
