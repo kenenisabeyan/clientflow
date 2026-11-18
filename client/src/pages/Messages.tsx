@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useQuery, useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import UserAvatar from '../components/UserAvatar';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
@@ -207,7 +207,7 @@ export default function Messages() {
           </p>
         </div>
         <button
-          onClick={fetchMessages}
+          onClick={handleRefresh}
           style={{
             display: 'flex',
             alignItems: 'center',
