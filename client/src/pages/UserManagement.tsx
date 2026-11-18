@@ -100,7 +100,7 @@ export default function UserManagement() {
     return { total, admins, clients, developers };
   }, [users]);
 
-  // 1-Click Role Change
+  // Role Change
   const handleRoleChange = async (userId: string, newRole: string) => {
     try {
       const res = await api.put(`/users/${userId}/role`, { role: newRole });

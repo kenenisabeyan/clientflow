@@ -504,7 +504,7 @@ export default function Settings() {
               </div>
               <ul style={{ margin: 0, paddingLeft: '1.2rem', fontSize: '0.82rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
                 <li>Assigned Sprint Tasks & Kanban Board</li>
-                <li>1-Click Status Transitions (To Do → Done)</li>
+                <li>Status Transitions (To Do → Done)</li>
                 <li>Engineering Repositories & Specifications</li>
                 <li>Technical `#dev-team` Coordination</li>
                 <li>Protected from Client Commercial Invoices</li>

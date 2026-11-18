@@ -269,7 +269,7 @@ export default function Login() {
             textTransform: 'uppercase',
             letterSpacing: '0.5px'
           }}>
-            1-Click Live MongoDB Atlas Credentials:
+
           </span>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.28rem' }}>
