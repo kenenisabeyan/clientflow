@@ -101,6 +101,32 @@ export default function Tasks() {
       queryClient.setQueryData(['users'], userRes.value.data.users);
     }
     return all as TaskItem[];
+  }, { staleTime: 5 * 60 * 1000, refetchInterval: 60000, refetchIntervalInBackground: true });
+    const [taskRes, projRes, userRes] = await Promise.allSettled([
+      api.get('/tasks'),
+      api.get('/projects'),
+      api.get('/users'),
+    ]);
+    // Build unified task list
+    const all: TaskItem[] = [];
+    if (taskRes.status === 'fulfilled' && taskRes.value.data) {
+      const d = taskRes.value.data;
+      if (Array.isArray(d.tasks)) {
+        all.push(...d.tasks);
+      } else {
+        if (d.todo) d.todo.forEach((t: any) => all.push({ ...t, status: 'todo' }));
+        if (d.inProgress) d.inProgress.forEach((t: any) => all.push({ ...t, status: 'inProgress' }));
+        if (d.done) d.done.forEach((t: any) => all.push({ ...t, status: 'done' }));
+      }
+    }
+    // Projects & users are stored globally for later UI use
+    if (projRes.status === 'fulfilled' && projRes.value.data.projects) {
+      queryClient.setQueryData(['projects'], projRes.value.data.projects);
+    }
+    if (userRes.status === 'fulfilled' && userRes.value.data.users) {
+      queryClient.setQueryData(['users'], userRes.value.data.users);
+    }
+    return all as TaskItem[];
   }, { staleTime: 5 * 60 * 1000 });
 
   const { data: projectsData } = useQuery(['projects'], async () => {

@@ -64,6 +64,9 @@ export default function Projects() {
   } = useQuery(['projects', isAdmin], async () => {
     const res = await api.get('/projects');
     return res.data.projects as ProjectItem[];
+  }, { staleTime: 5 * 60 * 1000, refetchInterval: 60000, refetchIntervalInBackground: true });
+    const res = await api.get('/projects');
+    return res.data.projects as ProjectItem[];
   }, { staleTime: 5 * 60 * 1000 }); // 5 min cache
 
   const {
