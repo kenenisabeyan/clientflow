@@ -224,7 +224,7 @@ export default function ProjectDetail() {
     }
   };
 
-  // 1-Click Task Status Transition
+  // Task Status Transition
   const handleTaskStatusChange = async (taskId: string, newStatus: 'todo' | 'inProgress' | 'done') => {
     try {
       setTasks(prev => prev.map(t => (t._id === taskId || t.id === taskId) ? { ...t, status: newStatus } : t));

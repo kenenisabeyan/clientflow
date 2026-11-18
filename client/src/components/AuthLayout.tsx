@@ -45,7 +45,7 @@ const BRIGHT_IDEAS: IdeaItem[] = [
     categoryIcon: Briefcase,
     badgeColor: '#10b981',
     title: 'Transparent Deliverable Portals',
-    insight: 'Giving clients real-time visibility into active deliverables and 1-click invoice settlements builds 98% enterprise retention and unconditional trust.',
+    insight: 'Giving clients real-time visibility into active deliverables and invoice settlements builds 98% enterprise retention and unconditional trust.',
     metric: '98% Client Trust'
   },
   {
