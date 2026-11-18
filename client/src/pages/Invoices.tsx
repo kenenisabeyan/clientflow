@@ -92,7 +92,33 @@ export default function Invoices() {
     setTimeout(() => setToast(null), 3500);
   };
 
-  const fetchInvoices = async (isManual = false) => {
+  const {
+  data: invoicesData,
+  isLoading: invoicesLoading,
+  refetch: refetchInvoices,
+} = useQuery(['invoices'], async () => {
+  const [invRes, usersRes, projRes] = await Promise.allSettled([
+    api.get('/invoices'),
+    api.get('/users?role=client'),
+    api.get('/projects')
+  ]);
+  if (invRes.status === 'fulfilled' && invRes.value.data.invoices) {
+    // store clients and projects globally for UI use if needed
+    if (usersRes.status === 'fulfilled' && usersRes.value.data.users) {
+      queryClient.setQueryData(['clients'], usersRes.value.data.users);
+    }
+    if (projRes.status === 'fulfilled' && projRes.value.data.projects) {
+      queryClient.setQueryData(['projects'], projRes.value.data.projects);
+    }
+    return invRes.value.data.invoices as InvoiceItem[];
+  }
+  return [] as InvoiceItem[];
+}, { staleTime: 5 * 60_000, refetchInterval: 60000, refetchIntervalInBackground: true });
+
+// Replace state usage
+const invoices = invoicesData || [];
+const loading = invoicesLoading;
+
     if (isManual) setRefreshing(true);
     try {
       const [invRes, usersRes, projRes] = await Promise.allSettled([

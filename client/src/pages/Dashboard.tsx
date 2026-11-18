@@ -113,6 +113,9 @@ const [{ data: projects = [], isLoading: projectsLoading, refetch: refetchProjec
       return res.data.projects;
     },
     staleTime: 5 * 60_000,
+    refetchInterval: 60000,
+    refetchIntervalInBackground: true,
+  },
   },
   {
     queryKey: ['tasks'],
@@ -121,6 +124,9 @@ const [{ data: projects = [], isLoading: projectsLoading, refetch: refetchProjec
       return res.data;
     },
     staleTime: 2 * 60_000,
+    refetchInterval: 60000,
+    refetchIntervalInBackground: true,
+  },
   },
   {
     queryKey: ['users'],
